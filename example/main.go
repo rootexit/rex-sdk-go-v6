@@ -13,7 +13,7 @@ func main() {
 	rexConfig := rexConfig.DefaultConfig(os.Getenv("ACCESS_KEY_ID"), os.Getenv("ACCESS_KEY_SECRET"))
 	logx.Infof("打印一下请求的accessKey :%s", rexConfig.AccessKeyID)
 
-	sdk, err := rex.NewQxSdk(rexConfig)
+	sdk, err := rex.NewSdk(rexConfig)
 	if err != nil {
 		panic(err)
 	}

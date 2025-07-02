@@ -11,7 +11,7 @@ import (
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexUps"
 )
 
-type QxSdk struct {
+type Sdk struct {
 	config        *rexConfig.Config
 	client        *rexClient.QxClient
 	rexCtx        *rexCtx.QxCtx
@@ -22,7 +22,7 @@ type QxSdk struct {
 	UpsService    rexUps.UpsService
 }
 
-func NewQxSdk(c *rexConfig.Config) (*QxSdk, error) {
+func NewSdk(c *rexConfig.Config) (*Sdk, error) {
 	// note: sdk初始化检查
 	if err := c.Check(); err != nil {
 		return nil, err
@@ -31,7 +31,7 @@ func NewQxSdk(c *rexConfig.Config) (*QxSdk, error) {
 	client := rexClient.NewQxClient(c)
 	rexC := rexCtx.NewQxCtx(client)
 
-	sdk := &QxSdk{
+	sdk := &Sdk{
 		config:        c,
 		client:        client,
 		rexCtx:        rexC,
