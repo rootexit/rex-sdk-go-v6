@@ -45,7 +45,7 @@ func (m *defaultKmsSkcService) KmsSkcCreateKeychain(ctx context.Context, params 
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: KmsSkcCreateKeychain fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -61,7 +61,7 @@ func (m *defaultKmsSkcService) KmsSkcEncrypt(ctx context.Context, params *rexTyp
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: KmsSkcCreateKeychain fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -77,7 +77,7 @@ func (m *defaultKmsSkcService) KmsSkcDecrypt(ctx context.Context, params *rexTyp
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: KmsSkcDecrypt fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -93,7 +93,7 @@ func (m *defaultKmsSkcService) KmsSkcBatchEncrypt(ctx context.Context, params *r
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: KmsSkcCreateKeychain fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -109,7 +109,7 @@ func (m *defaultKmsSkcService) KmsSkcBatchDecrypt(ctx context.Context, params *r
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: KmsSkcCreateKeychain fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -125,7 +125,7 @@ func (m *defaultKmsSkcService) KmsSkcCompare(ctx context.Context, params *rexTyp
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: KmsSkcCreateKeychain fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}

@@ -42,7 +42,7 @@ func (m *defaultKmsAkcService) KmsAkcCreateKeychain(ctx context.Context, params 
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: KmsAkcCreateKeychain fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -58,7 +58,7 @@ func (m *defaultKmsAkcService) KmsAkcSign(ctx context.Context, params *rexTypes.
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: KmsAkcSign fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -74,7 +74,7 @@ func (m *defaultKmsAkcService) KmsAkcVerify(ctx context.Context, params *rexType
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: KmsAkcVerify fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}

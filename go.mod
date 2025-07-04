@@ -5,7 +5,7 @@ go 1.23.10
 require (
 	github.com/aws/aws-sdk-go v1.55.7
 	github.com/google/go-querystring v1.1.0
-	github.com/rootexit/rexLib v1.0.2
+	github.com/rootexit/rexLib v1.0.3
 	github.com/zeromicro/go-zero v1.8.1
 )
 

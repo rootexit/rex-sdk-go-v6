@@ -38,7 +38,7 @@ func (m *defaultUpsBaseService) Bootstrap(ctx context.Context, params *rexTypes.
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}

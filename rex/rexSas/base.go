@@ -44,7 +44,7 @@ func (m *defaultSasBaseService) PresignerGet(ctx context.Context, params *rexTyp
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -60,7 +60,7 @@ func (m *defaultSasBaseService) QueryBucket(ctx context.Context, params *rexType
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -76,7 +76,7 @@ func (m *defaultSasBaseService) PresignerUpload(ctx context.Context, params *rex
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -92,7 +92,7 @@ func (m *defaultSasBaseService) PresignerHeadObject(ctx context.Context, params 
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -108,7 +108,7 @@ func (m *defaultSasBaseService) CreateBucketAndConfig(ctx context.Context, param
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -124,7 +124,7 @@ func (m *defaultSasBaseService) CreateBucketNoConfig(ctx context.Context, params
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}

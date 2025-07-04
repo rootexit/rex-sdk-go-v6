@@ -46,7 +46,7 @@ func (m *defaultMasBaseService) CaptchaGenerate(ctx context.Context, params *rex
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: captcha generate fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -62,7 +62,7 @@ func (m *defaultMasBaseService) SmsSend(ctx context.Context, params *rexTypes.Ap
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: sms send fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -78,7 +78,7 @@ func (m *defaultMasBaseService) BehavioralVerificationInit(ctx context.Context, 
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk:Behavioral Verification Init fail: %v", result)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -94,7 +94,7 @@ func (m *defaultMasBaseService) BehavioralVerificationVerify(ctx context.Context
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: Behavioral Verification Verify fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -110,7 +110,7 @@ func (m *defaultMasBaseService) SmsVerificationInit(ctx context.Context, params 
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: sms init fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -126,7 +126,7 @@ func (m *defaultMasBaseService) SmsVerificationVerify(ctx context.Context, param
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: sms verify fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}

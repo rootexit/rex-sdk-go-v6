@@ -48,7 +48,7 @@ func (m *defaultUpsShortLinkService) GetRedirectResult(ctx context.Context, para
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -64,7 +64,7 @@ func (m *defaultUpsShortLinkService) Create(ctx context.Context, params *rexType
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -84,7 +84,7 @@ func (m *defaultUpsShortLinkService) Delete(ctx context.Context, params *rexType
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -100,7 +100,7 @@ func (m *defaultUpsShortLinkService) DeleteMany(ctx context.Context, params *rex
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -116,7 +116,7 @@ func (m *defaultUpsShortLinkService) Update(ctx context.Context, params *rexType
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -132,7 +132,7 @@ func (m *defaultUpsShortLinkService) UpdateStatus(ctx context.Context, params *r
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -152,7 +152,7 @@ func (m *defaultUpsShortLinkService) Query(ctx context.Context, params *rexTypes
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -172,7 +172,7 @@ func (m *defaultUpsShortLinkService) QueryWhereKey(ctx context.Context, params *
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -188,7 +188,7 @@ func (m *defaultUpsShortLinkService) QueryListWhereIds(ctx context.Context, para
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -204,7 +204,7 @@ func (m *defaultUpsShortLinkService) QueryList(ctx context.Context, params *rexT
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}

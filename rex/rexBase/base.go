@@ -46,7 +46,7 @@ func (m *defaultQxBaseService) Codes(ctx context.Context, params *rexTypes.Codes
 		return nil, nil
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: codes fail: %v", tmp)
 		return &tmp.Data, nil
 	}
@@ -68,7 +68,7 @@ func (m *defaultQxBaseService) Zones(ctx context.Context, params *rexTypes.Zones
 		return nil, nil
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: zones fail: %v", tmp)
 		return &tmp.Data, nil
 	}

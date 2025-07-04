@@ -46,7 +46,7 @@ func (m *defaultUpsIndustryService) Create(ctx context.Context, params *rexTypes
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -66,7 +66,7 @@ func (m *defaultUpsIndustryService) Delete(ctx context.Context, params *rexTypes
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -82,7 +82,7 @@ func (m *defaultUpsIndustryService) DeleteMany(ctx context.Context, params *rexT
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -98,7 +98,7 @@ func (m *defaultUpsIndustryService) Update(ctx context.Context, params *rexTypes
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -114,7 +114,7 @@ func (m *defaultUpsIndustryService) UpdateStatus(ctx context.Context, params *re
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -134,7 +134,7 @@ func (m *defaultUpsIndustryService) Query(ctx context.Context, params *rexTypes.
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -150,7 +150,7 @@ func (m *defaultUpsIndustryService) QueryListWhereIds(ctx context.Context, param
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
@@ -166,7 +166,7 @@ func (m *defaultUpsIndustryService) QueryList(ctx context.Context, params *rexTy
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.QxEngineStatusOK {
+	if tmp.Code != rexCodes.EngineStatusOK {
 		logx.Errorf("rex sdk: request fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
