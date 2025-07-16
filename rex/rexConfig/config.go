@@ -9,7 +9,7 @@ const (
 	defaultTimeout  = 2000
 	defaultProtocol = "https"
 	defaultRegion   = "cn-shanghai"
-	defaultEndpoint = "core.csvw88.com"
+	defaultEndpoint = "api.rootexit.com"
 )
 
 type Config struct {
@@ -17,7 +17,7 @@ type Config struct {
 	AccessKeyID string `json:",optional,inherit"`
 	// Secret Access Key
 	AccessKeySecret string `json:",optional,inherit"`
-	Endpoint        string `json:",default=core.csvw88.com,optional"`
+	Endpoint        string `json:",default=api.rootexit.com,optional"`
 	Protocol        string `json:",default=https,options=http|https,optional"`
 	Region          string `json:",default=cn-shanghai,optional"`
 	Timeout         int    `json:",default=2000,optional"`
