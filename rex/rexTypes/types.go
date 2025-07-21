@@ -75,7 +75,7 @@ type ApiCaptchaGenerateReq struct {
 }
 
 type ApiCaptchaGenerateResp struct {
-	Key     string `json:"key,omitempty"`
+	Key     string `json:"key,optional,omitempty"`
 	Id      string `json:"id,omitempty"`
 	Content string `json:"content,omitempty"`
 	Answer  string `json:"answer,omitempty"`
@@ -83,7 +83,7 @@ type ApiCaptchaGenerateResp struct {
 }
 
 type ApiCaptchaGenerateRespData struct {
-	Key     string `json:"key,omitempty"`
+	Key     string `json:"key,optional,omitempty"`
 	Id      string `json:"id,omitempty"`
 	Content string `json:"content,omitempty"`
 	Answer  string `json:"answer,omitempty"`
@@ -91,7 +91,7 @@ type ApiCaptchaGenerateRespData struct {
 }
 
 type ApiSmsSendReq struct {
-	Key    string   `json:"key"`
+	Key    string   `json:"key,optional"`
 	Mobile string   `json:"mobile"`
 	Params []string `json:"params,optional"`
 }
@@ -101,7 +101,7 @@ type ApiSmsSendResp struct {
 }
 
 type BehavioralVerificationInitReq struct {
-	Key     string `json:"key"`
+	Key     string `json:"key,optional"`
 	Service string `json:"service"`
 	Type    string `json:"type"`
 }
@@ -145,12 +145,12 @@ type CodesResp struct {
 }
 
 type CreateExistBucketAndConfigReq struct {
-	ConfigKey    string `json:"config_key"`
+	ConfigKey    string `json:"config_key,optional"`
 	StorageType  string `json:"storage_type"`
 	AppId        string `json:"app_id,optional"`
 	AccessKey    string `json:"access_key"`
 	AccessSecret string `json:"access_secret"`
-	BucketKey    string `json:"bucket_key"`
+	BucketKey    string `json:"bucket_key,optional"`
 	Name         string `json:"name"`
 	Region       string `json:"region"`
 	IsAccelerate int32  `json:"is_accelerate"`
@@ -163,8 +163,8 @@ type CreateExistBucketAndConfigResp struct {
 }
 
 type CreateExistBucketNoConfigReq struct {
-	ConfigKey    string `json:"config_key"`
-	BucketKey    string `json:"bucket_key"`
+	ConfigKey    string `json:"config_key,optional"`
+	BucketKey    string `json:"bucket_key,optional"`
 	Name         string `json:"name"`
 	Region       string `json:"region"`
 	IsAccelerate int32  `json:"is_accelerate"`
@@ -176,12 +176,51 @@ type CreateExistBucketNoConfigReq struct {
 type CreateExistBucketNoConfigResp struct {
 }
 
+type CtasPeriodicJobAddReq struct {
+	Name    string `json:"name"`    // 任务名称
+	Spec    string `json:"spec"`    // cron表达式
+	Webhook string `json:"webhook"` // 回调地址
+	Params  string `json:"params"`  // 回调参数
+	Secret  string `json:"secret"`  // 回调密钥
+}
+
+type CtasPeriodicJobAddResp struct {
+	Id uint `json:"id"`
+}
+
+type CtasPeriodicJobRemoveReq struct {
+	Id uint `json:"id"`
+}
+
+type CtasPeriodicJobRemoveResp struct {
+}
+
 type EncryptReq struct {
 	Data string `json:"data"`
 }
 
 type EncryptResp struct {
 	Data string `json:"data"`
+}
+
+type GetIpMyReq struct {
+}
+
+type GetIpQueryReq struct {
+	Ip string `form:"ip"`
+}
+
+type GetIpQueryResp struct {
+	IP        string `json:"ip"`        // IP地址
+	IPHash    string `json:"ipHash"`    // IPHash
+	Port      string `json:"port"`      // Port
+	UserAgent string `json:"userAgent"` // UserAgent
+	CityId    int64  `json:"cityId"`    // CityId
+	Country   string `json:"country"`   // Country
+	Region    string `json:"region"`    // Region
+	Province  string `json:"province"`  // Province
+	City      string `json:"city"`      // City
+	ISP       string `json:"isp"`       // ISP
 }
 
 type GetRedirectResultReq struct {
@@ -233,9 +272,8 @@ type IndustryCommonSearchParams struct {
 }
 
 type IpWhiteReq struct {
-	AccessKey string `json:"access_key"`
-	Ip        string `json:"ip"`
-	Remark    string `json:"remark"`
+	Ip     string `json:"ip"`
+	Remark string `json:"remark"`
 }
 
 type IpWhiteResp struct {
@@ -379,6 +417,31 @@ type KmsSkcEncryptResp struct {
 	BaseData string `json:"base_data"`
 }
 
+type ModelClient struct {
+	IP              string `json:"ip"`              // IP地址
+	IPHash          string `json:"ipHash"`          // IPHash
+	Port            string `json:"port"`            // Port
+	UserAgent       string `json:"userAgent"`       // UserAgent
+	CityId          int64  `json:"cityId"`          // CityId
+	Country         string `json:"country"`         // Country
+	Region          string `json:"region"`          // Region
+	Province        string `json:"province"`        // Province
+	City            string `json:"city"`            // City
+	ISP             string `json:"isp"`             // ISP
+	UserAgentFamily string `json:"userAgentFamily"` // UserAgentFamily
+	UserAgentMajor  string `json:"userAgentMajor"`  // UserAgentMajor
+	UserAgentMinor  string `json:"userAgentMinor"`  // UserAgentMinor
+	UserAgentPatch  string `json:"userAgentPatch"`  // UserAgentPatch
+	OsFamily        string `json:"osFamily"`        // OsFamily
+	OsMajor         string `json:"osMajor"`         // OsMajor
+	OsMinor         string `json:"osMinor"`         // OsMinor
+	OsPatch         string `json:"osPatch"`         // OsPatch
+	OsPatchMinor    string `json:"osPatchMinor"`    // OsPatchMinor
+	DeviceFamily    string `json:"deviceFamily"`    // DeviceFamily
+	DeviceBrand     string `json:"deviceBrand"`     // DeviceBrand
+	DeviceModel     string `json:"deviceModel"`     // DeviceModel
+}
+
 type ModelCode struct {
 	Code string `json:"code"`
 	Num  int32  `json:"num"`
@@ -431,8 +494,15 @@ type NotFoundResp struct {
 type NotFoundpReq struct {
 }
 
+type PublicGetIpReq struct {
+}
+
+type PublicGetIpResp struct {
+	Ip string `json:"ip"` // note: 返回自身ip
+}
+
 type SasPresignerGetObjectReq struct {
-	BucketKey string `json:"bucket_key"`
+	BucketKey string `json:"bucket_key,optional"`
 	Path      string `json:"path"`
 }
 
@@ -442,7 +512,7 @@ type SasPresignerGetObjectResp struct {
 }
 
 type SasPresignerHeadObjectReq struct {
-	BucketKey string `json:"bucket_key"`
+	BucketKey string `json:"bucket_key,optional"`
 	Path      string `json:"path"`
 }
 
@@ -452,7 +522,7 @@ type SasPresignerHeadObjectResp struct {
 }
 
 type SasPresignerUploadReq struct {
-	BucketKey string `json:"bucket_key"`
+	BucketKey string `json:"bucket_key,optional"`
 	Path      string `json:"path"`
 }
 
@@ -462,7 +532,7 @@ type SasPresignerUploadResp struct {
 }
 
 type SasQueryBucketReq struct {
-	BucketKey string `json:"bucket_key"`
+	BucketKey string `json:"bucket_key,optional"`
 }
 
 type SasQueryBucketResp struct {
@@ -518,7 +588,7 @@ type ShortLinkCommonSearchParams struct {
 }
 
 type SmsInitReq struct {
-	Key     string `json:"key"`
+	Key     string `json:"key,optional"`
 	Service string `json:"service"`
 	Type    string `json:"type"`
 	Zone    string `json:"zone"`
@@ -604,6 +674,60 @@ type ViewShortLinkReq struct {
 }
 
 type ViewShortLinkResp struct {
+}
+
+type WechatForceRefreshOffiaccountAccessTokenReq struct {
+	Key string `json:"key"`
+}
+
+type WechatForceRefreshOffiaccountAccessTokenResp struct {
+}
+
+type WechatOffiaccountGenRedirectUrlReq struct {
+	Key         string `json:"key,optional"`
+	Scope       string `json:"scope,options=snsapi_base|snsapi_userinfo"`
+	RedirectUri string `json:"redirect_uri"`
+	State       string `json:"state"`
+}
+
+type WechatOffiaccountGenRedirectUrlResp struct {
+	Scope string `json:"scope"`
+	Url   string `json:"url"`
+	State string `json:"state"`
+}
+
+type WechatOffiaccountGenShareConfigReq struct {
+	Key       string   `json:"key,optional"`
+	Debug     bool     `json:"debug"`
+	ShareLink string   `json:"share_link"`
+	JsApiList []string `json:"js_api_list"`
+}
+
+type WechatOffiaccountGenShareConfigResp struct {
+	Debug     bool     `json:"debug"`
+	AppId     string   `json:"app_id"`
+	Timestamp int64    `json:"timestamp"`
+	NonceStr  string   `json:"nonce_str"`
+	Signature string   `json:"signature"`
+	JsApiList []string `json:"js_api_list"`
+}
+
+type WechatOffiaccountGetAccessTokenReq struct {
+	Key string `json:"key,optional"`
+}
+
+type WechatOffiaccountGetAccessTokenResp struct {
+	AccessToken string `json:"access_token"`
+	ExpiresIn   int64  `json:"expires_in"`
+}
+
+type WechatOffiaccountGetJsApiTicketReq struct {
+	Key string `json:"key,optional"`
+}
+
+type WechatOffiaccountGetJsApiTicketResp struct {
+	Ticket    string `json:"ticket"`
+	ExpiresIn int64  `json:"expires_in"`
 }
 
 type ZonesReq struct {

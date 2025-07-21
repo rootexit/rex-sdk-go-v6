@@ -12,6 +12,8 @@ import (
 func main() {
 	rexConfig := rexConfig.DefaultConfig(os.Getenv("ACCESS_KEY_ID"), os.Getenv("ACCESS_KEY_SECRET"))
 	logx.Infof("打印一下请求的accessKey :%s", rexConfig.AccessKeyID)
+	logx.Infof("打印一下请求的AccessKeySecret :%s", rexConfig.AccessKeySecret)
+	logx.Infof("打印一下请求的Endpoint :%s", rexConfig.Endpoint)
 
 	sdk, err := rex.NewSdk(rexConfig)
 	if err != nil {
@@ -39,13 +41,21 @@ func main() {
 	//}
 	//logx.Infof("%+v", queryBucketResult)
 
-	queryBucketResult, err := sdk.UpsService.UpsIndustryService.QueryList(context.Background(), &rexTypes.IndustryCommonSearchParams{
-		Page:       1,
-		PageSize:   5,
-		OnlyParent: true,
+	//queryBucketResult, err := sdk.UpsService.IndustryService.QueryList(context.Background(), &rexTypes.IndustryCommonSearchParams{
+	//	Page:       1,
+	//	PageSize:   5,
+	//	OnlyParent: true,
+	//})
+	//if err != nil {
+	//	panic(err)
+	//}
+	//logx.Infof("%+v", queryBucketResult)
+
+	queryAccessTokenResult, err := sdk.TpasService.WechatOffiaccountService.GetAccessToken(context.Background(), &rexTypes.WechatOffiaccountGetAccessTokenReq{
+		Key: "default",
 	})
 	if err != nil {
 		panic(err)
 	}
-	logx.Infof("%+v", queryBucketResult)
+	logx.Infof("%+v", queryAccessTokenResult)
 }

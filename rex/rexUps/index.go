@@ -6,18 +6,18 @@ import (
 
 type (
 	UpsService struct {
-		UpsBaseService
-		UpsTagService       UpsTagService
-		UpsIndustryService  UpsIndustryService
-		UpsShortLinkService UpsShortLinkService
+		BaseService
+		TagService       TagService
+		IndustryService  IndustryService
+		ShortLinkService ShortLinkService
 	}
 )
 
-func NewUpsService(rexCtx *rexCtx.QxCtx) UpsService {
+func NewUpsService(rexCtx *rexCtx.EngineCtx) UpsService {
 	return UpsService{
-		UpsBaseService:      NewUpsBaseService(rexCtx),
-		UpsTagService:       NewUpsTagService(rexCtx),
-		UpsIndustryService:  NewUpsIndustryService(rexCtx),
-		UpsShortLinkService: NewUpsShortLinkService(rexCtx),
+		BaseService:      NewBaseService(rexCtx),
+		TagService:       NewTagService(rexCtx),
+		IndustryService:  NewIndustryService(rexCtx),
+		ShortLinkService: NewShortLinkService(rexCtx),
 	}
 }

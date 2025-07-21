@@ -6,12 +6,12 @@ import (
 
 type (
 	SasService struct {
-		SasBaseService
+		BaseService
 	}
 )
 
-func NewSasService(rexCtx *rexCtx.QxCtx) SasService {
+func NewSasService(rexCtx *rexCtx.EngineCtx) SasService {
 	return SasService{
-		SasBaseService: NewSasBaseService(rexCtx),
+		BaseService: NewBaseService(rexCtx),
 	}
 }

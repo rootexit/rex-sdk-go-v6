@@ -6,12 +6,12 @@ import (
 
 type (
 	MasService struct {
-		MasBaseService
+		BaseService
 	}
 )
 
-func NewMasService(rexCtx *rexCtx.QxCtx) MasService {
+func NewMasService(rexCtx *rexCtx.EngineCtx) MasService {
 	return MasService{
-		MasBaseService: NewMsgBaseService(rexCtx),
+		BaseService: NewBaseService(rexCtx),
 	}
 }

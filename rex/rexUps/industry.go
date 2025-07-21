@@ -14,7 +14,7 @@ import (
 )
 
 type (
-	UpsIndustryService interface {
+	IndustryService interface {
 		Create(ctx context.Context, params *rexTypes.AllowCreateModelIndustry) (result *rexTypes.IndustryApiCreateResp, err error)
 		Delete(ctx context.Context, params *rexTypes.IndustryApiFormIdReq) (result *rexTypes.IndustryApiOKResp, err error)
 		DeleteMany(ctx context.Context, params *rexTypes.IndustryApiJsonIdsReq) (result *rexTypes.IndustryApiOKResp, err error)
@@ -24,20 +24,20 @@ type (
 		QueryListWhereIds(ctx context.Context, params *rexTypes.IndustryApiJsonIdsReq) (result *rexTypes.IndustryCommonQueryListResp, err error)
 		QueryList(ctx context.Context, params *rexTypes.IndustryCommonSearchParams) (result *rexTypes.IndustryCommonQueryListResp, err error)
 	}
-	defaultUpsIndustryService struct {
+	defaultIndustryService struct {
 		Svc    string
-		rexCtx *rexCtx.QxCtx
+		rexCtx *rexCtx.EngineCtx
 	}
 )
 
-func NewUpsIndustryService(rexCtx *rexCtx.QxCtx) UpsIndustryService {
-	return &defaultUpsIndustryService{
+func NewIndustryService(rexCtx *rexCtx.EngineCtx) IndustryService {
+	return &defaultIndustryService{
 		Svc:    "ups",
 		rexCtx: rexCtx,
 	}
 }
 
-func (m *defaultUpsIndustryService) Create(ctx context.Context, params *rexTypes.AllowCreateModelIndustry) (result *rexTypes.IndustryApiCreateResp, err error) {
+func (m *defaultIndustryService) Create(ctx context.Context, params *rexTypes.AllowCreateModelIndustry) (result *rexTypes.IndustryApiCreateResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.IndustryApiCreateResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/create", http.MethodPost, &params)
 
@@ -47,13 +47,13 @@ func (m *defaultUpsIndustryService) Create(ctx context.Context, params *rexTypes
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:IndustryService:Create fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsIndustryService) Delete(ctx context.Context, params *rexTypes.IndustryApiFormIdReq) (result *rexTypes.IndustryApiOKResp, err error) {
+func (m *defaultIndustryService) Delete(ctx context.Context, params *rexTypes.IndustryApiFormIdReq) (result *rexTypes.IndustryApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.IndustryApiOKResp]{}
 	relativePath := "/ups/industry/delete"
 	if params.Id != 0 {
@@ -67,13 +67,13 @@ func (m *defaultUpsIndustryService) Delete(ctx context.Context, params *rexTypes
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:IndustryService:Delete fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsIndustryService) DeleteMany(ctx context.Context, params *rexTypes.IndustryApiJsonIdsReq) (result *rexTypes.IndustryApiOKResp, err error) {
+func (m *defaultIndustryService) DeleteMany(ctx context.Context, params *rexTypes.IndustryApiJsonIdsReq) (result *rexTypes.IndustryApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.IndustryApiOKResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/deleteMany", http.MethodPost, &params)
 
@@ -83,13 +83,13 @@ func (m *defaultUpsIndustryService) DeleteMany(ctx context.Context, params *rexT
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:IndustryService:DeleteMany fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsIndustryService) Update(ctx context.Context, params *rexTypes.AllowUpdateModelIndustry) (result *rexTypes.IndustryApiOKResp, err error) {
+func (m *defaultIndustryService) Update(ctx context.Context, params *rexTypes.AllowUpdateModelIndustry) (result *rexTypes.IndustryApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.IndustryApiOKResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/update", http.MethodPost, &params)
 
@@ -99,13 +99,13 @@ func (m *defaultUpsIndustryService) Update(ctx context.Context, params *rexTypes
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:IndustryService:Update  fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsIndustryService) UpdateStatus(ctx context.Context, params *rexTypes.AllowUpdateStatusModelIndustry) (result *rexTypes.IndustryApiOKResp, err error) {
+func (m *defaultIndustryService) UpdateStatus(ctx context.Context, params *rexTypes.AllowUpdateStatusModelIndustry) (result *rexTypes.IndustryApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.IndustryApiOKResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/updateStatus", http.MethodPost, &params)
 
@@ -115,13 +115,13 @@ func (m *defaultUpsIndustryService) UpdateStatus(ctx context.Context, params *re
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:IndustryService:UpdateStatus fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsIndustryService) Query(ctx context.Context, params *rexTypes.IndustryApiFormIdReq) (result *rexTypes.ModelIndustry, err error) {
+func (m *defaultIndustryService) Query(ctx context.Context, params *rexTypes.IndustryApiFormIdReq) (result *rexTypes.ModelIndustry, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ModelIndustry]{}
 	relativePath := "/ups/industry/query"
 	if params.Id != 0 {
@@ -130,44 +130,44 @@ func (m *defaultUpsIndustryService) Query(ctx context.Context, params *rexTypes.
 	logx.Infof("rex sdk: request path: %s", relativePath)
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request ups:IndustryService:Query error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:IndustryService:Query fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsIndustryService) QueryListWhereIds(ctx context.Context, params *rexTypes.IndustryApiJsonIdsReq) (result *rexTypes.IndustryCommonQueryListResp, err error) {
+func (m *defaultIndustryService) QueryListWhereIds(ctx context.Context, params *rexTypes.IndustryApiJsonIdsReq) (result *rexTypes.IndustryCommonQueryListResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.IndustryCommonQueryListResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/queryListWhereIds", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request ups:IndustryService:QueryListWhereIds error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:IndustryService:QueryListWhereIds fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsIndustryService) QueryList(ctx context.Context, params *rexTypes.IndustryCommonSearchParams) (result *rexTypes.IndustryCommonQueryListResp, err error) {
+func (m *defaultIndustryService) QueryList(ctx context.Context, params *rexTypes.IndustryCommonSearchParams) (result *rexTypes.IndustryCommonQueryListResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.IndustryCommonQueryListResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/queryList", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request ups:IndustryService:QueryList error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:IndustryService:QueryList fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil

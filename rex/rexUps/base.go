@@ -13,23 +13,23 @@ import (
 )
 
 type (
-	UpsBaseService interface {
+	BaseService interface {
 		Bootstrap(ctx context.Context, params *rexTypes.UpsBaseBootstrapReq) (result *rexTypes.UpsBaseBootstrapResp, err error)
 	}
-	defaultUpsBaseService struct {
+	defaultBaseService struct {
 		Svc    string
-		rexCtx *rexCtx.QxCtx
+		rexCtx *rexCtx.EngineCtx
 	}
 )
 
-func NewUpsBaseService(rexCtx *rexCtx.QxCtx) UpsBaseService {
-	return &defaultUpsBaseService{
+func NewBaseService(rexCtx *rexCtx.EngineCtx) BaseService {
+	return &defaultBaseService{
 		Svc:    "ups",
 		rexCtx: rexCtx,
 	}
 }
 
-func (m *defaultUpsBaseService) Bootstrap(ctx context.Context, params *rexTypes.UpsBaseBootstrapReq) (result *rexTypes.UpsBaseBootstrapResp, err error) {
+func (m *defaultBaseService) Bootstrap(ctx context.Context, params *rexTypes.UpsBaseBootstrapReq) (result *rexTypes.UpsBaseBootstrapResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.UpsBaseBootstrapResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/base/bootstrap", http.MethodPost, &params)
 
@@ -39,7 +39,7 @@ func (m *defaultUpsBaseService) Bootstrap(ctx context.Context, params *rexTypes.
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:BaseService:Bootstrap fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil

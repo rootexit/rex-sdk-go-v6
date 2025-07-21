@@ -13,69 +13,69 @@ import (
 )
 
 type (
-	KmsAkcService interface {
-		KmsAkcCreateKeychain(ctx context.Context, params *rexTypes.KmsAkcCreateKeychainReq) (result *rexTypes.KmsAkcCreateKeychainResp, err error)
-		KmsAkcSign(ctx context.Context, params *rexTypes.KmsAkcSignReq) (result *rexTypes.KmsAkcSignResp, err error)
-		KmsAkcVerify(ctx context.Context, params *rexTypes.KmsAkcVerifyReq) (result *rexTypes.KmsAkcVerifyResp, err error)
+	AkcService interface {
+		CreateKeychain(ctx context.Context, params *rexTypes.KmsAkcCreateKeychainReq) (result *rexTypes.KmsAkcCreateKeychainResp, err error)
+		Sign(ctx context.Context, params *rexTypes.KmsAkcSignReq) (result *rexTypes.KmsAkcSignResp, err error)
+		Verify(ctx context.Context, params *rexTypes.KmsAkcVerifyReq) (result *rexTypes.KmsAkcVerifyResp, err error)
 	}
 
-	defaultKmsAkcService struct {
+	defaultAkcService struct {
 		Svc    string
-		rexCtx *rexCtx.QxCtx
+		rexCtx *rexCtx.EngineCtx
 	}
 )
 
-func NewKmsAkcService(rexCtx *rexCtx.QxCtx) KmsAkcService {
+func NewAkcService(rexCtx *rexCtx.EngineCtx) AkcService {
 	// note: 初始化Kms系统
-	return &defaultKmsAkcService{
+	return &defaultAkcService{
 		Svc:    "kms",
 		rexCtx: rexCtx,
 	}
 }
 
-func (m *defaultKmsAkcService) KmsAkcCreateKeychain(ctx context.Context, params *rexTypes.KmsAkcCreateKeychainReq) (result *rexTypes.KmsAkcCreateKeychainResp, err error) {
+func (m *defaultAkcService) CreateKeychain(ctx context.Context, params *rexTypes.KmsAkcCreateKeychainReq) (result *rexTypes.KmsAkcCreateKeychainResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.KmsAkcCreateKeychainResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/akc/createKeychain", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request kms:AkcService:CreateKeychain error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: KmsAkcCreateKeychain fail: %v", tmp)
+		logx.Errorf("rex sdk: request kms:AkcService:CreateKeychain fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultKmsAkcService) KmsAkcSign(ctx context.Context, params *rexTypes.KmsAkcSignReq) (result *rexTypes.KmsAkcSignResp, err error) {
+func (m *defaultAkcService) Sign(ctx context.Context, params *rexTypes.KmsAkcSignReq) (result *rexTypes.KmsAkcSignResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.KmsAkcSignResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/akc/sign", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request kms:AkcService:Sign error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: KmsAkcSign fail: %v", tmp)
+		logx.Errorf("rex sdk: request kms:AkcService:Sign fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultKmsAkcService) KmsAkcVerify(ctx context.Context, params *rexTypes.KmsAkcVerifyReq) (result *rexTypes.KmsAkcVerifyResp, err error) {
+func (m *defaultAkcService) Verify(ctx context.Context, params *rexTypes.KmsAkcVerifyReq) (result *rexTypes.KmsAkcVerifyResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.KmsAkcVerifyResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/akc/verify", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request kms:AkcService:Verify error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: KmsAkcVerify fail: %v", tmp)
+		logx.Errorf("rex sdk: request kms:AkcService:Verify fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil

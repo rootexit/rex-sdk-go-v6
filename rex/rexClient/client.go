@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/tls"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	v4 "github.com/aws/aws-sdk-go/aws/signer/v4"
@@ -59,6 +60,9 @@ func (cli *QxClient) EasyNewRequest(ctx context.Context, svc string, relativePat
 		return nil, err
 	}
 	defer res.Body.Close()
+	if res.StatusCode != http.StatusOK {
+		return nil, errors.New(string(body))
+	}
 	if err != nil {
 		return nil, err
 	}
@@ -121,7 +125,6 @@ func (cli *QxClient) NewRequest(
 			req.Header.Add("X-Amz-Content-Sha256", emptyStringSHA256)
 		}
 		signer.Sign(req, sendBodyIo, svc, cli.conf.Region, time.Now())
-
 		res, err = cli.Client.Do(req)
 		if err != nil {
 			return

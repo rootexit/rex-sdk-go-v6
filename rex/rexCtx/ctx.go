@@ -5,15 +5,15 @@ import (
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexClient"
 )
 
-type QxCtx struct {
+type EngineCtx struct {
 	Context context.Context
 	Cancel  context.CancelFunc
 	Cli     *rexClient.QxClient
 }
 
-func NewQxCtx(client *rexClient.QxClient) *QxCtx {
+func NewEngineCtx(client *rexClient.QxClient) *EngineCtx {
 	ctx, cancel := context.WithCancel(context.Background())
-	return &QxCtx{
+	return &EngineCtx{
 		Context: ctx,
 		Cancel:  cancel,
 		Cli:     client,

@@ -13,7 +13,7 @@ import (
 )
 
 type (
-	MasBaseService interface {
+	BaseService interface {
 		// note: 生成验证码
 		CaptchaGenerate(ctx context.Context, params *rexTypes.ApiCaptchaGenerateReq) (result *rexTypes.ApiCaptchaGenerateResp, err error)
 		SmsSend(ctx context.Context, params *rexTypes.ApiSmsSendReq) (result *rexTypes.ApiSmsSendResp, err error)
@@ -24,110 +24,110 @@ type (
 		SmsVerificationVerify(ctx context.Context, params *rexTypes.SmsVerifyReq) (result *rexTypes.SmsVerifyResp, err error)
 	}
 
-	defaultMasBaseService struct {
+	defaultBaseService struct {
 		Svc    string
-		rexCtx *rexCtx.QxCtx
+		rexCtx *rexCtx.EngineCtx
 	}
 )
 
-func NewMsgBaseService(rexCtx *rexCtx.QxCtx) MasBaseService {
-	return &defaultMasBaseService{
+func NewBaseService(rexCtx *rexCtx.EngineCtx) BaseService {
+	return &defaultBaseService{
 		Svc:    "mas",
 		rexCtx: rexCtx,
 	}
 }
 
-func (m *defaultMasBaseService) CaptchaGenerate(ctx context.Context, params *rexTypes.ApiCaptchaGenerateReq) (result *rexTypes.ApiCaptchaGenerateResp, err error) {
+func (m *defaultBaseService) CaptchaGenerate(ctx context.Context, params *rexTypes.ApiCaptchaGenerateReq) (result *rexTypes.ApiCaptchaGenerateResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ApiCaptchaGenerateResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/captcha/generate", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request mas:BaseService:CaptchaGenerate error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: captcha generate fail: %v", tmp)
+		logx.Errorf("rex sdk: request mas:BaseService:CaptchaGenerate fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultMasBaseService) SmsSend(ctx context.Context, params *rexTypes.ApiSmsSendReq) (result *rexTypes.ApiSmsSendResp, err error) {
+func (m *defaultBaseService) SmsSend(ctx context.Context, params *rexTypes.ApiSmsSendReq) (result *rexTypes.ApiSmsSendResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ApiSmsSendResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/sms/send", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request mas:BaseService:SmsSend error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: sms send fail: %v", tmp)
+		logx.Errorf("rex sdk: request mas:BaseService:SmsSend fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultMasBaseService) BehavioralVerificationInit(ctx context.Context, params *rexTypes.BehavioralVerificationInitReq) (result *rexTypes.BehavioralVerificationInitResp, err error) {
+func (m *defaultBaseService) BehavioralVerificationInit(ctx context.Context, params *rexTypes.BehavioralVerificationInitReq) (result *rexTypes.BehavioralVerificationInitResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.BehavioralVerificationInitResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/bv/init", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request mas:BaseService:BehavioralVerificationInit  error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk:Behavioral Verification Init fail: %v", result)
+		logx.Errorf("rex sdk: request mas:BaseService:BehavioralVerificationInit fail: %v", result)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultMasBaseService) BehavioralVerificationVerify(ctx context.Context, params *rexTypes.BehavioralVerificationVerifyReq) (result *rexTypes.BehavioralVerificationVerifyResp, err error) {
+func (m *defaultBaseService) BehavioralVerificationVerify(ctx context.Context, params *rexTypes.BehavioralVerificationVerifyReq) (result *rexTypes.BehavioralVerificationVerifyResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.BehavioralVerificationVerifyResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/bv/verify", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request mas:BaseService:BehavioralVerificationVerify  error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: Behavioral Verification Verify fail: %v", tmp)
+		logx.Errorf("rex sdk:  request mas:BaseService:BehavioralVerificationVerify fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultMasBaseService) SmsVerificationInit(ctx context.Context, params *rexTypes.SmsInitReq) (result *rexTypes.SmsInitResp, err error) {
+func (m *defaultBaseService) SmsVerificationInit(ctx context.Context, params *rexTypes.SmsInitReq) (result *rexTypes.SmsInitResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.SmsInitResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/sms/init", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request mas:BaseService:SmsVerificationInit  error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: sms init fail: %v", tmp)
+		logx.Errorf("rex sdk: request mas:BaseService:SmsVerificationInit fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultMasBaseService) SmsVerificationVerify(ctx context.Context, params *rexTypes.SmsVerifyReq) (result *rexTypes.SmsVerifyResp, err error) {
+func (m *defaultBaseService) SmsVerificationVerify(ctx context.Context, params *rexTypes.SmsVerifyReq) (result *rexTypes.SmsVerifyResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.SmsVerifyResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/sms/verify", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request mas:BaseService:SmsVerificationVerify  error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: sms verify fail: %v", tmp)
+		logx.Errorf("rex sdk: request mas:BaseService:SmsVerificationVerify fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil

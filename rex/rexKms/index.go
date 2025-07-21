@@ -8,14 +8,14 @@ import (
 
 type (
 	KmsService struct {
-		Akc akc.KmsAkcService
-		Skc skc.KmsSkcService
+		Akc akc.AkcService
+		Skc skc.SkcService
 	}
 )
 
-func NewKmsService(rexCtx *rexCtx.QxCtx) KmsService {
+func NewKmsService(rexCtx *rexCtx.EngineCtx) KmsService {
 	return KmsService{
-		Akc: akc.NewKmsAkcService(rexCtx),
-		Skc: skc.NewKmsSkcService(rexCtx),
+		Akc: akc.NewAkcService(rexCtx),
+		Skc: skc.NewSkcService(rexCtx),
 	}
 }

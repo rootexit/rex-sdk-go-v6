@@ -14,7 +14,7 @@ import (
 )
 
 type (
-	UpsShortLinkService interface {
+	ShortLinkService interface {
 		GetRedirectResult(ctx context.Context, params *rexTypes.GetRedirectResultReq) (result *rexTypes.GetRedirectResultResp, err error)
 		Create(ctx context.Context, params *rexTypes.AllowCreateModelShortLink) (result *rexTypes.ShortLinkApiCreateResp, err error)
 		Delete(ctx context.Context, params *rexTypes.ShortLinkApiFormIdReq) (result *rexTypes.ShortLinkApiOKResp, err error)
@@ -26,52 +26,52 @@ type (
 		QueryListWhereIds(ctx context.Context, params *rexTypes.ShortLinkApiJsonIdsReq) (result *rexTypes.ShortLinkCommonQueryListResp, err error)
 		QueryList(ctx context.Context, params *rexTypes.ShortLinkCommonSearchParams) (result *rexTypes.ShortLinkCommonQueryListResp, err error)
 	}
-	defaultUpsShortLinkService struct {
+	defaultShortLinkService struct {
 		Svc    string
-		rexCtx *rexCtx.QxCtx
+		rexCtx *rexCtx.EngineCtx
 	}
 )
 
-func NewUpsShortLinkService(rexCtx *rexCtx.QxCtx) UpsShortLinkService {
-	return &defaultUpsShortLinkService{
+func NewShortLinkService(rexCtx *rexCtx.EngineCtx) ShortLinkService {
+	return &defaultShortLinkService{
 		Svc:    "ups",
 		rexCtx: rexCtx,
 	}
 }
 
-func (m *defaultUpsShortLinkService) GetRedirectResult(ctx context.Context, params *rexTypes.GetRedirectResultReq) (result *rexTypes.GetRedirectResultResp, err error) {
+func (m *defaultShortLinkService) GetRedirectResult(ctx context.Context, params *rexTypes.GetRedirectResultReq) (result *rexTypes.GetRedirectResultResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.GetRedirectResultResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/getRedirectResult", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:GetRedirectResult error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:GetRedirectResult  fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsShortLinkService) Create(ctx context.Context, params *rexTypes.AllowCreateModelShortLink) (result *rexTypes.ShortLinkApiCreateResp, err error) {
+func (m *defaultShortLinkService) Create(ctx context.Context, params *rexTypes.AllowCreateModelShortLink) (result *rexTypes.ShortLinkApiCreateResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ShortLinkApiCreateResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/create", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:Create  error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:Create  fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsShortLinkService) Delete(ctx context.Context, params *rexTypes.ShortLinkApiFormIdReq) (result *rexTypes.ShortLinkApiOKResp, err error) {
+func (m *defaultShortLinkService) Delete(ctx context.Context, params *rexTypes.ShortLinkApiFormIdReq) (result *rexTypes.ShortLinkApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ShortLinkApiOKResp]{}
 	relativePath := "/ups/shortLink/query"
 	if params.Id != 0 {
@@ -80,66 +80,66 @@ func (m *defaultUpsShortLinkService) Delete(ctx context.Context, params *rexType
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:Delete  error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:Delete  fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsShortLinkService) DeleteMany(ctx context.Context, params *rexTypes.ShortLinkApiJsonIdsReq) (result *rexTypes.ShortLinkApiOKResp, err error) {
+func (m *defaultShortLinkService) DeleteMany(ctx context.Context, params *rexTypes.ShortLinkApiJsonIdsReq) (result *rexTypes.ShortLinkApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ShortLinkApiOKResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/deleteMany", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:DeleteMany  error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:DeleteMany  fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsShortLinkService) Update(ctx context.Context, params *rexTypes.AllowUpdateModelShortLink) (result *rexTypes.ShortLinkApiOKResp, err error) {
+func (m *defaultShortLinkService) Update(ctx context.Context, params *rexTypes.AllowUpdateModelShortLink) (result *rexTypes.ShortLinkApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ShortLinkApiOKResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/update", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:Update  error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:Update  fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsShortLinkService) UpdateStatus(ctx context.Context, params *rexTypes.AllowUpdateStatusModelShortLink) (result *rexTypes.ShortLinkApiOKResp, err error) {
+func (m *defaultShortLinkService) UpdateStatus(ctx context.Context, params *rexTypes.AllowUpdateStatusModelShortLink) (result *rexTypes.ShortLinkApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ShortLinkApiOKResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/updateStatus", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:UpdateStatus  error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:UpdateStatus  fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsShortLinkService) Query(ctx context.Context, params *rexTypes.ShortLinkApiFormIdReq) (result *rexTypes.ModelShortLink, err error) {
+func (m *defaultShortLinkService) Query(ctx context.Context, params *rexTypes.ShortLinkApiFormIdReq) (result *rexTypes.ModelShortLink, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ModelShortLink]{}
 	relativePath := "/ups/shortLink/query"
 	if params.Id != 0 {
@@ -148,18 +148,18 @@ func (m *defaultUpsShortLinkService) Query(ctx context.Context, params *rexTypes
 	logx.Infof("rex sdk: request path: %s", relativePath)
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:Query  error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:Query  fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsShortLinkService) QueryWhereKey(ctx context.Context, params *rexTypes.ShortLinkApiFormKeyReq) (result *rexTypes.ModelShortLink, err error) {
+func (m *defaultShortLinkService) QueryWhereKey(ctx context.Context, params *rexTypes.ShortLinkApiFormKeyReq) (result *rexTypes.ModelShortLink, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ModelShortLink]{}
 	relativePath := "/ups/shortLink/queryWhereKey"
 	if params.Key != "" {
@@ -168,44 +168,44 @@ func (m *defaultUpsShortLinkService) QueryWhereKey(ctx context.Context, params *
 	logx.Infof("rex sdk: request path: %s", relativePath)
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:QueryWhereKey  error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:QueryWhereKey  fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsShortLinkService) QueryListWhereIds(ctx context.Context, params *rexTypes.ShortLinkApiJsonIdsReq) (result *rexTypes.ShortLinkCommonQueryListResp, err error) {
+func (m *defaultShortLinkService) QueryListWhereIds(ctx context.Context, params *rexTypes.ShortLinkApiJsonIdsReq) (result *rexTypes.ShortLinkCommonQueryListResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ShortLinkCommonQueryListResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/queryListWhereIds", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:QueryListWhereIds  error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:QueryListWhereIds  fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
 }
 
-func (m *defaultUpsShortLinkService) QueryList(ctx context.Context, params *rexTypes.ShortLinkCommonSearchParams) (result *rexTypes.ShortLinkCommonQueryListResp, err error) {
+func (m *defaultShortLinkService) QueryList(ctx context.Context, params *rexTypes.ShortLinkCommonSearchParams) (result *rexTypes.ShortLinkCommonQueryListResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ShortLinkCommonQueryListResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/queryList", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:QueryList  error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: request fail: %s", res)
+		logx.Errorf("rex sdk: request ups:ShortLinkService:QueryList  fail: %s", res)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
