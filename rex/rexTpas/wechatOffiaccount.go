@@ -14,6 +14,8 @@ import (
 
 type (
 	WechatOffiaccountService interface {
+		// note: 公众号code换token
+		Code2Token(ctx context.Context, params *rexTypes.WechatOffiaccountCode2TokenReq) (result *rexTypes.WechatOffiaccountCode2TokenResp, err error)
 		// note: 为某个公众号强制刷新凭证
 		ForceRefreshOffiaccountAccessToken(ctx context.Context, params *rexTypes.WechatForceRefreshOffiaccountAccessTokenReq) (result *rexTypes.WechatForceRefreshOffiaccountAccessTokenResp, err error)
 		// note: 获取公众号普通AccessToken
@@ -39,17 +41,33 @@ func NewWechatOffiaccountService(rexCtx *rexCtx.EngineCtx) WechatOffiaccountServ
 	}
 }
 
+func (m *defaultWechatOffiaccountService) Code2Token(ctx context.Context, params *rexTypes.WechatOffiaccountCode2TokenReq) (result *rexTypes.WechatOffiaccountCode2TokenResp, err error) {
+	tmp := &rexRes.BaseResponse[rexTypes.WechatOffiaccountCode2TokenResp]{}
+	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/tpas/wechatOffiaccount/code2token", http.MethodPost, &params)
+
+	if err != nil {
+		logx.Errorf("rex sdk: request tpas:WechatOffiaccountService:Code2Token error: %v", err)
+		return nil, err
+	}
+	_ = json.Unmarshal(res, &tmp)
+	if tmp.Code != rexCodes.EngineStatusOK {
+		logx.Errorf("rex sdk: request tpas:WechatOffiaccountService:Code2Token fail: %v", tmp)
+		return &tmp.Data, errors.New(tmp.Msg)
+	}
+	return &tmp.Data, nil
+}
+
 func (m *defaultWechatOffiaccountService) ForceRefreshOffiaccountAccessToken(ctx context.Context, params *rexTypes.WechatForceRefreshOffiaccountAccessTokenReq) (result *rexTypes.WechatForceRefreshOffiaccountAccessTokenResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.WechatForceRefreshOffiaccountAccessTokenResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/tpas/wechatOffiaccount/forceRefreshOffiaccountAccessToken", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request error: %v", err)
+		logx.Errorf("rex sdk: request tpas:WechatOffiaccountService:ForceRefreshOffiaccountAccessToken error: %v", err)
 		return nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: tpas:WechatOffiaccountService:ForceRefreshOffiaccountAccessToken fail: %v", tmp)
+		logx.Errorf("rex sdk: request tpas:WechatOffiaccountService:ForceRefreshOffiaccountAccessToken fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
@@ -65,7 +83,7 @@ func (m *defaultWechatOffiaccountService) GetAccessToken(ctx context.Context, pa
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: tpas:WechatOffiaccountService:GetAccessToken fail: %v", tmp)
+		logx.Errorf("rex sdk: request tpas:WechatOffiaccountService:GetAccessToken fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
@@ -81,7 +99,7 @@ func (m *defaultWechatOffiaccountService) GetJsApiTicket(ctx context.Context, pa
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: tpas:WechatOffiaccountService:GetJsApiTicket fail: %v", tmp)
+		logx.Errorf("rex sdk: request tpas:WechatOffiaccountService:GetJsApiTicket fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
@@ -97,7 +115,7 @@ func (m *defaultWechatOffiaccountService) GenShareConfig(ctx context.Context, pa
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: tpas:WechatOffiaccountService:GenShareConfig fail: %v", tmp)
+		logx.Errorf("rex sdk: request tpas:WechatOffiaccountService:GenShareConfig fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil
@@ -113,7 +131,7 @@ func (m *defaultWechatOffiaccountService) GenRedirectUrl(ctx context.Context, pa
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: tpas:WechatOffiaccountService:GenRedirectUrl fail: %v", tmp)
+		logx.Errorf("rex sdk: request tpas:WechatOffiaccountService:GenRedirectUrl fail: %v", tmp)
 		return &tmp.Data, errors.New(tmp.Msg)
 	}
 	return &tmp.Data, nil

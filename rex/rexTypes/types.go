@@ -648,6 +648,7 @@ type TagCommonSearchParams struct {
 }
 
 type TpasWechatJobWebhookReq struct {
+	UniqueId  string `path:"unique_id"`
 	Timestamp int64  `json:"timestamp"`
 	Nonce     string `json:"nonce"` // 随机字符串
 	Params    string `json:"params"`
@@ -681,6 +682,23 @@ type WechatForceRefreshOffiaccountAccessTokenReq struct {
 }
 
 type WechatForceRefreshOffiaccountAccessTokenResp struct {
+}
+
+type WechatOffiaccountCode2TokenReq struct {
+	Key  string `json:"key,optional"`
+	Code string `json:"code"`
+}
+
+type WechatOffiaccountCode2TokenResp struct {
+	AccessToken    string `json:"access_token"`
+	ExpiresIn      int64  `json:"expires_in"`
+	RefreshToken   string `json:"refresh_token"`
+	Openid         string `json:"openid"`
+	Scope          string `json:"scope"`
+	IsSnapshotuser int32  `json:"is_snapshotuser"`
+	Unionid        string `json:"unionid"`
+	Errcode        int32  `json:"errcode,omitempty"`
+	Errmsg         string `json:"errmsg,omitempty"`
 }
 
 type WechatOffiaccountGenRedirectUrlReq struct {
