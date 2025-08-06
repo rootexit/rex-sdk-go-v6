@@ -13,6 +13,11 @@ type AllowCreateModelIndustry struct {
 	Sort              int64  `json:"sort,optional"`
 }
 
+type AllowCreateModelObject struct {
+	ObjectType string            `json:"object_type"`
+	Properties map[string]string `json:"properties,optional"`
+}
+
 type AllowCreateModelShortLink struct {
 	OriginalUrl   string `json:"original_url"`
 	SlType        int32  `json:"sl_type,optional,options=1|2|3"`
@@ -36,6 +41,12 @@ type AllowUpdateModelIndustry struct {
 	Sort              int64  `json:"sort,optional"`
 }
 
+type AllowUpdateModelObject struct {
+	Id         uint32            `json:"id"`
+	ObjectType string            `json:"object_type,optional"`
+	Properties map[string]string `json:"properties,optional"`
+}
+
 type AllowUpdateModelShortLink struct {
 	Id            uint32 `json:"id"`
 	OriginalUrl   string `json:"original_url,optional"`
@@ -51,6 +62,11 @@ type AllowUpdateModelTag struct {
 }
 
 type AllowUpdateStatusModelIndustry struct {
+	Id     uint32 `json:"id"`
+	Status int32  `json:"status"`
+}
+
+type AllowUpdateStatusModelObject struct {
 	Id     uint32 `json:"id"`
 	Status int32  `json:"status"`
 }
@@ -462,6 +478,16 @@ type ModelIndustry struct {
 	Sort              int64  `json:"sort"`
 }
 
+type ModelObject struct {
+	Id            uint32            `json:"id"`
+	CreatedAtUnix int64             `json:"created_at_unix"`
+	UpdatedAtUnix int64             `json:"updated_at_unix"`
+	Status        int32             `json:"status"` // 状态
+	ObjectId      string            `json:"object_id"`
+	ObjectType    string            `json:"object_type"`
+	Properties    map[string]string `json:"properties"`
+}
+
 type ModelShortLink struct {
 	Id            uint32 `json:"id"`
 	CreatedAtUnix int64  `json:"created_at_unix"`
@@ -492,6 +518,48 @@ type NotFoundResp struct {
 }
 
 type NotFoundpReq struct {
+}
+
+type ObjectApiCreateResp struct {
+	Id            uint32 `json:"id"`
+	CreatedAtUnix int64  `json:"created_at_unix"`
+	UpdatedAtUnix int64  `json:"updated_at_unix"`
+	ObjectId      string `json:"object_id"`
+}
+
+type ObjectApiFormIdReq struct {
+	Id uint32 `form:"id"`
+}
+
+type ObjectApiJsonIdReq struct {
+	Id uint32 `json:"id"`
+}
+
+type ObjectApiJsonIdsReq struct {
+	Ids []uint32 `json:"ids"`
+}
+
+type ObjectApiOKResp struct {
+}
+
+type ObjectApiQueryWhreObjectIdReq struct {
+	ObjectId string `form:"object_id"`
+}
+
+type ObjectCommonQueryListResp struct {
+	List     []ModelObject `json:"list"`
+	Total    int64         `json:"total"`
+	Page     int32         `json:"page"`
+	PageSize int32         `json:"page_size"`
+}
+
+type ObjectCommonSearchParams struct {
+	Page           int32  `json:"page,optional"`
+	PageSize       int32  `json:"page_size,optional"`
+	StartCreatedAt int64  `json:"start_created_at,optional"`
+	EndCreatedAt   int64  `json:"end_created_at,optional"`
+	Keyword        string `json:"keyword,optional"`
+	Status         int32  `json:"status,optional"`
 }
 
 type PublicGetIpReq struct {
