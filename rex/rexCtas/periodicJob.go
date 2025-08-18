@@ -15,9 +15,9 @@ import (
 type (
 	PeriodicJobService interface {
 		// note: 为某个公众号强制刷新凭证
-		Add(ctx context.Context, params *rexTypes.CtasPeriodicJobAddReq) (result *rexTypes.CtasPeriodicJobAddResp, err error)
+		Add(ctx context.Context, params *rexTypes.CtasPeriodicJobAddReq) (code int32, result *rexTypes.CtasPeriodicJobAddResp, err error)
 		// note: 获取公众号普通AccessToken
-		Remove(ctx context.Context, params *rexTypes.CtasPeriodicJobRemoveReq) (result *rexTypes.CtasPeriodicJobRemoveResp, err error)
+		Remove(ctx context.Context, params *rexTypes.CtasPeriodicJobRemoveReq) (code int32, result *rexTypes.CtasPeriodicJobRemoveResp, err error)
 	}
 
 	defaultPeriodicJobService struct {
@@ -33,34 +33,34 @@ func NewPeriodicJobService(rexCtx *rexCtx.EngineCtx) PeriodicJobService {
 	}
 }
 
-func (m *defaultPeriodicJobService) Add(ctx context.Context, params *rexTypes.CtasPeriodicJobAddReq) (result *rexTypes.CtasPeriodicJobAddResp, err error) {
+func (m *defaultPeriodicJobService) Add(ctx context.Context, params *rexTypes.CtasPeriodicJobAddReq) (code int32, result *rexTypes.CtasPeriodicJobAddResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.CtasPeriodicJobAddResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ctas/periodicJob/add", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request ctas:PeriodicJobService:Add error: %v", err)
-		return nil, err
+		logx.Errorf("rex sdk: request ctas:PeriodicJobService:Add  error: %v", err)
+		return rexCodes.FAIL, nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.EngineStatusOK {
-		logx.Errorf("rex sdk: ctas:PeriodicJobService:Add fail: %v", tmp)
-		return &tmp.Data, errors.New(tmp.Msg)
+	if tmp.Code != rexCodes.OK {
+		logx.Errorf("rex sdk: request ctas:PeriodicJobService:Add fail: %v", tmp)
+		return tmp.Code, &tmp.Data, errors.New(tmp.Msg)
 	}
-	return &tmp.Data, nil
+	return rexCodes.OK, &tmp.Data, nil
 }
 
-func (m *defaultPeriodicJobService) Remove(ctx context.Context, params *rexTypes.CtasPeriodicJobRemoveReq) (result *rexTypes.CtasPeriodicJobRemoveResp, err error) {
+func (m *defaultPeriodicJobService) Remove(ctx context.Context, params *rexTypes.CtasPeriodicJobRemoveReq) (code int32, result *rexTypes.CtasPeriodicJobRemoveResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.CtasPeriodicJobRemoveResp]{}
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ctas/periodicJob/remove", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request ctas:PeriodicJobService:Remove error: %v", err)
-		return nil, err
+		logx.Errorf("rex sdk: request ctas:PeriodicJobService:Remove  error: %v", err)
+		return rexCodes.FAIL, nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.EngineStatusOK {
+	if tmp.Code != rexCodes.OK {
 		logx.Errorf("rex sdk: request ctas:PeriodicJobService:Remove fail: %v", tmp)
-		return &tmp.Data, errors.New(tmp.Msg)
+		return tmp.Code, &tmp.Data, errors.New(tmp.Msg)
 	}
-	return &tmp.Data, nil
+	return rexCodes.OK, &tmp.Data, nil
 }

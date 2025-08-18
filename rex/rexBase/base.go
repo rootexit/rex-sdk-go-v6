@@ -46,11 +46,11 @@ func (m *defaultBaseService) Codes(ctx context.Context, params *rexTypes.CodesRe
 		return nil, nil
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.EngineStatusOK {
+	if tmp.Code != rexCodes.OK {
 		logx.Errorf("rex sdk: request base:BaseService:Codes fail: %v", tmp)
-		return &tmp.Data, nil
+		return rexCodes.OK, &tmp.Data, nil
 	}
-	return &tmp.Data, nil
+	return rexCodes.OK, &tmp.Data, nil
 }
 
 func (m *defaultBaseService) Zones(ctx context.Context, params *rexTypes.ZonesReq) (result *rexTypes.ZonesResp, err error) {
@@ -68,9 +68,9 @@ func (m *defaultBaseService) Zones(ctx context.Context, params *rexTypes.ZonesRe
 		return nil, nil
 	}
 	_ = json.Unmarshal(res, &tmp)
-	if tmp.Code != rexCodes.EngineStatusOK {
+	if tmp.Code != rexCodes.OK {
 		logx.Errorf("rex sdk:request base:BaseService:Zones fail: %v", tmp)
-		return &tmp.Data, nil
+		return rexCodes.OK, &tmp.Data, nil
 	}
-	return &tmp.Data, nil
+	return rexCodes.OK, &tmp.Data, nil
 }

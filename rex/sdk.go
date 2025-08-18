@@ -29,7 +29,7 @@ type Sdk struct {
 func NewSdk(c *rexConfig.Config) (*Sdk, error) {
 	// note: sdk初始化检查
 	if err := c.Check(); err != nil {
-		return nil, err
+		return rexCodes.FAIL, nil, err
 	}
 	// note: sdk初始化
 	client := rexClient.NewQxClient(c)
