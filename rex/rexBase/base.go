@@ -15,8 +15,8 @@ import (
 
 type (
 	BaseService interface {
-		Codes(ctx context.Context, params *rexTypes.CodesReq) (result *rexTypes.CodesResp, err error)
-		Zones(ctx context.Context, params *rexTypes.ZonesReq) (result *rexTypes.ZonesResp, err error)
+		Codes(ctx context.Context, params *rexTypes.CodesReq) (code int32, result *rexTypes.CodesResp, err error)
+		Zones(ctx context.Context, params *rexTypes.ZonesReq) (code int32, result *rexTypes.ZonesResp, err error)
 	}
 	defaultBaseService struct {
 		Svc    string
@@ -31,7 +31,7 @@ func NewQxBaseService(rexCtx *rexCtx.EngineCtx) BaseService {
 	}
 }
 
-func (m *defaultBaseService) Codes(ctx context.Context, params *rexTypes.CodesReq) (result *rexTypes.CodesResp, err error) {
+func (m *defaultBaseService) Codes(ctx context.Context, params *rexTypes.CodesReq) (code int32, result *rexTypes.CodesResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.CodesResp]{}
 	relativePath := ""
 	if params.Lang != "" || params.Svc != "" {
@@ -43,7 +43,7 @@ func (m *defaultBaseService) Codes(ctx context.Context, params *rexTypes.CodesRe
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, nil)
 	if err != nil {
 		logx.Errorf("rex sdk: request base:BaseService:Codes error: %v", err)
-		return nil, nil
+		return rexCodes.FAIL, nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.OK {
@@ -53,7 +53,7 @@ func (m *defaultBaseService) Codes(ctx context.Context, params *rexTypes.CodesRe
 	return rexCodes.OK, &tmp.Data, nil
 }
 
-func (m *defaultBaseService) Zones(ctx context.Context, params *rexTypes.ZonesReq) (result *rexTypes.ZonesResp, err error) {
+func (m *defaultBaseService) Zones(ctx context.Context, params *rexTypes.ZonesReq) (code int32, result *rexTypes.ZonesResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ZonesResp]{}
 	relativePath := ""
 	if params.Lang != "" {
@@ -65,7 +65,7 @@ func (m *defaultBaseService) Zones(ctx context.Context, params *rexTypes.ZonesRe
 	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, nil)
 	if err != nil {
 		logx.Errorf("rex sdk: request base:BaseService:Zones error: %v", err)
-		return nil, nil
+		return rexCodes.FAIL, nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.OK {

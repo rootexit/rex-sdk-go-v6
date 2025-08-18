@@ -51,7 +51,7 @@ func main() {
 	//}
 	//logx.Infof("%+v", queryBucketResult)
 
-	queryAccessTokenResult, err := sdk.TpasService.WechatOffiaccountService.GetAccessToken(context.Background(), &rexTypes.WechatOffiaccountGetAccessTokenReq{
+	_, queryAccessTokenResult, err := sdk.TpasService.WechatOffiaccountService.GetAccessToken(context.Background(), &rexTypes.WechatOffiaccountGetAccessTokenReq{
 		Key: "default",
 	})
 	if err != nil {

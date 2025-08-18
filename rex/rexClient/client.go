@@ -51,20 +51,20 @@ func (cli *QxClient) EasyNewRequest(ctx context.Context, svc string, relativePat
 	res, err := fn()
 	if err != nil {
 		logx.Infof("打印一下请求错误 :%s", err)
-		return rexCodes.FAIL, nil, err
+		return nil, err
 	}
 	// 读取响应体
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		logx.Infof("打印一下请求结果 :%v", res.Body)
-		return rexCodes.FAIL, nil, err
+		return nil, err
 	}
 	defer res.Body.Close()
 	if res.StatusCode != http.StatusOK {
-		return rexCodes.FAIL, nil, errors.New(string(body))
+		return nil, errors.New(string(body))
 	}
 	if err != nil {
-		return rexCodes.FAIL, nil, err
+		return nil, err
 	}
 	return body, nil
 }
