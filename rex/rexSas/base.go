@@ -23,21 +23,21 @@ type (
 	}
 	defaultBaseService struct {
 		Svc    string
-		rexCtx *rexCtx.EngineCtx
+		SdkCtx *sdkCtx.SdkCtx
 	}
 )
 
-func NewBaseService(rexCtx *rexCtx.EngineCtx) BaseService {
+func NewBaseService(SdkCtx *sdkCtx.SdkCtx) BaseService {
 	return &defaultBaseService{
 		Svc:    "sas",
-		rexCtx: rexCtx,
+		SdkCtx: SdkCtx,
 	}
 }
 
 // @doc "预签名访问"
 func (m *defaultBaseService) PresignerGet(ctx context.Context, params *rexTypes.SasPresignerGetObjectReq) (code int32, result *rexTypes.SasPresignerGetObjectResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.SasPresignerGetObjectResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/sas/presignerGetObject", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/sas/presignerGetObject", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request sas:BaseService:PresignerGet error: %v", err)
@@ -53,7 +53,7 @@ func (m *defaultBaseService) PresignerGet(ctx context.Context, params *rexTypes.
 
 func (m *defaultBaseService) QueryBucket(ctx context.Context, params *rexTypes.SasQueryBucketReq) (code int32, result *rexTypes.SasQueryBucketResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.SasQueryBucketResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/sas/queryBucket", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/sas/queryBucket", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request sas:BaseService:QueryBucket error: %v", err)
@@ -69,7 +69,7 @@ func (m *defaultBaseService) QueryBucket(ctx context.Context, params *rexTypes.S
 
 func (m *defaultBaseService) PresignerUpload(ctx context.Context, params *rexTypes.SasPresignerUploadReq) (code int32, result *rexTypes.SasPresignerUploadResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.SasPresignerUploadResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/sas/presignerUpload", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/sas/presignerUpload", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request sas:BaseService:PresignerUpload error: %v", err)
@@ -85,7 +85,7 @@ func (m *defaultBaseService) PresignerUpload(ctx context.Context, params *rexTyp
 
 func (m *defaultBaseService) PresignerHeadObject(ctx context.Context, params *rexTypes.SasPresignerHeadObjectReq) (code int32, result *rexTypes.SasPresignerHeadObjectResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.SasPresignerHeadObjectResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/sas/presignerHeadObject", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/sas/presignerHeadObject", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request sas:BaseService:PresignerHeadObject  error: %v", err)
@@ -101,7 +101,7 @@ func (m *defaultBaseService) PresignerHeadObject(ctx context.Context, params *re
 
 func (m *defaultBaseService) CreateBucketAndConfig(ctx context.Context, params *rexTypes.CreateExistBucketAndConfigReq) (code int32, result *rexTypes.CreateExistBucketAndConfigResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.CreateExistBucketAndConfigResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/sas/createExistBucketAndConfig", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/sas/createExistBucketAndConfig", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: requestsas:BaseService:CreateBucketAndConfig  error: %v", err)
@@ -117,7 +117,7 @@ func (m *defaultBaseService) CreateBucketAndConfig(ctx context.Context, params *
 
 func (m *defaultBaseService) CreateBucketNoConfig(ctx context.Context, params *rexTypes.CreateExistBucketNoConfigReq) (code int32, result *rexTypes.CreateExistBucketNoConfigResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.CreateExistBucketNoConfigResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/sas/createExistBucketNoConfig", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/sas/createExistBucketNoConfig", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request sas:BaseService:CreateBucketNoConfig  error: %v", err)

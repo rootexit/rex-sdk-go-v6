@@ -11,9 +11,9 @@ type (
 	}
 )
 
-func NewTpasService(rexCtx *rexCtx.EngineCtx) TpasService {
+func NewTpasService(SdkCtx *sdkCtx.SdkCtx) TpasService {
 	return TpasService{
-		BaseService:              NewBaseService(rexCtx),
-		WechatOffiaccountService: NewWechatOffiaccountService(rexCtx),
+		BaseService:              NewBaseService(SdkCtx),
+		WechatOffiaccountService: NewWechatOffiaccountService(SdkCtx),
 	}
 }

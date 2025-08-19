@@ -10,8 +10,8 @@ type (
 	}
 )
 
-func NewSasService(rexCtx *rexCtx.EngineCtx) SasService {
+func NewSasService(SdkCtx *sdkCtx.SdkCtx) SasService {
 	return SasService{
-		BaseService: NewBaseService(rexCtx),
+		BaseService: NewBaseService(SdkCtx),
 	}
 }

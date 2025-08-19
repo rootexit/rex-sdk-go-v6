@@ -26,20 +26,20 @@ type (
 
 	defaultBaseService struct {
 		Svc    string
-		rexCtx *rexCtx.EngineCtx
+		SdkCtx *sdkCtx.SdkCtx
 	}
 )
 
-func NewBaseService(rexCtx *rexCtx.EngineCtx) BaseService {
+func NewBaseService(SdkCtx *sdkCtx.SdkCtx) BaseService {
 	return &defaultBaseService{
 		Svc:    "mas",
-		rexCtx: rexCtx,
+		SdkCtx: SdkCtx,
 	}
 }
 
 func (m *defaultBaseService) CaptchaGenerate(ctx context.Context, params *rexTypes.ApiCaptchaGenerateReq) (code int32, result *rexTypes.ApiCaptchaGenerateResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ApiCaptchaGenerateResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/captcha/generate", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/captcha/generate", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request mas:BaseService:CaptchaGenerate  error: %v", err)
@@ -55,7 +55,7 @@ func (m *defaultBaseService) CaptchaGenerate(ctx context.Context, params *rexTyp
 
 func (m *defaultBaseService) SmsSend(ctx context.Context, params *rexTypes.ApiSmsSendReq) (code int32, result *rexTypes.ApiSmsSendResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ApiSmsSendResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/sms/send", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/sms/send", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request mas:BaseService:SmsSend  error: %v", err)
@@ -71,7 +71,7 @@ func (m *defaultBaseService) SmsSend(ctx context.Context, params *rexTypes.ApiSm
 
 func (m *defaultBaseService) BehavioralVerificationInit(ctx context.Context, params *rexTypes.BehavioralVerificationInitReq) (code int32, result *rexTypes.BehavioralVerificationInitResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.BehavioralVerificationInitResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/bv/init", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/bv/init", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request mas:BaseService:BehavioralVerificationInit  error: %v", err)
@@ -87,7 +87,7 @@ func (m *defaultBaseService) BehavioralVerificationInit(ctx context.Context, par
 
 func (m *defaultBaseService) BehavioralVerificationVerify(ctx context.Context, params *rexTypes.BehavioralVerificationVerifyReq) (code int32, result *rexTypes.BehavioralVerificationVerifyResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.BehavioralVerificationVerifyResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/bv/verify", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/bv/verify", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request mas:BaseService:BehavioralVerificationVerify  error: %v", err)
@@ -103,7 +103,7 @@ func (m *defaultBaseService) BehavioralVerificationVerify(ctx context.Context, p
 
 func (m *defaultBaseService) SmsVerificationInit(ctx context.Context, params *rexTypes.SmsInitReq) (code int32, result *rexTypes.SmsInitResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.SmsInitResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/sms/init", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/sms/init", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request mas:BaseService:SmsVerificationInit  error: %v", err)
@@ -119,7 +119,7 @@ func (m *defaultBaseService) SmsVerificationInit(ctx context.Context, params *re
 
 func (m *defaultBaseService) SmsVerificationVerify(ctx context.Context, params *rexTypes.SmsVerifyReq) (code int32, result *rexTypes.SmsVerifyResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.SmsVerifyResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/sms/verify", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/sms/verify", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request mas:BaseService:SmsVerificationVerify  error: %v", err)

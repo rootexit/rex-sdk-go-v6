@@ -13,11 +13,11 @@ type (
 	}
 )
 
-func NewUpsService(rexCtx *rexCtx.EngineCtx) UpsService {
+func NewUpsService(SdkCtx *sdkCtx.SdkCtx) UpsService {
 	return UpsService{
-		BaseService:      NewBaseService(rexCtx),
-		TagService:       NewTagService(rexCtx),
-		IndustryService:  NewIndustryService(rexCtx),
-		ShortLinkService: NewShortLinkService(rexCtx),
+		BaseService:      NewBaseService(SdkCtx),
+		TagService:       NewTagService(SdkCtx),
+		IndustryService:  NewIndustryService(SdkCtx),
+		ShortLinkService: NewShortLinkService(SdkCtx),
 	}
 }

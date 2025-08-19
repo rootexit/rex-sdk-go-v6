@@ -10,8 +10,8 @@ type (
 	}
 )
 
-func NewMasService(rexCtx *rexCtx.EngineCtx) MasService {
+func NewMasService(SdkCtx *sdkCtx.SdkCtx) MasService {
 	return MasService{
-		BaseService: NewBaseService(rexCtx),
+		BaseService: NewBaseService(SdkCtx),
 	}
 }

@@ -30,20 +30,20 @@ type (
 
 	defaultWechatOffiaccountService struct {
 		Svc    string
-		rexCtx *rexCtx.EngineCtx
+		SdkCtx *sdkCtx.SdkCtx
 	}
 )
 
-func NewWechatOffiaccountService(rexCtx *rexCtx.EngineCtx) WechatOffiaccountService {
+func NewWechatOffiaccountService(SdkCtx *sdkCtx.SdkCtx) WechatOffiaccountService {
 	return &defaultWechatOffiaccountService{
 		Svc:    "tpas",
-		rexCtx: rexCtx,
+		SdkCtx: SdkCtx,
 	}
 }
 
 func (m *defaultWechatOffiaccountService) Code2Token(ctx context.Context, params *rexTypes.WechatOffiaccountCode2TokenReq) (code int32, result *rexTypes.WechatOffiaccountCode2TokenResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.WechatOffiaccountCode2TokenResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/tpas/wechatOffiaccount/code2token", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/tpas/wechatOffiaccount/code2token", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request tpas:WechatOffiaccountService:Code2Token error: %v", err)
@@ -59,7 +59,7 @@ func (m *defaultWechatOffiaccountService) Code2Token(ctx context.Context, params
 
 func (m *defaultWechatOffiaccountService) ForceRefreshOffiaccountAccessToken(ctx context.Context, params *rexTypes.WechatForceRefreshOffiaccountAccessTokenReq) (code int32, result *rexTypes.WechatForceRefreshOffiaccountAccessTokenResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.WechatForceRefreshOffiaccountAccessTokenResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/tpas/wechatOffiaccount/forceRefreshOffiaccountAccessToken", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/tpas/wechatOffiaccount/forceRefreshOffiaccountAccessToken", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request tpas:WechatOffiaccountService:ForceRefreshOffiaccountAccessToken error: %v", err)
@@ -75,7 +75,7 @@ func (m *defaultWechatOffiaccountService) ForceRefreshOffiaccountAccessToken(ctx
 
 func (m *defaultWechatOffiaccountService) GetAccessToken(ctx context.Context, params *rexTypes.WechatOffiaccountGetAccessTokenReq) (code int32, result *rexTypes.WechatOffiaccountGetAccessTokenResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.WechatOffiaccountGetAccessTokenResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/tpas/wechatOffiaccount/getAccessToken", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/tpas/wechatOffiaccount/getAccessToken", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request tpas:WechatOffiaccountService:GetAccessToken error: %v", err)
@@ -91,7 +91,7 @@ func (m *defaultWechatOffiaccountService) GetAccessToken(ctx context.Context, pa
 
 func (m *defaultWechatOffiaccountService) GetJsApiTicket(ctx context.Context, params *rexTypes.WechatOffiaccountGetJsApiTicketReq) (code int32, result *rexTypes.WechatOffiaccountGetJsApiTicketResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.WechatOffiaccountGetJsApiTicketResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/tpas/wechatOffiaccount/getJsApiTicket", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/tpas/wechatOffiaccount/getJsApiTicket", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request tpas:WechatOffiaccountService:GetJsApiTicket error: %v", err)
@@ -107,7 +107,7 @@ func (m *defaultWechatOffiaccountService) GetJsApiTicket(ctx context.Context, pa
 
 func (m *defaultWechatOffiaccountService) GenShareConfig(ctx context.Context, params *rexTypes.WechatOffiaccountGenShareConfigReq) (code int32, result *rexTypes.WechatOffiaccountGenShareConfigResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.WechatOffiaccountGenShareConfigResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/tpas/wechatOffiaccount/genShareConfig", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/tpas/wechatOffiaccount/genShareConfig", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request tpas:WechatOffiaccountService:GenShareConfig error: %v", err)
@@ -123,7 +123,7 @@ func (m *defaultWechatOffiaccountService) GenShareConfig(ctx context.Context, pa
 
 func (m *defaultWechatOffiaccountService) GenRedirectUrl(ctx context.Context, params *rexTypes.WechatOffiaccountGenRedirectUrlReq) (code int32, result *rexTypes.WechatOffiaccountGenRedirectUrlResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.WechatOffiaccountGenRedirectUrlResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/tpas/wechatOffiaccount/genRedirectUrl", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/tpas/wechatOffiaccount/genRedirectUrl", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request tpas:WechatOffiaccountService:GenRedirectUrl error: %v", err)

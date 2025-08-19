@@ -21,21 +21,21 @@ type (
 
 	defaultAkcService struct {
 		Svc    string
-		rexCtx *rexCtx.EngineCtx
+		SdkCtx *sdkCtx.SdkCtx
 	}
 )
 
-func NewAkcService(rexCtx *rexCtx.EngineCtx) AkcService {
+func NewAkcService(SdkCtx *sdkCtx.SdkCtx) AkcService {
 	// note: 初始化Kms系统
 	return &defaultAkcService{
 		Svc:    "kms",
-		rexCtx: rexCtx,
+		SdkCtx: SdkCtx,
 	}
 }
 
 func (m *defaultAkcService) CreateKeychain(ctx context.Context, params *rexTypes.KmsAkcCreateKeychainReq) (code int32, result *rexTypes.KmsAkcCreateKeychainResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.KmsAkcCreateKeychainResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/akc/createKeychain", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/akc/createKeychain", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request kms:AkcService:CreateKeychain error: %v", err)
@@ -51,7 +51,7 @@ func (m *defaultAkcService) CreateKeychain(ctx context.Context, params *rexTypes
 
 func (m *defaultAkcService) Sign(ctx context.Context, params *rexTypes.KmsAkcSignReq) (code int32, result *rexTypes.KmsAkcSignResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.KmsAkcSignResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/akc/sign", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/akc/sign", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request kms:AkcService:Sign error: %v", err)
@@ -67,7 +67,7 @@ func (m *defaultAkcService) Sign(ctx context.Context, params *rexTypes.KmsAkcSig
 
 func (m *defaultAkcService) Verify(ctx context.Context, params *rexTypes.KmsAkcVerifyReq) (code int32, result *rexTypes.KmsAkcVerifyResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.KmsAkcVerifyResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/akc/verify", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/akc/verify", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request kms:AkcService:Verify  error: %v", err)

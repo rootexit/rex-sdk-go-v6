@@ -28,20 +28,20 @@ type (
 	}
 	defaultBaseService struct {
 		Svc    string
-		rexCtx *rexCtx.EngineCtx
+		SdkCtx *sdkCtx.SdkCtx
 	}
 )
 
-func NewBaseService(rexCtx *rexCtx.EngineCtx) BaseService {
+func NewBaseService(SdkCtx *sdkCtx.SdkCtx) BaseService {
 	return &defaultBaseService{
 		Svc:    "ups",
-		rexCtx: rexCtx,
+		SdkCtx: SdkCtx,
 	}
 }
 
 func (m *defaultBaseService) Bootstrap(ctx context.Context, params *rexTypes.UpsBaseBootstrapReq) (code int32, result *rexTypes.UpsBaseBootstrapResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.UpsBaseBootstrapResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/base/bootstrap", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/base/bootstrap", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request error: %v", err)
@@ -57,7 +57,7 @@ func (m *defaultBaseService) Bootstrap(ctx context.Context, params *rexTypes.Ups
 
 func (m *defaultBaseService) Create(ctx context.Context, params *rexTypes.AllowCreateModelObject) (code int32, result *rexTypes.ObjectApiCreateResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ObjectApiCreateResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/object/create", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/object/create", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request error: %v", err)
@@ -77,7 +77,7 @@ func (m *defaultBaseService) Delete(ctx context.Context, params *rexTypes.Object
 	if params.Id != 0 {
 		relativePath = fmt.Sprintf("/ups/object/delete?id=%d", params.Id)
 	}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request error: %v", err)
@@ -93,7 +93,7 @@ func (m *defaultBaseService) Delete(ctx context.Context, params *rexTypes.Object
 
 func (m *defaultBaseService) DeleteMany(ctx context.Context, params *rexTypes.ObjectApiJsonIdsReq) (code int32, result *rexTypes.ObjectApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ObjectApiOKResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/object/deleteMany", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/object/deleteMany", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request error: %v", err)
@@ -109,7 +109,7 @@ func (m *defaultBaseService) DeleteMany(ctx context.Context, params *rexTypes.Ob
 
 func (m *defaultBaseService) Update(ctx context.Context, params *rexTypes.AllowUpdateModelObject) (code int32, result *rexTypes.ObjectApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ObjectApiOKResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/object/update", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/object/update", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request error: %v", err)
@@ -125,7 +125,7 @@ func (m *defaultBaseService) Update(ctx context.Context, params *rexTypes.AllowU
 
 func (m *defaultBaseService) UpdateStatus(ctx context.Context, params *rexTypes.AllowUpdateStatusModelObject) (code int32, result *rexTypes.ObjectApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ObjectApiOKResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/object/updateStatus", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/object/updateStatus", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request error: %v", err)
@@ -146,7 +146,7 @@ func (m *defaultBaseService) Query(ctx context.Context, params *rexTypes.ObjectA
 		relativePath = fmt.Sprintf("/ups/object/query?id=%d", params.Id)
 	}
 	logx.Infof("rex sdk: request path: %s", relativePath)
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:ObjectService:Query error: %v", err)
 		return rexCodes.FAIL, nil, err
@@ -166,7 +166,7 @@ func (m *defaultBaseService) QueryWhereObjectId(ctx context.Context, params *rex
 		relativePath = fmt.Sprintf("/ups/object/query?object_id=%s", params.ObjectId)
 	}
 	logx.Infof("rex sdk: request path: %s", relativePath)
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:ObjectService:Query error: %v", err)
 		return rexCodes.FAIL, nil, err
@@ -181,7 +181,7 @@ func (m *defaultBaseService) QueryWhereObjectId(ctx context.Context, params *rex
 
 func (m *defaultBaseService) QueryListWhereIds(ctx context.Context, params *rexTypes.ObjectApiJsonIdsReq) (code int32, result *rexTypes.ObjectCommonQueryListResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ObjectCommonQueryListResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/object/queryListWhereIds", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/object/queryListWhereIds", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:ObjectService:QueryListWhereIds error: %v", err)
@@ -197,7 +197,7 @@ func (m *defaultBaseService) QueryListWhereIds(ctx context.Context, params *rexT
 
 func (m *defaultBaseService) QueryList(ctx context.Context, params *rexTypes.ObjectCommonSearchParams) (code int32, result *rexTypes.ObjectCommonQueryListResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ObjectCommonQueryListResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/object/queryList", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/object/queryList", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:ObjectService:QueryList error: %v", err)

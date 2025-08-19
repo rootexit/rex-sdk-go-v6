@@ -26,20 +26,20 @@ type (
 	}
 	defaultTagService struct {
 		Svc    string
-		rexCtx *rexCtx.EngineCtx
+		SdkCtx *sdkCtx.SdkCtx
 	}
 )
 
-func NewTagService(rexCtx *rexCtx.EngineCtx) TagService {
+func NewTagService(SdkCtx *sdkCtx.SdkCtx) TagService {
 	return &defaultTagService{
 		Svc:    "ups",
-		rexCtx: rexCtx,
+		SdkCtx: SdkCtx,
 	}
 }
 
 func (m *defaultTagService) Create(ctx context.Context, params *rexTypes.AllowCreateModelTag) (code int32, result *rexTypes.TagApiCreateResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.TagApiCreateResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/tag/create", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/tag/create", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:TagService:Create error: %v", err)
@@ -59,7 +59,7 @@ func (m *defaultTagService) Delete(ctx context.Context, params *rexTypes.TagApiF
 	if params.Id != 0 {
 		relativePath = fmt.Sprintf("/ups/tag/query?id=%d", params.Id)
 	}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:TagService:Delete error: %v", err)
@@ -75,7 +75,7 @@ func (m *defaultTagService) Delete(ctx context.Context, params *rexTypes.TagApiF
 
 func (m *defaultTagService) DeleteMany(ctx context.Context, params *rexTypes.TagApiJsonIdsReq) (code int32, result *rexTypes.TagApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.TagApiOKResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/tag/deleteMany", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/tag/deleteMany", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:TagService:DeleteMany error: %v", err)
@@ -91,7 +91,7 @@ func (m *defaultTagService) DeleteMany(ctx context.Context, params *rexTypes.Tag
 
 func (m *defaultTagService) Update(ctx context.Context, params *rexTypes.AllowUpdateModelTag) (code int32, result *rexTypes.TagApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.TagApiOKResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/tag/update", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/tag/update", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:TagService:Update error: %v", err)
@@ -107,7 +107,7 @@ func (m *defaultTagService) Update(ctx context.Context, params *rexTypes.AllowUp
 
 func (m *defaultTagService) UpdateStatus(ctx context.Context, params *rexTypes.AllowUpdateStatusModelTag) (code int32, result *rexTypes.TagApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.TagApiOKResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/tag/updateStatus", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/tag/updateStatus", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:TagService:UpdateStatus error: %v", err)
@@ -128,7 +128,7 @@ func (m *defaultTagService) Query(ctx context.Context, params *rexTypes.TagApiFo
 		relativePath = fmt.Sprintf("/ups/tag/query?id=%d", params.Id)
 	}
 	logx.Infof("rex sdk: request path: %s", relativePath)
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:TagService:Query error: %v", err)
 		return rexCodes.FAIL, nil, err
@@ -143,7 +143,7 @@ func (m *defaultTagService) Query(ctx context.Context, params *rexTypes.TagApiFo
 
 func (m *defaultTagService) QueryListWhereIds(ctx context.Context, params *rexTypes.TagApiJsonIdsReq) (code int32, result *rexTypes.TagCommonQueryListResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.TagCommonQueryListResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/tag/queryListWhereIds", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/tag/queryListWhereIds", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:TagService:QueryListWhereIds error: %v", err)
@@ -159,7 +159,7 @@ func (m *defaultTagService) QueryListWhereIds(ctx context.Context, params *rexTy
 
 func (m *defaultTagService) QueryList(ctx context.Context, params *rexTypes.TagCommonSearchParams) (code int32, result *rexTypes.TagCommonQueryListResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.TagCommonQueryListResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/tag/queryList", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/tag/queryList", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:TagService:QueryList error: %v", err)

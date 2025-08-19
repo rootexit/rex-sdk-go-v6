@@ -6,10 +6,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/aws/aws-sdk-go/aws/credentials"
-	v4 "github.com/aws/aws-sdk-go/aws/signer/v4"
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexConfig"
-	"github.com/rootexit/rexLib/rexCrypto"
+	"github.com/rootexit/rex-sdk-go-v6/rex/rexSigner"
+	"github.com/rootexit/rexLib/rexCtx"
+	"github.com/rootexit/rexLib/rexHeaders"
 	"github.com/zeromicro/go-zero/core/logx"
 	"io/ioutil"
 	"net/http"
@@ -23,8 +23,8 @@ const (
 
 type QxClient struct {
 	*http.Client
-	conf        *rexConfig.Config
-	credentials *credentials.Credentials
+	conf   *rexConfig.Config
+	signer *rexSigner.Signer
 }
 
 func NewQxClient(c *rexConfig.Config) *QxClient {
@@ -34,11 +34,10 @@ func NewQxClient(c *rexConfig.Config) *QxClient {
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 		},
 	}
-	credentials := credentials.NewStaticCredentials(c.AccessKeyID, c.AccessKeySecret, "")
 	return &QxClient{
-		Client:      httpClient,
-		conf:        c,
-		credentials: credentials,
+		Client: httpClient,
+		conf:   c,
+		signer: rexSigner.NewSigner(c),
 	}
 }
 
@@ -77,8 +76,6 @@ func (cli *QxClient) NewRequest(
 	headers *map[string]string, // 请求头
 	sendBody interface{}) func() (*http.Response, error) { // 返回闭包函数
 
-	signer := v4.NewSigner(cli.credentials)
-
 	var (
 		res *http.Response
 		err error
@@ -90,6 +87,7 @@ func (cli *QxClient) NewRequest(
 		defer close(c) // 保证 goroutine 退出时关闭 channel
 
 		sendBodyJson := ""
+		var payload []byte
 
 		if sendBody != nil {
 			// 将发送体序列化为 JSON
@@ -98,8 +96,11 @@ func (cli *QxClient) NewRequest(
 				err = marshalErr
 				return
 			}
+			logx.Infof("send body: %s", string(sendBodyBt))
 			sendBodyJson = string(sendBodyBt)
+			payload = sendBodyBt
 		}
+		logx.Infof("payload: %s", string(payload))
 
 		sendBodyIo := strings.NewReader(sendBodyJson)
 
@@ -117,14 +118,13 @@ func (cli *QxClient) NewRequest(
 			}
 		}
 
-		req.Header.Set("Content-Type", "application/json")
-		if sendBody != nil {
-			hexContentSha256, _ := rexCrypto.Sha256(sendBodyJson)
-			req.Header.Add("X-Amz-Content-Sha256", hexContentSha256)
-		} else {
-			req.Header.Add("X-Amz-Content-Sha256", emptyStringSHA256)
+		if ctx.Value(rexCtx.CtxRequestId{}) != nil {
+			logx.Infof("CtxRequestId: %s", ctx.Value(rexCtx.CtxRequestId{}))
+			req.Header.Set(rexHeaders.HeaderXRequestIDFor, fmt.Sprintf("%v", ctx.Value(rexCtx.CtxRequestId{})))
 		}
-		signer.Sign(req, sendBodyIo, svc, cli.conf.Region, time.Now())
+
+		req.Header.Set("Content-Type", "application/json")
+		cli.signer.Sign(req, payload, svc, time.Now())
 		res, err = cli.Client.Do(req)
 		if err != nil {
 			return

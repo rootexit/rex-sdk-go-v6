@@ -28,20 +28,20 @@ type (
 	}
 	defaultShortLinkService struct {
 		Svc    string
-		rexCtx *rexCtx.EngineCtx
+		SdkCtx *sdkCtx.SdkCtx
 	}
 )
 
-func NewShortLinkService(rexCtx *rexCtx.EngineCtx) ShortLinkService {
+func NewShortLinkService(SdkCtx *sdkCtx.SdkCtx) ShortLinkService {
 	return &defaultShortLinkService{
 		Svc:    "ups",
-		rexCtx: rexCtx,
+		SdkCtx: SdkCtx,
 	}
 }
 
 func (m *defaultShortLinkService) GetRedirectResult(ctx context.Context, params *rexTypes.GetRedirectResultReq) (code int32, result *rexTypes.GetRedirectResultResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.GetRedirectResultResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/getRedirectResult", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/getRedirectResult", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request(code int32, resulterror: %v", err)
@@ -57,7 +57,7 @@ func (m *defaultShortLinkService) GetRedirectResult(ctx context.Context, params 
 
 func (m *defaultShortLinkService) Create(ctx context.Context, params *rexTypes.AllowCreateModelShortLink) (code int32, result *rexTypes.ShortLinkApiCreateResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ShortLinkApiCreateResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/create", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/create", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:ShortLinkService:Create  error: %v", err)
@@ -77,7 +77,7 @@ func (m *defaultShortLinkService) Delete(ctx context.Context, params *rexTypes.S
 	if params.Id != 0 {
 		relativePath = fmt.Sprintf("/ups/shortLink/delete?id=%d", params.Id)
 	}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:ShortLinkService:Delete  error: %v", err)
@@ -93,7 +93,7 @@ func (m *defaultShortLinkService) Delete(ctx context.Context, params *rexTypes.S
 
 func (m *defaultShortLinkService) DeleteMany(ctx context.Context, params *rexTypes.ShortLinkApiJsonIdsReq) (code int32, result *rexTypes.ShortLinkApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ShortLinkApiOKResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/deleteMany", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/deleteMany", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:ShortLinkService:DeleteMany  error: %v", err)
@@ -109,7 +109,7 @@ func (m *defaultShortLinkService) DeleteMany(ctx context.Context, params *rexTyp
 
 func (m *defaultShortLinkService) Update(ctx context.Context, params *rexTypes.AllowUpdateModelShortLink) (code int32, result *rexTypes.ShortLinkApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ShortLinkApiOKResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/update", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/update", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:ShortLinkService:Update  error: %v", err)
@@ -125,7 +125,7 @@ func (m *defaultShortLinkService) Update(ctx context.Context, params *rexTypes.A
 
 func (m *defaultShortLinkService) UpdateStatus(ctx context.Context, params *rexTypes.AllowUpdateStatusModelShortLink) (code int32, result *rexTypes.ShortLinkApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ShortLinkApiOKResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/updateStatus", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/updateStatus", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:ShortLinkService:UpdateStatus  error: %v", err)
@@ -146,7 +146,7 @@ func (m *defaultShortLinkService) Query(ctx context.Context, params *rexTypes.Sh
 		relativePath = fmt.Sprintf("/ups/shortLink/query?id=%d", params.Id)
 	}
 	logx.Infof("rex sdk: request path: %s", relativePath)
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:ShortLinkService:Query  error: %v", err)
 		return rexCodes.FAIL, nil, err
@@ -166,7 +166,7 @@ func (m *defaultShortLinkService) QueryWhereKey(ctx context.Context, params *rex
 		relativePath = fmt.Sprintf("/ups/shortLink/queryWhereKey?key=%d", params.Key)
 	}
 	logx.Infof("rex sdk: request path: %s", relativePath)
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:ShortLinkService:QueryWhereKey  error: %v", err)
 		return rexCodes.FAIL, nil, err
@@ -181,7 +181,7 @@ func (m *defaultShortLinkService) QueryWhereKey(ctx context.Context, params *rex
 
 func (m *defaultShortLinkService) QueryListWhereIds(ctx context.Context, params *rexTypes.ShortLinkApiJsonIdsReq) (code int32, result *rexTypes.ShortLinkCommonQueryListResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ShortLinkCommonQueryListResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/queryListWhereIds", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/queryListWhereIds", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:ShortLinkService:QueryListWhereIds  error: %v", err)
@@ -197,7 +197,7 @@ func (m *defaultShortLinkService) QueryListWhereIds(ctx context.Context, params 
 
 func (m *defaultShortLinkService) QueryList(ctx context.Context, params *rexTypes.ShortLinkCommonSearchParams) (code int32, result *rexTypes.ShortLinkCommonQueryListResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ShortLinkCommonQueryListResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/queryList", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/shortLink/queryList", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:ShortLinkService:QueryList  error: %v", err)

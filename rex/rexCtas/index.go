@@ -11,9 +11,9 @@ type (
 	}
 )
 
-func NewCtasService(rexCtx *rexCtx.EngineCtx) CtasService {
+func NewCtasService(SdkCtx *sdkCtx.SdkCtx) CtasService {
 	return CtasService{
-		BaseService:        NewBaseService(rexCtx),
-		PeriodicJobService: NewPeriodicJobService(rexCtx),
+		BaseService:        NewBaseService(SdkCtx),
+		PeriodicJobService: NewPeriodicJobService(SdkCtx),
 	}
 }

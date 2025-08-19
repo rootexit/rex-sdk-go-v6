@@ -10,13 +10,13 @@ type (
 
 	defaultBaseService struct {
 		Svc    string
-		rexCtx *rexCtx.EngineCtx
+		SdkCtx *sdkCtx.SdkCtx
 	}
 )
 
-func NewBaseService(rexCtx *rexCtx.EngineCtx) BaseService {
+func NewBaseService(SdkCtx *sdkCtx.SdkCtx) BaseService {
 	return &defaultBaseService{
 		Svc:    "ctas",
-		rexCtx: rexCtx,
+		SdkCtx: SdkCtx,
 	}
 }

@@ -13,9 +13,9 @@ type (
 	}
 )
 
-func NewKmsService(rexCtx *rexCtx.EngineCtx) KmsService {
+func NewKmsService(SdkCtx *sdkCtx.SdkCtx) KmsService {
 	return KmsService{
-		Akc: akc.NewAkcService(rexCtx),
-		Skc: skc.NewSkcService(rexCtx),
+		Akc: akc.NewAkcService(SdkCtx),
+		Skc: skc.NewSkcService(SdkCtx),
 	}
 }

@@ -20,27 +20,28 @@ type (
 	}
 	defaultBaseService struct {
 		Svc    string
-		rexCtx *rexCtx.EngineCtx
+		SdkCtx *sdkCtx.SdkCtx
 	}
 )
 
-func NewQxBaseService(rexCtx *rexCtx.EngineCtx) BaseService {
+func NewQxBaseService(SdkCtx *sdkCtx.SdkCtx) BaseService {
 	return &defaultBaseService{
 		Svc:    "base",
-		rexCtx: rexCtx,
+		SdkCtx: SdkCtx,
 	}
 }
 
 func (m *defaultBaseService) Codes(ctx context.Context, params *rexTypes.CodesReq) (code int32, result *rexTypes.CodesResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.CodesResp]{}
-	relativePath := ""
-	if params.Lang != "" || params.Svc != "" {
-		v, _ := query.Values(params)
-		relativePath = fmt.Sprintf("/base/codes?%s", v.Encode())
-	} else {
-		relativePath = "/base/codes"
+	relativePath := "/base/codes"
+	if params.Lang != "" && params.Svc != "" {
+		relativePath = fmt.Sprintf("/base/codes?lang=%s&svc=%s", params.Lang, params.Svc)
+	} else if params.Lang != "" {
+		relativePath = fmt.Sprintf("/base/codes?lang=%s", params.Lang)
+	} else if params.Svc != "" {
+		relativePath = fmt.Sprintf("/base/codes?svc=%s", params.Svc)
 	}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, nil)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, nil)
 	if err != nil {
 		logx.Errorf("rex sdk: request base:BaseService:Codes error: %v", err)
 		return rexCodes.FAIL, nil, err
@@ -62,7 +63,7 @@ func (m *defaultBaseService) Zones(ctx context.Context, params *rexTypes.ZonesRe
 	} else {
 		relativePath = "/base/zones"
 	}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, nil)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, nil)
 	if err != nil {
 		logx.Errorf("rex sdk: request base:BaseService:Zones error: %v", err)
 		return rexCodes.FAIL, nil, err

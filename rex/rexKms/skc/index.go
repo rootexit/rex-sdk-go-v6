@@ -24,21 +24,21 @@ type (
 
 	defaultSkcService struct {
 		Svc    string
-		rexCtx *rexCtx.EngineCtx
+		SdkCtx *sdkCtx.SdkCtx
 	}
 )
 
-func NewSkcService(rexCtx *rexCtx.EngineCtx) SkcService {
+func NewSkcService(SdkCtx *sdkCtx.SdkCtx) SkcService {
 	// note: 初始化Kms系统
 	return &defaultSkcService{
 		Svc:    "kms",
-		rexCtx: rexCtx,
+		SdkCtx: SdkCtx,
 	}
 }
 
 func (m *defaultSkcService) CreateKeychain(ctx context.Context, params *rexTypes.KmsSkcCreateKeychainReq) (code int32, result *rexTypes.KmsSkcCreateKeychainResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.KmsSkcCreateKeychainResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/skc/createKeychain", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/skc/createKeychain", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request kms:SkcService:CreateKeychain error: %v", err)
@@ -54,7 +54,7 @@ func (m *defaultSkcService) CreateKeychain(ctx context.Context, params *rexTypes
 
 func (m *defaultSkcService) Encrypt(ctx context.Context, params *rexTypes.KmsSkcEncryptReq) (code int32, result *rexTypes.KmsSkcEncryptResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.KmsSkcEncryptResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/skc/encrypt", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/skc/encrypt", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request kms:SkcService:Encrypt error: %v", err)
@@ -70,7 +70,7 @@ func (m *defaultSkcService) Encrypt(ctx context.Context, params *rexTypes.KmsSkc
 
 func (m *defaultSkcService) Decrypt(ctx context.Context, params *rexTypes.KmsSkcDecryptReq) (code int32, result *rexTypes.KmsSkcDecryptResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.KmsSkcDecryptResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/skc/decrypt", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/skc/decrypt", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request kms:SkcService:Decrypt error: %v", err)
@@ -86,7 +86,7 @@ func (m *defaultSkcService) Decrypt(ctx context.Context, params *rexTypes.KmsSkc
 
 func (m *defaultSkcService) BatchEncrypt(ctx context.Context, params *rexTypes.KmsSkcBatchEncryptReq) (code int32, result *rexTypes.KmsSkcBatchEncryptResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.KmsSkcBatchEncryptResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/skc/batchEncrypt", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/skc/batchEncrypt", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request kms:SkcService:BatchEncrypt error: %v", err)
@@ -102,7 +102,7 @@ func (m *defaultSkcService) BatchEncrypt(ctx context.Context, params *rexTypes.K
 
 func (m *defaultSkcService) BatchDecrypt(ctx context.Context, params *rexTypes.KmsSkcBatchDecryptReq) (code int32, result *rexTypes.KmsSkcBatchDecryptResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.KmsSkcBatchDecryptResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/skc/batchDecrypt", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/skc/batchDecrypt", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request kms:SkcService:BatchDecrypt error: %v", err)
@@ -118,7 +118,7 @@ func (m *defaultSkcService) BatchDecrypt(ctx context.Context, params *rexTypes.K
 
 func (m *defaultSkcService) Compare(ctx context.Context, params *rexTypes.KmsSkcCompareReq) (code int32, result *rexTypes.KmsSkcCompareResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.KmsSkcCompareResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/skc/compare", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/skc/compare", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request kms:SkcService:Compare error: %v", err)

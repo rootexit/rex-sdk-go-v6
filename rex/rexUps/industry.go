@@ -26,20 +26,20 @@ type (
 	}
 	defaultIndustryService struct {
 		Svc    string
-		rexCtx *rexCtx.EngineCtx
+		SdkCtx *sdkCtx.SdkCtx
 	}
 )
 
-func NewIndustryService(rexCtx *rexCtx.EngineCtx) IndustryService {
+func NewIndustryService(SdkCtx *sdkCtx.SdkCtx) IndustryService {
 	return &defaultIndustryService{
 		Svc:    "ups",
-		rexCtx: rexCtx,
+		SdkCtx: SdkCtx,
 	}
 }
 
 func (m *defaultIndustryService) Create(ctx context.Context, params *rexTypes.AllowCreateModelIndustry) (code int32, result *rexTypes.IndustryApiCreateResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.IndustryApiCreateResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/create", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/create", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request error: %v", err)
@@ -59,7 +59,7 @@ func (m *defaultIndustryService) Delete(ctx context.Context, params *rexTypes.In
 	if params.Id != 0 {
 		relativePath = fmt.Sprintf("/ups/industry/delete?id=%d", params.Id)
 	}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request error: %v", err)
@@ -75,7 +75,7 @@ func (m *defaultIndustryService) Delete(ctx context.Context, params *rexTypes.In
 
 func (m *defaultIndustryService) DeleteMany(ctx context.Context, params *rexTypes.IndustryApiJsonIdsReq) (code int32, result *rexTypes.IndustryApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.IndustryApiOKResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/deleteMany", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/deleteMany", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request error: %v", err)
@@ -91,7 +91,7 @@ func (m *defaultIndustryService) DeleteMany(ctx context.Context, params *rexType
 
 func (m *defaultIndustryService) Update(ctx context.Context, params *rexTypes.AllowUpdateModelIndustry) (code int32, result *rexTypes.IndustryApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.IndustryApiOKResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/update", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/update", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request error: %v", err)
@@ -107,7 +107,7 @@ func (m *defaultIndustryService) Update(ctx context.Context, params *rexTypes.Al
 
 func (m *defaultIndustryService) UpdateStatus(ctx context.Context, params *rexTypes.AllowUpdateStatusModelIndustry) (code int32, result *rexTypes.IndustryApiOKResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.IndustryApiOKResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/updateStatus", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/updateStatus", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request error: %v", err)
@@ -128,7 +128,7 @@ func (m *defaultIndustryService) Query(ctx context.Context, params *rexTypes.Ind
 		relativePath = fmt.Sprintf("/ups/industry/query?id=%d", params.Id)
 	}
 	logx.Infof("rex sdk: request path: %s", relativePath)
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:IndustryService:Query error: %v", err)
 		return rexCodes.FAIL, nil, err
@@ -143,7 +143,7 @@ func (m *defaultIndustryService) Query(ctx context.Context, params *rexTypes.Ind
 
 func (m *defaultIndustryService) QueryListWhereIds(ctx context.Context, params *rexTypes.IndustryApiJsonIdsReq) (code int32, result *rexTypes.IndustryCommonQueryListResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.IndustryCommonQueryListResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/queryListWhereIds", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/queryListWhereIds", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:IndustryService:QueryListWhereIds error: %v", err)
@@ -159,7 +159,7 @@ func (m *defaultIndustryService) QueryListWhereIds(ctx context.Context, params *
 
 func (m *defaultIndustryService) QueryList(ctx context.Context, params *rexTypes.IndustryCommonSearchParams) (code int32, result *rexTypes.IndustryCommonQueryListResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.IndustryCommonQueryListResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/queryList", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ups/industry/queryList", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ups:IndustryService:QueryList error: %v", err)

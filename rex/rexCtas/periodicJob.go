@@ -22,20 +22,20 @@ type (
 
 	defaultPeriodicJobService struct {
 		Svc    string
-		rexCtx *rexCtx.EngineCtx
+		SdkCtx *sdkCtx.SdkCtx
 	}
 )
 
-func NewPeriodicJobService(rexCtx *rexCtx.EngineCtx) PeriodicJobService {
+func NewPeriodicJobService(SdkCtx *sdkCtx.SdkCtx) PeriodicJobService {
 	return &defaultPeriodicJobService{
 		Svc:    "ctas",
-		rexCtx: rexCtx,
+		SdkCtx: SdkCtx,
 	}
 }
 
 func (m *defaultPeriodicJobService) Add(ctx context.Context, params *rexTypes.CtasPeriodicJobAddReq) (code int32, result *rexTypes.CtasPeriodicJobAddResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.CtasPeriodicJobAddResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ctas/periodicJob/add", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ctas/periodicJob/add", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ctas:PeriodicJobService:Add  error: %v", err)
@@ -51,7 +51,7 @@ func (m *defaultPeriodicJobService) Add(ctx context.Context, params *rexTypes.Ct
 
 func (m *defaultPeriodicJobService) Remove(ctx context.Context, params *rexTypes.CtasPeriodicJobRemoveReq) (code int32, result *rexTypes.CtasPeriodicJobRemoveResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.CtasPeriodicJobRemoveResp]{}
-	res, err := m.rexCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ctas/periodicJob/remove", http.MethodPost, &params)
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/ctas/periodicJob/remove", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request ctas:PeriodicJobService:Remove  error: %v", err)
