@@ -15,7 +15,7 @@ import (
 
 type Sdk struct {
 	config        *rexConfig.Config
-	client        *rexClient.QxClient
+	client        *rexClient.Client
 	rexCtx        *sdkCtx.SdkCtx
 	QxBaseService rexBase.BaseService
 	KmsService    rexKms.KmsService
@@ -32,7 +32,7 @@ func NewSdk(c *rexConfig.Config) (*Sdk, error) {
 		return nil, err
 	}
 	// note: sdk初始化
-	client := rexClient.NewQxClient(c)
+	client := rexClient.NewClient(c)
 	rexC := sdkCtx.NewSdkCtx(client)
 
 	sdk := &Sdk{

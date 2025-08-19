@@ -8,10 +8,10 @@ import (
 type SdkCtx struct {
 	Context context.Context
 	Cancel  context.CancelFunc
-	Cli     *rexClient.QxClient
+	Cli     *rexClient.Client
 }
 
-func NewSdkCtx(client *rexClient.QxClient) *SdkCtx {
+func NewSdkCtx(client *rexClient.Client) *SdkCtx {
 	ctx, cancel := context.WithCancel(context.Background())
 	return &SdkCtx{
 		Context: ctx,

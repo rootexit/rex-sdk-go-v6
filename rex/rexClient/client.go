@@ -21,27 +21,27 @@ const (
 	emptyStringSHA256 = `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`
 )
 
-type QxClient struct {
+type Client struct {
 	*http.Client
 	conf   *rexConfig.Config
 	signer *rexSigner.Signer
 }
 
-func NewQxClient(c *rexConfig.Config) *QxClient {
+func NewClient(c *rexConfig.Config) *Client {
 	httpClient := &http.Client{
 		Timeout: time.Duration(c.Timeout) * time.Millisecond,
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 		},
 	}
-	return &QxClient{
+	return &Client{
 		Client: httpClient,
 		conf:   c,
 		signer: rexSigner.NewSigner(c),
 	}
 }
 
-func (cli *QxClient) EasyNewRequest(ctx context.Context, svc string, relativePath string, method string, sendBody interface{}) ([]byte, error) {
+func (cli *Client) EasyNewRequest(ctx context.Context, svc string, relativePath string, method string, sendBody interface{}) ([]byte, error) {
 	apiUrl := fmt.Sprintf("%s://%s%s%s", cli.conf.Protocol, cli.conf.Endpoint, "/rex/v5/apis", relativePath)
 	if cli.conf.Debug {
 		logx.Infof("打印一下请求的url :%s", apiUrl)
@@ -68,7 +68,7 @@ func (cli *QxClient) EasyNewRequest(ctx context.Context, svc string, relativePat
 	return body, nil
 }
 
-func (cli *QxClient) NewRequest(
+func (cli *Client) NewRequest(
 	ctx context.Context, // 新增 context 参数
 	svc string,
 	url string, // URL
@@ -120,7 +120,7 @@ func (cli *QxClient) NewRequest(
 
 		if ctx.Value(rexCtx.CtxRequestId{}) != nil {
 			logx.Infof("CtxRequestId: %s", ctx.Value(rexCtx.CtxRequestId{}))
-			req.Header.Set(rexHeaders.HeaderXRequestIDFor, fmt.Sprintf("%v", ctx.Value(rexCtx.CtxRequestId{})))
+			req.Header.Set(rexHeaders.HeaderXRequestIdFor, fmt.Sprintf("%v", ctx.Value(rexCtx.CtxRequestId{})))
 		}
 
 		req.Header.Set("Content-Type", "application/json")
