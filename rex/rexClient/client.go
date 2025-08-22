@@ -96,11 +96,9 @@ func (cli *Client) NewRequest(
 				err = marshalErr
 				return
 			}
-			logx.Infof("send body: %s", string(sendBodyBt))
 			sendBodyJson = string(sendBodyBt)
 			payload = sendBodyBt
 		}
-		logx.Infof("payload: %s", string(payload))
 
 		sendBodyIo := strings.NewReader(sendBodyJson)
 

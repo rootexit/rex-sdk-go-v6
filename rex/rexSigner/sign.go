@@ -25,7 +25,9 @@ func NewSigner(conf *rexConfig.Config) *Signer {
 		region = conf.Region
 	}
 	s := rexCustomAwsSign.NewCustomSigner("REx", 1)
-	//s.WithDebug(true)
+	if conf.Debug {
+		s.WithDebug(true)
+	}
 	return &Signer{
 		AccessKeyID:     conf.AccessKeyID,
 		AccessKeySecret: conf.AccessKeySecret,
@@ -35,13 +37,10 @@ func NewSigner(conf *rexConfig.Config) *Signer {
 }
 
 func (s *Signer) Sign(req *http.Request, bodyBytes []byte, svc string, reqTime time.Time) error {
-
 	hexContentSha256 := s.signer.Sha256Content(bodyBytes)
 	req.Header.Add(s.signer.GetHeaderContentSha256(), hexContentSha256)
-
 	timeStr := s.signer.FormatDate(reqTime)
 	req.Header.Add(s.signer.GetHeaderDate(), timeStr)
-
 	canonicalHeaders, signedHeadersStr := s.signer.BuildCanonicalHeaders(req)
 	canonicalString := s.signer.BuildCanonicalString(req, canonicalHeaders, signedHeadersStr, hexContentSha256)
 	credentialString := s.signer.BuildCredentialString(s.Region, svc, reqTime)
@@ -49,6 +48,5 @@ func (s *Signer) Sign(req *http.Request, bodyBytes []byte, svc string, reqTime t
 	signature := s.signer.BuildSignature(s.Region, svc, s.AccessKeySecret, stringToSign, reqTime)
 	auth := s.signer.SignAuth(s.AccessKeyID, credentialString, signedHeadersStr, signature)
 	req.Header.Set(rexHeaders.HeaderAuthorization, auth)
-
 	return nil
 }
