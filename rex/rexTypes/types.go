@@ -303,9 +303,9 @@ type KmsAkcCreateKeychainReq struct {
 }
 
 type KmsAkcCreateKeychainResp struct {
-	Id        uint32 `json:"id"`
-	Jwk       string `json:"jwk"`
-	PublicKey string `json:"public_key"`
+	Id        uint32   `json:"id"`
+	Jwk       ModelJwk `json:"jwk"`
+	PublicKey string   `json:"public_key"`
 }
 
 type KmsAkcGetKeychainPublicKeyReq struct {
@@ -313,8 +313,8 @@ type KmsAkcGetKeychainPublicKeyReq struct {
 }
 
 type KmsAkcGetKeychainPublicKeyResp struct {
-	PublicKey string `json:"public_key"`
-	Jwk       string `json:"jwk"`
+	PublicKey string   `json:"public_key"`
+	Jwk       ModelJwk `json:"jwk"`
 }
 
 type KmsAkcSignReq struct {
@@ -473,6 +473,18 @@ type ModelIndustry struct {
 	Remark            string `json:"remark"`             // 备注
 	ParentId          uint32 `json:"parent_id"`
 	Sort              int64  `json:"sort"`
+}
+
+type ModelJwk struct {
+	Kty string `json:"kty,omitempty"`
+	Alg string `json:"alg,omitempty"`
+	Use string `json:"use,omitempty"`
+	Kid string `json:"kid,omitempty"`
+	N   string `json:"n,omitempty"`
+	E   string `json:"e,omitempty"`
+	X   string `json:"x,omitempty"`
+	Y   string `json:"y,omitempty"`
+	Crv string `json:"crv,omitempty"`
 }
 
 type ModelObject struct {
