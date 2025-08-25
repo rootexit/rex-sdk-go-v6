@@ -296,16 +296,16 @@ type IpWhiteResp struct {
 }
 
 type KmsAkcCreateKeychainReq struct {
-	CertType string `json:"cert_type"`
-	Name     string `json:"name"`
+	KeyType string `json:"key_type"`
+	Name    string `json:"name"`
+	Alg     string `json:"alg,options=ES256|ES256K|ES384|ES512|EdDSA|PS256|PS384|PS512|RS256|RS384|RS512"`
+	RsaBits int    `json:"rsa_bits,optional"`
 }
 
 type KmsAkcCreateKeychainResp struct {
-	Status     string `json:"status"`
-	Name       string `json:"name"`
-	SignMethod string `json:"sign_method"`
-	CertType   string `json:"cert_type"`
-	PublicKey  string `json:"public_key"`
+	Id        uint32 `json:"id"`
+	Jwk       string `json:"jwk"`
+	PublicKey string `json:"public_key"`
 }
 
 type KmsAkcGetKeychainPublicKeyReq struct {
@@ -313,10 +313,8 @@ type KmsAkcGetKeychainPublicKeyReq struct {
 }
 
 type KmsAkcGetKeychainPublicKeyResp struct {
-	Name       string `json:"name"`
-	SignMethod string `json:"sign_method"`
-	CertType   string `json:"cert_type"`
-	PublicKey  string `json:"public_key"`
+	PublicKey string `json:"public_key"`
+	Jwk       string `json:"jwk"`
 }
 
 type KmsAkcSignReq struct {
@@ -330,9 +328,8 @@ type KmsAkcSignResp struct {
 }
 
 type KmsAkcVerifyReq struct {
-	Name        string `json:"name"`
-	SignContent string `json:"sign_content"`
-	Sign        string `json:"sign"`
+	Name string `json:"name"`
+	Sign string `json:"sign"`
 }
 
 type KmsAkcVerifyResp struct {
