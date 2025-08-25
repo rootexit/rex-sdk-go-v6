@@ -14,6 +14,7 @@ import (
 
 type (
 	AkcService interface {
+		GetPublicKey(ctx context.Context, params *rexTypes.KmsAkcGetKeychainPublicKeyReq) (code int32, result *rexTypes.KmsAkcGetKeychainPublicKeyResp, err error)
 		CreateKeychain(ctx context.Context, params *rexTypes.KmsAkcCreateKeychainReq) (code int32, result *rexTypes.KmsAkcCreateKeychainResp, err error)
 		Sign(ctx context.Context, params *rexTypes.KmsAkcSignReq) (code int32, result *rexTypes.KmsAkcSignResp, err error)
 		Verify(ctx context.Context, params *rexTypes.KmsAkcVerifyReq) (code int32, result *rexTypes.KmsAkcVerifyResp, err error)
@@ -31,6 +32,22 @@ func NewAkcService(SdkCtx *sdkCtx.SdkCtx) AkcService {
 		Svc:    "kms",
 		SdkCtx: SdkCtx,
 	}
+}
+
+func (m *defaultAkcService) GetPublicKey(ctx context.Context, params *rexTypes.KmsAkcGetKeychainPublicKeyReq) (code int32, result *rexTypes.KmsAkcGetKeychainPublicKeyResp, err error) {
+	tmp := &rexRes.BaseResponse[rexTypes.KmsAkcGetKeychainPublicKeyResp]{}
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/akc/getKeychainPublicKey", http.MethodPost, &params)
+
+	if err != nil {
+		logx.Errorf("rex sdk: request kms:AkcService:CreateKeychain error: %v", err)
+		return rexCodes.FAIL, nil, err
+	}
+	_ = json.Unmarshal(res, &tmp)
+	if tmp.Code != rexCodes.OK {
+		logx.Errorf("rex sdk: request kms:AkcService:CreateKeychain fail: %v", tmp)
+		return tmp.Code, &tmp.Data, errors.New(tmp.Msg)
+	}
+	return rexCodes.OK, &tmp.Data, nil
 }
 
 func (m *defaultAkcService) CreateKeychain(ctx context.Context, params *rexTypes.KmsAkcCreateKeychainReq) (code int32, result *rexTypes.KmsAkcCreateKeychainResp, err error) {
