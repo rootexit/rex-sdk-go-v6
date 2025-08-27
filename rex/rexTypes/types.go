@@ -309,7 +309,8 @@ type KmsAkcCreateKeychainResp struct {
 }
 
 type KmsAkcGetKeychainPublicKeyReq struct {
-	Name string `json:"name"`
+	Name string `json:"name,optional"`
+	Kid  string `json:"kid,optional"`
 }
 
 type KmsAkcGetKeychainPublicKeyResp struct {
@@ -318,18 +319,20 @@ type KmsAkcGetKeychainPublicKeyResp struct {
 }
 
 type KmsAkcSignReq struct {
-	Name        string `json:"name"`
+	Name        string `json:"name,optional"`
 	SignContent string `json:"sign_content"`
+	Kid         string `json:"kid,optional"`
 }
 
 type KmsAkcSignResp struct {
-	Name string `json:"name"`
+	Name string `json:"name,optional"`
 	Sign string `json:"sign"`
 }
 
 type KmsAkcVerifyReq struct {
-	Name string `json:"name"`
+	Name string `json:"name,optional"`
 	Sign string `json:"sign"`
+	Kid  string `json:"kid,optional"`
 }
 
 type KmsAkcVerifyResp struct {
