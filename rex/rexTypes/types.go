@@ -106,6 +106,24 @@ type ApiCaptchaGenerateRespData struct {
 	Img     string `json:"img,omitempty"`
 }
 
+type ApiEmsSendReq struct {
+	Key            string            `json:"key,optional"`
+	RecipientEmail []string          `json:"recipient_email"`
+	Cc             []ApiEmsSendReqCc `json:"cc,optional"`
+	Subject        string            `json:"subject"`
+	SendType       string            `json:"send_type"`
+	SendBody       string            `json:"send_body"`
+}
+
+type ApiEmsSendReqCc struct {
+	Email string `json:"key"`
+	Name  string `json:"name"`
+}
+
+type ApiEmsSendResp struct {
+	RequestID string `json:"request_id"`
+}
+
 type ApiSmsSendReq struct {
 	Key    string   `json:"key,optional"`
 	Mobile string   `json:"mobile"`

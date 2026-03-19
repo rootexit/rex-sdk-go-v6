@@ -4,12 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"net/http"
+
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexCtx"
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexTypes"
 	"github.com/rootexit/rexLib/rexCodes"
 	"github.com/rootexit/rexLib/rexRes"
 	"github.com/zeromicro/go-zero/core/logx"
-	"net/http"
 )
 
 type (
@@ -56,6 +57,22 @@ func (m *defaultBaseService) CaptchaGenerate(ctx context.Context, params *rexTyp
 func (m *defaultBaseService) SmsSend(ctx context.Context, params *rexTypes.ApiSmsSendReq) (code int32, result *rexTypes.ApiSmsSendResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ApiSmsSendResp]{}
 	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/sms/send", http.MethodPost, &params)
+
+	if err != nil {
+		logx.Errorf("rex sdk: request mas:BaseService:SmsSend  error: %v", err)
+		return rexCodes.FAIL, nil, err
+	}
+	_ = json.Unmarshal(res, &tmp)
+	if tmp.Code != rexCodes.OK {
+		logx.Errorf("rex sdk: request mas:BaseService:SmsSend fail: %v", tmp)
+		return tmp.Code, &tmp.Data, errors.New(tmp.Msg)
+	}
+	return rexCodes.OK, &tmp.Data, nil
+}
+
+func (m *defaultBaseService) EmsSend(ctx context.Context, params *rexTypes.ApiEmsSendReq) (code int32, result *rexTypes.ApiEmsSendResp, err error) {
+	tmp := &rexRes.BaseResponse[rexTypes.ApiEmsSendResp]{}
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/ems/send", http.MethodPost, &params)
 
 	if err != nil {
 		logx.Errorf("rex sdk: request mas:BaseService:SmsSend  error: %v", err)
