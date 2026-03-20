@@ -18,7 +18,7 @@ type (
 		// note: 生成验证码
 		CaptchaGenerate(ctx context.Context, params *rexTypes.ApiCaptchaGenerateReq) (code int32, result *rexTypes.ApiCaptchaGenerateResp, err error)
 		SmsSend(ctx context.Context, params *rexTypes.ApiSmsSendReq) (code int32, result *rexTypes.ApiSmsSendResp, err error)
-
+		EmsSend(ctx context.Context, params *rexTypes.ApiEmsSendReq) (code int32, result *rexTypes.ApiEmsSendResp, err error)
 		BehavioralVerificationInit(ctx context.Context, params *rexTypes.BehavioralVerificationInitReq) (code int32, result *rexTypes.BehavioralVerificationInitResp, err error)
 		BehavioralVerificationVerify(ctx context.Context, params *rexTypes.BehavioralVerificationVerifyReq) (code int32, result *rexTypes.BehavioralVerificationVerifyResp, err error)
 		SmsVerificationInit(ctx context.Context, params *rexTypes.SmsInitReq) (code int32, result *rexTypes.SmsInitResp, err error)
