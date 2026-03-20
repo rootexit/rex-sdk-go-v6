@@ -6,15 +6,16 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
+	"net/http"
+	"strings"
+	"time"
+
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexConfig"
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexSigner"
 	"github.com/rootexit/rexLib/rexCtx"
 	"github.com/rootexit/rexLib/rexHeaders"
 	"github.com/zeromicro/go-zero/core/logx"
-	"io/ioutil"
-	"net/http"
-	"strings"
-	"time"
 )
 
 const (
@@ -44,18 +45,18 @@ func NewClient(c *rexConfig.Config) *Client {
 func (cli *Client) EasyNewRequest(ctx context.Context, svc string, relativePath string, method string, sendBody interface{}) ([]byte, error) {
 	apiUrl := fmt.Sprintf("%s://%s%s%s", cli.conf.Protocol, cli.conf.Endpoint, "/rex/v5/apis", relativePath)
 	if cli.conf.Debug {
-		logx.Infof("打印一下请求的url :%s", apiUrl)
+		logx.Infof("rex sdk: request url: %s", apiUrl)
 	}
 	fn := cli.NewRequest(ctx, svc, apiUrl, method, nil, sendBody)
 	res, err := fn()
 	if err != nil {
-		logx.Infof("打印一下请求错误 :%s", err)
+		logx.Infof("rex sdk: request err: %s", err)
 		return nil, err
 	}
 	// 读取响应体
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		logx.Infof("打印一下请求结果 :%v", res.Body)
+		logx.Infof("rex sdk: request result: %v", res.Body)
 		return nil, err
 	}
 	defer res.Body.Close()

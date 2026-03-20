@@ -75,12 +75,12 @@ func (m *defaultBaseService) EmsSend(ctx context.Context, params *rexTypes.ApiEm
 	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/ems/send", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request mas:BaseService:SmsSend  error: %v", err)
+		logx.Errorf("rex sdk: request mas:BaseService:EmsSend  error: %v", err)
 		return rexCodes.FAIL, nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.OK {
-		logx.Errorf("rex sdk: request mas:BaseService:SmsSend fail: %v", tmp)
+		logx.Errorf("rex sdk: request mas:BaseService:EmsSend fail: %v", tmp)
 		return tmp.Code, &tmp.Data, errors.New(tmp.Msg)
 	}
 	return rexCodes.OK, &tmp.Data, nil

@@ -2,6 +2,7 @@ package rexConfig
 
 import (
 	"errors"
+
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -14,14 +15,14 @@ const (
 
 type Config struct {
 	// Access key ID
-	AccessKeyID string `json:",optional,inherit"`
+	AccessKeyID string `json:"AccessKeyId,optional,inherit" mapstructure:"AccessKeyId" yaml:"AccessKeyId"`
 	// Secret Access Key
-	AccessKeySecret string `json:",optional,inherit"`
-	Endpoint        string `json:",default=api.rootexit.com,optional"`
-	Protocol        string `json:",default=https,options=http|https,optional"`
-	Region          string `json:",default=cn-shanghai,optional"`
-	Timeout         int    `json:",default=2000,optional"`
-	Debug           bool   `json:",default=false,optional"`
+	AccessKeySecret string `json:"AccessKeySecret,optional,inherit" mapstructure:"AccessKeySecret" yaml:"AccessKeySecret"`
+	Endpoint        string `json:"Endpoint,default=api.rootexit.com,optional" mapstructure:"Endpoint" yaml:"Endpoint"`
+	Protocol        string `json:"Protocol,default=https,options=http|https,optional" mapstructure:"Protocol" yaml:"Protocol"`
+	Region          string `json:"Region,default=cn-shanghai,optional" mapstructure:"Region" yaml:"Region"`
+	Timeout         int    `json:"Timeout,default=2000,optional" mapstructure:"Timeout" yaml:"Timeout"`
+	Debug           bool   `json:"Debug,default=false,optional" mapstructure:"Debug" yaml:"Debug"`
 }
 
 func DefaultConfig(AccessKeyID, AccessKeySecret string) (config *Config) {

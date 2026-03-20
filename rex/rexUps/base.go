@@ -5,12 +5,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
+
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexCtx"
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexTypes"
 	"github.com/rootexit/rexLib/rexCodes"
 	"github.com/rootexit/rexLib/rexRes"
 	"github.com/zeromicro/go-zero/core/logx"
-	"net/http"
 )
 
 type (
@@ -168,12 +169,12 @@ func (m *defaultBaseService) QueryWhereObjectId(ctx context.Context, params *rex
 	logx.Infof("rex sdk: request path: %s", relativePath)
 	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, relativePath, http.MethodGet, &params)
 	if err != nil {
-		logx.Errorf("rex sdk: request ups:ObjectService:Query error: %v", err)
+		logx.Errorf("rex sdk: request ups:ObjectService:QueryWhereObjectId error: %v", err)
 		return rexCodes.FAIL, nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.OK {
-		logx.Errorf("rex sdk: request ups:ObjectService:Query fail: %s", res)
+		logx.Errorf("rex sdk: request ups:ObjectService:QueryWhereObjectId fail: %s", res)
 		return tmp.Code, &tmp.Data, errors.New(tmp.Msg)
 	}
 	return rexCodes.OK, &tmp.Data, nil
