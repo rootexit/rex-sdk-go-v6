@@ -4,12 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"net/http"
+
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexCtx"
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexTypes"
 	"github.com/rootexit/rexLib/rexCodes"
 	"github.com/rootexit/rexLib/rexRes"
 	"github.com/zeromicro/go-zero/core/logx"
-	"net/http"
 )
 
 type (
@@ -39,12 +40,12 @@ func (m *defaultAkcService) GetPublicKey(ctx context.Context, params *rexTypes.K
 	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/kms/akc/getKeychainPublicKey", http.MethodPost, &params)
 
 	if err != nil {
-		logx.Errorf("rex sdk: request kms:AkcService:CreateKeychain error: %v", err)
+		logx.Errorf("rex sdk: request kms:AkcService:GetPublicKey error: %v", err)
 		return rexCodes.FAIL, nil, err
 	}
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.OK {
-		logx.Errorf("rex sdk: request kms:AkcService:CreateKeychain fail: %v", tmp)
+		logx.Errorf("rex sdk: request kms:AkcService:GetPublicKey fail: %v", tmp)
 		return tmp.Code, &tmp.Data, errors.New(tmp.Msg)
 	}
 	return rexCodes.OK, &tmp.Data, nil
