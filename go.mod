@@ -7,6 +7,8 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/rootexit/rexLib v1.0.44
 	github.com/zeromicro/go-zero v1.8.1
+	golang.org/x/term v0.29.0
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (

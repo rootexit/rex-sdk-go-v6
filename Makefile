@@ -1,5 +1,8 @@
 .PHONY: release
 
+cli:
+	go build -o rex-cli cmd/main.go
+
 release:
 	@git fetch --tags
 	@version=$$(git describe --tags $$(git rev-list --tags --max-count=1)); \

@@ -368,7 +368,7 @@ type KmsSkcBatchDecryptReqItem struct {
 }
 
 type KmsSkcBatchDecryptResp struct {
-	Data map[string]KmsSkcBatchDecryptRespItem `json:"data"`
+	Result map[string]KmsSkcBatchDecryptRespItem `json:"result"`
 }
 
 type KmsSkcBatchDecryptRespItem struct {
@@ -386,7 +386,7 @@ type KmsSkcBatchEncryptReqItem struct {
 }
 
 type KmsSkcBatchEncryptResp struct {
-	Data map[string]KmsSkcBatchEncryptRespItem `json:"data"`
+	Result map[string]KmsSkcBatchEncryptRespItem `json:"result"`
 }
 
 type KmsSkcBatchEncryptRespItem struct {

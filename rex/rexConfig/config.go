@@ -7,10 +7,10 @@ import (
 )
 
 const (
-	defaultTimeout  = 2000
-	defaultProtocol = "https"
-	defaultRegion   = "cn-shanghai"
-	defaultEndpoint = "api.rootexit.com"
+	DefaultTimeout  = 2000
+	DefaultProtocol = "https"
+	DefaultRegion   = "cn-shanghai"
+	DefaultEndpoint = "api.rootexit.com"
 )
 
 type Config struct {
@@ -29,10 +29,10 @@ func DefaultConfig(AccessKeyID, AccessKeySecret string) (config *Config) {
 	config = &Config{
 		AccessKeyID:     AccessKeyID,
 		AccessKeySecret: AccessKeySecret,
-		Endpoint:        defaultEndpoint,
-		Protocol:        defaultProtocol,
-		Region:          defaultRegion,
-		Timeout:         defaultTimeout,
+		Endpoint:        DefaultEndpoint,
+		Protocol:        DefaultProtocol,
+		Region:          DefaultRegion,
+		Timeout:         DefaultTimeout,
 		Debug:           false,
 	}
 	return config
