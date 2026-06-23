@@ -11,6 +11,7 @@ type AddSomePolicyReq struct {
 
 type AllowCreateModelBucketConfig struct {
 	Name         string `json:"name"`
+	StorageType  string `json:"storage_type,options=minio|cos|oss|s3|obs"`
 	CredentialID int64  `json:"credential_id"`
 	BucketName   string `json:"bucket_name"`
 	Region       string `json:"region"`
@@ -31,7 +32,7 @@ type AllowCreateModelCaptchaConfig struct {
 
 type AllowCreateModelCredential struct {
 	Name            string `json:"name"`
-	CredentialType  string `json:"credential_type,options=aliyun|tencent_cloud|huawei_cloud|email|wechat_offiaccount"`
+	CredentialType  string `json:"credential_type,options=aliyun|tencent_cloud|huawei_cloud|email|wechat_offiaccount|aws"`
 	AccessKeyID     string `json:"access_key_id"`
 	SecretAccessKey string `json:"secret_access_key"`
 	Remark          string `json:"remark"`
@@ -96,6 +97,7 @@ type AllowUpdateDefaultModelWechatConfig struct {
 type AllowUpdateModelBucketConfig struct {
 	Id           int64  `json:"id"`
 	Name         string `json:"name,optional"`
+	StorageType  string `json:"storage_type,optional,options=minio|cos|oss|s3|obs"`
 	CredentialID int64  `json:"credential_id,optional"`
 	BucketName   string `json:"bucket_name,optional"`
 	Region       string `json:"region,optional"`
@@ -118,7 +120,7 @@ type AllowUpdateModelCaptchaConfig struct {
 type AllowUpdateModelCredential struct {
 	Id              int64  `json:"id"`
 	Name            string `json:"name,optional"`
-	CredentialType  string `json:"credential_type,optional,options=aliyun|tencent_cloud|huawei_cloud|email|wechat_offiaccount"`
+	CredentialType  string `json:"credential_type,optional,options=aliyun|tencent_cloud|huawei_cloud|email|wechat_offiaccount|aws"`
 	AccessKeyID     string `json:"access_key_id,optional"`
 	SecretAccessKey string `json:"secret_access_key,optional"`
 	Remark          string `json:"remark"`
@@ -703,6 +705,7 @@ type ModelBucketConfig struct {
 	IsDefault     bool   `json:"is_default,optional"`
 	Status        int16  `json:"status,optional"`
 	Name          string `json:"name"`
+	StorageType   string `json:"storage_type,options=minio|cos|oss|s3|obs"`
 	CredentialID  int64  `json:"credential_id"`
 	BucketName    string `json:"bucket_name"`
 	Region        string `json:"region"`

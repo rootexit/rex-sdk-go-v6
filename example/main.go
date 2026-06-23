@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/base64"
 	"os"
 
 	"github.com/google/uuid"
@@ -43,28 +44,27 @@ func main() {
 	// }
 	// logx.Infof("%+v", list)
 
-	// testMsg := base64.StdEncoding.EncodeToString([]byte("Welcome to REx Engine!"))
-	// _, encryptResult, err := sdk.KmsService.Skc.Encrypt(ctx, &rexTypes.KmsSkcEncryptReq{
-	// 	Name:     "default",
-	// 	BaseData: testMsg,
-	// })
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// logx.Infof("%+v", encryptResult)
+	testMsg := base64.StdEncoding.EncodeToString([]byte("Welcome to REx Engine!"))
+	_, encryptResult, err := sdk.KmsService.Skc.Encrypt(ctx, &rexTypes.KmsSkcEncryptReq{
+		Name:     "default",
+		BaseData: testMsg,
+	})
+	if err != nil {
+		panic(err)
+	}
+	logx.Infof("%+v", encryptResult)
 
-	// _, decodeMsg, err := sdk.KmsService.Skc.Decrypt(ctx, &rexTypes.KmsSkcDecryptReq{
-	// 	Name:     "default",
-	// 	BaseData: encryptResult.BaseData,
-	// })
-	// if err != nil {
-	// 	panic(err)
-	// }
+	_, decodeMsg, err := sdk.KmsService.Skc.Decrypt(ctx, &rexTypes.KmsSkcDecryptReq{
+		Name:     "default",
+		BaseData: encryptResult.BaseData,
+	})
+	if err != nil {
+		panic(err)
+	}
 
-	// realMsg, _ := base64.StdEncoding.DecodeString(decodeMsg.BaseData)
-	// logx.Infof("%+s", realMsg)
+	realMsg, _ := base64.StdEncoding.DecodeString(decodeMsg.BaseData)
+	logx.Infof("%+s", realMsg)
 
-	// testMsg := base64.StdEncoding.EncodeToString([]byte("Welcome to REx Engine!"))
 	// testMsg := "Welcome to REx Engine!"
 	// _, signResult, err := sdk.KmsService.Akc.Sign(ctx, &rexTypes.KmsAkcSignReq{
 	// 	Name:        "default",
@@ -111,24 +111,24 @@ func main() {
 
 	// logx.Infof("%+v", result)
 
-	_, result, err := sdk.MasService.BehavioralVerificationInit(ctx, &rexTypes.BehavioralVerificationInitReq{
-		Key:     "default",
-		Service: "account.lilsite.com",
-		Type:    "login",
-	})
-	if err != nil {
-		panic(err)
-	}
+	// _, result, err := sdk.MasService.BehavioralVerificationInit(ctx, &rexTypes.BehavioralVerificationInitReq{
+	// 	Key:     "default",
+	// 	Service: "account.lilsite.com",
+	// 	Type:    "login",
+	// })
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	logx.Infof("%+v", result)
+	// logx.Infof("%+v", result)
 
-	_, queryBucketResult, err := sdk.SasService.QueryBucket(context.Background(), &rexTypes.SasQueryBucketReq{
-		Name: "default",
-	})
-	if err != nil {
-		panic(err)
-	}
-	logx.Infof("%+v", queryBucketResult)
+	// _, queryBucketResult, err := sdk.SasService.QueryBucket(context.Background(), &rexTypes.SasQueryBucketReq{
+	// 	Name: "default",
+	// })
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// logx.Infof("%+v", queryBucketResult)
 
 	// _, queryAccessTokenResult, err := sdk.TpasService.WechatOffiaccountService.GetAccessToken(context.Background(), &rexTypes.WechatOffiaccountGetAccessTokenReq{
 	// 	Key: "default",
