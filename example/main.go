@@ -85,6 +85,31 @@ func main() {
 
 	// logx.Infof("%+v", verifyResult)
 
+	// _, result, err := sdk.MasService.EmsVerificationInit(ctx, &rexTypes.EmsInitReq{
+	// 	Key:     "default",
+	// 	Service: "account.lilsite.com",
+	// 	Type:    "login",
+	// 	Mail:    "howard.huang@lilsite.com",
+	// })
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// logx.Infof("%+v", result)
+
+	// _, result, err := sdk.MasService.SmsVerificationInit(ctx, &rexTypes.SmsInitReq{
+	// 	Key:     "default",
+	// 	Service: "account.lilsite.com",
+	// 	Type:    "login",
+	// 	Zone:    "86",
+	// 	Phone:   "xxxxxxxxxxx",
+	// })
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// logx.Infof("%+v", result)
+
 	//_, queryBucketResult, err := sdk.SasService.QueryBucket(context.Background(), &rexTypes.SasQueryBucketReq{
 	//	BucketKey: "default",
 	//})
