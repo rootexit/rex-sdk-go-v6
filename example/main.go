@@ -110,6 +110,17 @@ func main() {
 
 	// logx.Infof("%+v", result)
 
+	// _, result, err := sdk.MasService.BehavioralVerificationInit(ctx, &rexTypes.BehavioralVerificationInitReq{
+	// 	Key:     "default",
+	// 	Service: "account.lilsite.com",
+	// 	Type:    "login",
+	// })
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// logx.Infof("%+v", result)
+
 	//_, queryBucketResult, err := sdk.SasService.QueryBucket(context.Background(), &rexTypes.SasQueryBucketReq{
 	//	BucketKey: "default",
 	//})
