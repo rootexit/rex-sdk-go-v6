@@ -122,37 +122,19 @@ func main() {
 
 	logx.Infof("%+v", result)
 
-	//_, queryBucketResult, err := sdk.SasService.QueryBucket(context.Background(), &rexTypes.SasQueryBucketReq{
-	//	BucketKey: "default",
-	//})
-	//if err != nil {
-	//	panic(err)
-	//}
-	//logx.Infof("%+v", queryBucketResult)
+	_, queryBucketResult, err := sdk.SasService.QueryBucket(context.Background(), &rexTypes.SasQueryBucketReq{
+		Name: "default",
+	})
+	if err != nil {
+		panic(err)
+	}
+	logx.Infof("%+v", queryBucketResult)
 
-	//queryBucketResult, err := sdk.UpsService.UpsTagService.Query(context.Background(), &rexTypes.TagApiFormIdReq{
-	//	Id: 2,
-	//})
-	//if err != nil {
-	//	panic(err)
-	//}
-	//logx.Infof("%+v", queryBucketResult)
-
-	//queryBucketResult, err := sdk.UpsService.IndustryService.QueryList(context.Background(), &rexTypes.IndustryCommonSearchParams{
-	//	Page:       1,
-	//	PageSize:   5,
-	//	OnlyParent: true,
-	//})
-	//if err != nil {
-	//	panic(err)
-	//}
-	//logx.Infof("%+v", queryBucketResult)
-
-	//_, queryAccessTokenResult, err := sdk.TpasService.WechatOffiaccountService.GetAccessToken(context.Background(), &rexTypes.WechatOffiaccountGetAccessTokenReq{
-	//	Key: "default",
-	//})
-	//if err != nil {
-	//	panic(err)
-	//}
-	//logx.Infof("%+v", queryAccessTokenResult)
+	// _, queryAccessTokenResult, err := sdk.TpasService.WechatOffiaccountService.GetAccessToken(context.Background(), &rexTypes.WechatOffiaccountGetAccessTokenReq{
+	// 	Key: "default",
+	// })
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// logx.Infof("%+v", queryAccessTokenResult)
 }
