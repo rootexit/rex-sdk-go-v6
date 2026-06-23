@@ -7,11 +7,13 @@ import (
 type (
 	SasService struct {
 		BaseService
+		BucketConfigService BucketConfigService
 	}
 )
 
 func NewSasService(SdkCtx *sdkCtx.SdkCtx) SasService {
 	return SasService{
-		BaseService: NewBaseService(SdkCtx),
+		BaseService:         NewBaseService(SdkCtx),
+		BucketConfigService: NewBucketConfigService(SdkCtx),
 	}
 }

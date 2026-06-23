@@ -7,17 +7,16 @@ import (
 	"github.com/google/uuid"
 	"github.com/rootexit/rex-sdk-go-v6/rex"
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexConfig"
-	"github.com/rootexit/rex-sdk-go-v6/rex/rexTypes"
 	"github.com/rootexit/rexLib/rexCtx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
 func main() {
 	rexConfig := rexConfig.DefaultConfig(os.Getenv("ACCESS_KEY_ID"), os.Getenv("ACCESS_KEY_SECRET"))
-	rexConfig.Protocol = "http"
-	rexConfig.Endpoint = "localhost:8888"
-	rexConfig.AccessKeyID = "REx74a9838db99ab9c4"
-	rexConfig.AccessKeySecret = "3a8babc991987d61ab7ef9d554c8358d"
+	rexConfig.Protocol = "https"
+	rexConfig.Endpoint = "dev-api.rootexit.com"
+	rexConfig.AccessKeyID = "REx584f20043b8065b2"
+	rexConfig.AccessKeySecret = "0c461fd4aed9051b4da489813e5dc3c3"
 	logx.Infof("打印一下请求的accessKey :%s", rexConfig.AccessKeyID)
 	logx.Infof("打印一下请求的AccessKeySecret :%s", rexConfig.AccessKeySecret)
 	logx.Infof("打印一下请求的Endpoint :%s", rexConfig.Endpoint)
@@ -29,13 +28,62 @@ func main() {
 	ctx := context.Background()
 	uuidStr := uuid.New().String()
 	ctx = context.WithValue(ctx, rexCtx.CtxRequestId{}, uuidStr)
-	_, allCodes, err := sdk.QxBaseService.Codes(ctx, &rexTypes.CodesReq{
-		Lang: "zh-CN",
-	})
-	if err != nil {
-		panic(err)
-	}
-	logx.Infof("%+v", allCodes)
+	// _, allCodes, err := sdk.BaseService.Codes(ctx, &rexTypes.CodesReq{
+	// 	Lang: "zh-CN",
+	// })
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// logx.Infof("%+v", allCodes)
+
+	// _, list, err := sdk.CredentialService.QueryList(ctx, &rexTypes.CredentialCommonSearchParams{})
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// logx.Infof("%+v", list)
+
+	// testMsg := base64.StdEncoding.EncodeToString([]byte("Welcome to REx Engine!"))
+	// _, encryptResult, err := sdk.KmsService.Skc.Encrypt(ctx, &rexTypes.KmsSkcEncryptReq{
+	// 	Name:     "default",
+	// 	BaseData: testMsg,
+	// })
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// logx.Infof("%+v", encryptResult)
+
+	// _, decodeMsg, err := sdk.KmsService.Skc.Decrypt(ctx, &rexTypes.KmsSkcDecryptReq{
+	// 	Name:     "default",
+	// 	BaseData: encryptResult.BaseData,
+	// })
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// realMsg, _ := base64.StdEncoding.DecodeString(decodeMsg.BaseData)
+	// logx.Infof("%+s", realMsg)
+
+	// testMsg := base64.StdEncoding.EncodeToString([]byte("Welcome to REx Engine!"))
+	// testMsg := "Welcome to REx Engine!"
+	// _, signResult, err := sdk.KmsService.Akc.Sign(ctx, &rexTypes.KmsAkcSignReq{
+	// 	Name:        "default",
+	// 	SignContent: testMsg,
+	// 	// Kid:         "",
+	// })
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// logx.Infof("%+v", signResult)
+
+	// _, verifyResult, err := sdk.KmsService.Akc.Verify(ctx, &rexTypes.KmsAkcVerifyReq{
+	// 	Name: signResult.Name,
+	// 	Sign: signResult.Sign,
+	// })
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// logx.Infof("%+v", verifyResult)
 
 	//_, queryBucketResult, err := sdk.SasService.QueryBucket(context.Background(), &rexTypes.SasQueryBucketReq{
 	//	BucketKey: "default",

@@ -4,26 +4,26 @@ import (
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexBase"
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexClient"
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexConfig"
-	"github.com/rootexit/rex-sdk-go-v6/rex/rexCtas"
-	"github.com/rootexit/rex-sdk-go-v6/rex/rexCtx"
+	"github.com/rootexit/rex-sdk-go-v6/rex/rexCredentials"
+	sdkCtx "github.com/rootexit/rex-sdk-go-v6/rex/rexCtx"
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexKms"
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexMas"
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexSas"
+	"github.com/rootexit/rex-sdk-go-v6/rex/rexTaskQueue"
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexTpas"
-	"github.com/rootexit/rex-sdk-go-v6/rex/rexUps"
 )
 
 type Sdk struct {
-	config        *rexConfig.Config
-	client        *rexClient.Client
-	rexCtx        *sdkCtx.SdkCtx
-	QxBaseService rexBase.BaseService
-	KmsService    rexKms.KmsService
-	MasService    rexMas.MasService
-	SasService    rexSas.SasService
-	UpsService    rexUps.UpsService
-	TpasService   rexTpas.TpasService
-	CtasService   rexCtas.CtasService
+	config            *rexConfig.Config
+	client            *rexClient.Client
+	rexCtx            *sdkCtx.SdkCtx
+	BaseService       rexBase.BaseService
+	CredentialService rexCredentials.CredentialService
+	KmsService        rexKms.KmsService
+	MasService        rexMas.MasService
+	SasService        rexSas.SasService
+	TpasService       rexTpas.TpasService
+	TaskQueueService  rexTaskQueue.TaskQueueService
 }
 
 func NewSdk(c *rexConfig.Config) (*Sdk, error) {
@@ -36,16 +36,16 @@ func NewSdk(c *rexConfig.Config) (*Sdk, error) {
 	rexC := sdkCtx.NewSdkCtx(client)
 
 	sdk := &Sdk{
-		config:        c,
-		client:        client,
-		rexCtx:        rexC,
-		QxBaseService: rexBase.NewQxBaseService(rexC),
-		KmsService:    rexKms.NewKmsService(rexC),
-		MasService:    rexMas.NewMasService(rexC),
-		SasService:    rexSas.NewSasService(rexC),
-		UpsService:    rexUps.NewUpsService(rexC),
-		TpasService:   rexTpas.NewTpasService(rexC),
-		CtasService:   rexCtas.NewCtasService(rexC),
+		config:            c,
+		client:            client,
+		rexCtx:            rexC,
+		BaseService:       rexBase.NewBaseService(rexC),
+		CredentialService: rexCredentials.NewCredentialService(rexC),
+		KmsService:        rexKms.NewKmsService(rexC),
+		MasService:        rexMas.NewMasService(rexC),
+		SasService:        rexSas.NewSasService(rexC),
+		TpasService:       rexTpas.NewTpasService(rexC),
+		TaskQueueService:  rexTaskQueue.NewTaskQueueService(rexC),
 	}
 	return sdk, nil
 }

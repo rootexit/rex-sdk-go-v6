@@ -7,11 +7,17 @@ import (
 type (
 	MasService struct {
 		BaseService
+		CaptchaConfigService CaptchaConfigService
+		SmsConfigService     SmsConfigService
+		EmsConfigService     EmsConfigService
 	}
 )
 
 func NewMasService(SdkCtx *sdkCtx.SdkCtx) MasService {
 	return MasService{
-		BaseService: NewBaseService(SdkCtx),
+		BaseService:          NewBaseService(SdkCtx),
+		CaptchaConfigService: NewCaptchaConfigService(SdkCtx),
+		SmsConfigService:     NewSmsConfigService(SdkCtx),
+		EmsConfigService:     NewEmsConfigService(SdkCtx),
 	}
 }

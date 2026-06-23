@@ -8,6 +8,7 @@ type (
 	TpasService struct {
 		BaseService
 		WechatOffiaccountService WechatOffiaccountService
+		WechatConfigService      WechatConfigService
 	}
 )
 
@@ -15,5 +16,6 @@ func NewTpasService(SdkCtx *sdkCtx.SdkCtx) TpasService {
 	return TpasService{
 		BaseService:              NewBaseService(SdkCtx),
 		WechatOffiaccountService: NewWechatOffiaccountService(SdkCtx),
+		WechatConfigService:      NewWechatConfigService(SdkCtx),
 	}
 }

@@ -18,11 +18,17 @@ type (
 		// note: 生成验证码
 		CaptchaGenerate(ctx context.Context, params *rexTypes.ApiCaptchaGenerateReq) (code int32, result *rexTypes.ApiCaptchaGenerateResp, err error)
 		SmsSend(ctx context.Context, params *rexTypes.ApiSmsSendReq) (code int32, result *rexTypes.ApiSmsSendResp, err error)
+		SmsCheck(ctx context.Context, params *rexTypes.ApiSmsCheckReq) (code int32, result *rexTypes.ApiSmsCheckResp, err error)
+		SmsSendSync(ctx context.Context, params *rexTypes.ApiSmsSendReq) (code int32, result *rexTypes.ApiSmsSendSyncResp, err error)
 		EmsSend(ctx context.Context, params *rexTypes.ApiEmsSendReq) (code int32, result *rexTypes.ApiEmsSendResp, err error)
+		EmsCheck(ctx context.Context, params *rexTypes.ApiEmsCheckReq) (code int32, result *rexTypes.ApiEmsCheckResp, err error)
+		EmsSendSync(ctx context.Context, params *rexTypes.ApiEmsSendReq) (code int32, result *rexTypes.ApiEmsSendSyncResp, err error)
 		BehavioralVerificationInit(ctx context.Context, params *rexTypes.BehavioralVerificationInitReq) (code int32, result *rexTypes.BehavioralVerificationInitResp, err error)
 		BehavioralVerificationVerify(ctx context.Context, params *rexTypes.BehavioralVerificationVerifyReq) (code int32, result *rexTypes.BehavioralVerificationVerifyResp, err error)
 		SmsVerificationInit(ctx context.Context, params *rexTypes.SmsInitReq) (code int32, result *rexTypes.SmsInitResp, err error)
 		SmsVerificationVerify(ctx context.Context, params *rexTypes.SmsVerifyReq) (code int32, result *rexTypes.SmsVerifyResp, err error)
+		EmsVerificationInit(ctx context.Context, params *rexTypes.EmsInitReq) (code int32, result *rexTypes.EmsInitResp, err error)
+		EmsVerificationVerify(ctx context.Context, params *rexTypes.EmsVerifyReq) (code int32, result *rexTypes.EmsVerifyResp, err error)
 	}
 
 	defaultBaseService struct {
@@ -70,6 +76,36 @@ func (m *defaultBaseService) SmsSend(ctx context.Context, params *rexTypes.ApiSm
 	return rexCodes.OK, &tmp.Data, nil
 }
 
+func (m *defaultBaseService) SmsCheck(ctx context.Context, params *rexTypes.ApiSmsCheckReq) (code int32, result *rexTypes.ApiSmsCheckResp, err error) {
+	tmp := &rexRes.BaseResponse[rexTypes.ApiSmsCheckResp]{}
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/sms/check", http.MethodPost, &params)
+	if err != nil {
+		logx.Errorf("rex sdk: request mas:BaseService:SmsCheck error: %v", err)
+		return rexCodes.FAIL, nil, err
+	}
+	_ = json.Unmarshal(res, &tmp)
+	if tmp.Code != rexCodes.OK {
+		logx.Errorf("rex sdk: request mas:BaseService:SmsCheck fail: %v", tmp)
+		return tmp.Code, &tmp.Data, errors.New(tmp.Msg)
+	}
+	return rexCodes.OK, &tmp.Data, nil
+}
+
+func (m *defaultBaseService) SmsSendSync(ctx context.Context, params *rexTypes.ApiSmsSendReq) (code int32, result *rexTypes.ApiSmsSendSyncResp, err error) {
+	tmp := &rexRes.BaseResponse[rexTypes.ApiSmsSendSyncResp]{}
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/sms/sendSync", http.MethodPost, &params)
+	if err != nil {
+		logx.Errorf("rex sdk: request mas:BaseService:SmsSendSync error: %v", err)
+		return rexCodes.FAIL, nil, err
+	}
+	_ = json.Unmarshal(res, &tmp)
+	if tmp.Code != rexCodes.OK {
+		logx.Errorf("rex sdk: request mas:BaseService:SmsSendSync fail: %v", tmp)
+		return tmp.Code, &tmp.Data, errors.New(tmp.Msg)
+	}
+	return rexCodes.OK, &tmp.Data, nil
+}
+
 func (m *defaultBaseService) EmsSend(ctx context.Context, params *rexTypes.ApiEmsSendReq) (code int32, result *rexTypes.ApiEmsSendResp, err error) {
 	tmp := &rexRes.BaseResponse[rexTypes.ApiEmsSendResp]{}
 	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/ems/send", http.MethodPost, &params)
@@ -81,6 +117,36 @@ func (m *defaultBaseService) EmsSend(ctx context.Context, params *rexTypes.ApiEm
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.OK {
 		logx.Errorf("rex sdk: request mas:BaseService:EmsSend fail: %v", tmp)
+		return tmp.Code, &tmp.Data, errors.New(tmp.Msg)
+	}
+	return rexCodes.OK, &tmp.Data, nil
+}
+
+func (m *defaultBaseService) EmsCheck(ctx context.Context, params *rexTypes.ApiEmsCheckReq) (code int32, result *rexTypes.ApiEmsCheckResp, err error) {
+	tmp := &rexRes.BaseResponse[rexTypes.ApiEmsCheckResp]{}
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/ems/check", http.MethodPost, &params)
+	if err != nil {
+		logx.Errorf("rex sdk: request mas:BaseService:EmsCheck error: %v", err)
+		return rexCodes.FAIL, nil, err
+	}
+	_ = json.Unmarshal(res, &tmp)
+	if tmp.Code != rexCodes.OK {
+		logx.Errorf("rex sdk: request mas:BaseService:EmsCheck fail: %v", tmp)
+		return tmp.Code, &tmp.Data, errors.New(tmp.Msg)
+	}
+	return rexCodes.OK, &tmp.Data, nil
+}
+
+func (m *defaultBaseService) EmsSendSync(ctx context.Context, params *rexTypes.ApiEmsSendReq) (code int32, result *rexTypes.ApiEmsSendSyncResp, err error) {
+	tmp := &rexRes.BaseResponse[rexTypes.ApiEmsSendSyncResp]{}
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/ems/sendSync", http.MethodPost, &params)
+	if err != nil {
+		logx.Errorf("rex sdk: request mas:BaseService:EmsSendSync error: %v", err)
+		return rexCodes.FAIL, nil, err
+	}
+	_ = json.Unmarshal(res, &tmp)
+	if tmp.Code != rexCodes.OK {
+		logx.Errorf("rex sdk: request mas:BaseService:EmsSendSync fail: %v", tmp)
 		return tmp.Code, &tmp.Data, errors.New(tmp.Msg)
 	}
 	return rexCodes.OK, &tmp.Data, nil
@@ -145,6 +211,36 @@ func (m *defaultBaseService) SmsVerificationVerify(ctx context.Context, params *
 	_ = json.Unmarshal(res, &tmp)
 	if tmp.Code != rexCodes.OK {
 		logx.Errorf("rex sdk: request mas:BaseService:SmsVerificationVerify fail: %v", tmp)
+		return tmp.Code, &tmp.Data, errors.New(tmp.Msg)
+	}
+	return rexCodes.OK, &tmp.Data, nil
+}
+
+func (m *defaultBaseService) EmsVerificationInit(ctx context.Context, params *rexTypes.EmsInitReq) (code int32, result *rexTypes.EmsInitResp, err error) {
+	tmp := &rexRes.BaseResponse[rexTypes.EmsInitResp]{}
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/ems/init", http.MethodPost, &params)
+	if err != nil {
+		logx.Errorf("rex sdk: request mas:BaseService:EmsVerificationInit error: %v", err)
+		return rexCodes.FAIL, nil, err
+	}
+	_ = json.Unmarshal(res, &tmp)
+	if tmp.Code != rexCodes.OK {
+		logx.Errorf("rex sdk: request mas:BaseService:EmsVerificationInit fail: %v", tmp)
+		return tmp.Code, &tmp.Data, errors.New(tmp.Msg)
+	}
+	return rexCodes.OK, &tmp.Data, nil
+}
+
+func (m *defaultBaseService) EmsVerificationVerify(ctx context.Context, params *rexTypes.EmsVerifyReq) (code int32, result *rexTypes.EmsVerifyResp, err error) {
+	tmp := &rexRes.BaseResponse[rexTypes.EmsVerifyResp]{}
+	res, err := m.SdkCtx.Cli.EasyNewRequest(ctx, m.Svc, "/mas/ems/verify", http.MethodPost, &params)
+	if err != nil {
+		logx.Errorf("rex sdk: request mas:BaseService:EmsVerificationVerify error: %v", err)
+		return rexCodes.FAIL, nil, err
+	}
+	_ = json.Unmarshal(res, &tmp)
+	if tmp.Code != rexCodes.OK {
+		logx.Errorf("rex sdk: request mas:BaseService:EmsVerificationVerify fail: %v", tmp)
 		return tmp.Code, &tmp.Data, errors.New(tmp.Msg)
 	}
 	return rexCodes.OK, &tmp.Data, nil

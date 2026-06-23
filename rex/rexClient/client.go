@@ -43,7 +43,7 @@ func NewClient(c *rexConfig.Config) *Client {
 }
 
 func (cli *Client) EasyNewRequest(ctx context.Context, svc string, relativePath string, method string, sendBody interface{}) ([]byte, error) {
-	apiUrl := fmt.Sprintf("%s://%s%s%s", cli.conf.Protocol, cli.conf.Endpoint, "/rex/v5/apis", relativePath)
+	apiUrl := fmt.Sprintf("%s://%s%s%s", cli.conf.Protocol, cli.conf.Endpoint, "/rex/api/v6", relativePath)
 	if cli.conf.Debug {
 		logx.Infof("rex sdk: request url: %s", apiUrl)
 	}
