@@ -3,82 +3,192 @@
 
 package rexTypes
 
-type AllowCreateModelIndustry struct {
-	Name              string `json:"name"`                        // 名称
-	Qualification     string `json:"qualification"`               // 资质要求
-	QualificationLink string `json:"qualification_link,optional"` // 资质要求，法律依据及示例的说明链接
-	CategoryScope     string `json:"category_scope"`              // 类目适用范围
-	Remark            string `json:"remark,optional"`             // 备注
-	ParentId          uint32 `json:"parent_id,optional"`
-	Sort              int64  `json:"sort,optional"`
+type AddSomePolicyReq struct {
+	Subject string `json:"subject"`
+	Object  string `json:"object"`
+	Action  string `json:"action"`
 }
 
-type AllowCreateModelObject struct {
-	ObjectType string            `json:"object_type"`
-	Properties map[string]string `json:"properties,optional"`
+type AllowCreateModelBucketConfig struct {
+	Name         string `json:"name"`
+	StorageType  string `json:"storage_type,options=minio|cos|oss|s3|obs"`
+	CredentialID int64  `json:"credential_id"`
+	BucketName   string `json:"bucket_name"`
+	Region       string `json:"region"`
+	Prefix       string `json:"prefix"`
+	Endpoint     string `json:"endpoint"`
+	PublicDomain string `json:"public_domain"`
+	Remark       string `json:"remark,optional"`
 }
 
-type AllowCreateModelShortLink struct {
-	OriginalUrl   string `json:"original_url"`
-	SlType        int32  `json:"sl_type,optional,options=1|2|3"`
-	ExpireAtUnix  int64  `json:"expire_at_unix,optional"`
-	CreatorUserId string `json:"creator_user_id,optional"`
+type AllowCreateModelCaptchaConfig struct {
+	Name      string  `json:"name"`
+	DotCount  int32   `json:"dot_count"`
+	MaxSkew   float64 `json:"max_skew"`
+	KeyLong   int32   `json:"key_long"`
+	ImgWidth  int32   `json:"img_width"`
+	ImgHeight int32   `json:"img_height"`
 }
 
-type AllowCreateModelTag struct {
-	Name string `json:"name"`
-	Sort int64  `json:"sort"`
+type AllowCreateModelCredential struct {
+	Name            string `json:"name"`
+	CredentialType  string `json:"credential_type,options=aliyun|tencent_cloud|huawei_cloud|email|wechat_offiaccount|aws"`
+	AccessKeyID     string `json:"access_key_id"`
+	SecretAccessKey string `json:"secret_access_key"`
+	Remark          string `json:"remark"`
+	DefaultRegion   string `json:"default_region"`
+	AppID           string `json:"app_id"`
+	Endpoint        string `json:"endpoint"`
 }
 
-type AllowUpdateModelIndustry struct {
-	Id                uint32 `json:"id"`
-	Name              string `json:"name,optional"`           // 名称
-	Qualification     string `json:"qualification,optional"`  // 资质要求
-	QualificationLink string `json:"qualification_link"`      // 资质要求，法律依据及示例的说明链接
-	CategoryScope     string `json:"category_scope,optional"` // 类目适用范围
-	Remark            string `json:"remark"`                  // 备注
-	ParentId          uint32 `json:"parent_id"`
-	Sort              int64  `json:"sort,optional"`
+type AllowCreateModelEmsConfig struct {
+	Name         string `json:"name"`
+	CredentialID int64  `json:"credential_id"`
+	SenderName   string `json:"sender_name"`
+	Endpoint     string `json:"endpoint"`
+	Port         int32  `json:"port"`
+	Protocol     string `json:"protocol"`
+	Remark       string `json:"remark,optional"`
 }
 
-type AllowUpdateModelObject struct {
-	Id         uint32            `json:"id"`
-	ObjectType string            `json:"object_type,optional"`
-	Properties map[string]string `json:"properties,optional"`
+type AllowCreateModelSmsConfig struct {
+	Name         string `json:"name"`
+	CredentialID int64  `json:"credential_id"`
+	Endpoint     string `json:"endpoint"`
+	Template     string `json:"template"`
+	SignName     string `json:"sign_name"`
+	ParamsStr    string `json:"params_str"`
+	Remark       string `json:"remark,optional"`
 }
 
-type AllowUpdateModelShortLink struct {
-	Id            uint32 `json:"id"`
-	OriginalUrl   string `json:"original_url,optional"`
-	SlType        int32  `json:"sl_type,optional,options=1|2|3"`
-	ExpireAtUnix  int64  `json:"expire_at_unix"`
-	CreatorUserId string `json:"creator_user_id"`
+type AllowCreateModelWechatConfig struct {
+	Name         string `json:"name"`
+	AppType      string `json:"app_type,options=official|mini_app"`
+	CredentialID int64  `json:"credential_id"`
+	GhId         string `json:"gh_id"`
+	AppName      string `json:"app_name"`
+	Remark       string `json:"remark,optional"`
 }
 
-type AllowUpdateModelTag struct {
-	Id   uint32 `json:"id"`
-	Name string `json:"name,optional"`
-	Sort int64  `json:"sort,optional"`
+type AllowUpdateDefaultModelBucketConfig struct {
+	Id int64 `json:"id"`
 }
 
-type AllowUpdateStatusModelIndustry struct {
-	Id     uint32 `json:"id"`
-	Status int32  `json:"status"`
+type AllowUpdateDefaultModelCaptchaConfig struct {
+	Id int64 `json:"id"`
 }
 
-type AllowUpdateStatusModelObject struct {
-	Id     uint32 `json:"id"`
-	Status int32  `json:"status"`
+type AllowUpdateDefaultModelCredential struct {
+	Id int64 `json:"id"`
 }
 
-type AllowUpdateStatusModelShortLink struct {
-	Id     uint32 `json:"id"`
-	Status int32  `json:"status"`
+type AllowUpdateDefaultModelEmsConfig struct {
+	Id int64 `json:"id"`
 }
 
-type AllowUpdateStatusModelTag struct {
-	Id     uint32 `json:"id"`
-	Status int32  `json:"status"`
+type AllowUpdateDefaultModelSmsConfig struct {
+	Id int64 `json:"id"`
+}
+
+type AllowUpdateDefaultModelWechatConfig struct {
+	Id int64 `json:"id"`
+}
+
+type AllowUpdateModelBucketConfig struct {
+	Id           int64  `json:"id"`
+	Name         string `json:"name,optional"`
+	StorageType  string `json:"storage_type,optional,options=minio|cos|oss|s3|obs"`
+	CredentialID int64  `json:"credential_id,optional"`
+	BucketName   string `json:"bucket_name,optional"`
+	Region       string `json:"region,optional"`
+	Prefix       string `json:"prefix,optional"`
+	Endpoint     string `json:"endpoint,optional"`
+	PublicDomain string `json:"public_domain,optional"`
+	Remark       string `json:"remark"`
+}
+
+type AllowUpdateModelCaptchaConfig struct {
+	Id        int64   `json:"id"`
+	Name      string  `json:"name,optional"`
+	DotCount  int32   `json:"dot_count,optional"`
+	MaxSkew   float64 `json:"max_skew,optional"`
+	KeyLong   int32   `json:"key_long,optional"`
+	ImgWidth  int32   `json:"img_width,optional"`
+	ImgHeight int32   `json:"img_height,optional"`
+}
+
+type AllowUpdateModelCredential struct {
+	Id              int64  `json:"id"`
+	Name            string `json:"name,optional"`
+	CredentialType  string `json:"credential_type,optional,options=aliyun|tencent_cloud|huawei_cloud|email|wechat_offiaccount|aws"`
+	AccessKeyID     string `json:"access_key_id,optional"`
+	SecretAccessKey string `json:"secret_access_key,optional"`
+	Remark          string `json:"remark"`
+	DefaultRegion   string `json:"default_region"`
+	AppID           string `json:"app_id"`
+	Endpoint        string `json:"endpoint"`
+}
+
+type AllowUpdateModelEmsConfig struct {
+	Id           int64  `json:"id"`
+	Name         string `json:"name,optional"`
+	CredentialID int64  `json:"credential_id,optional"`
+	SenderName   string `json:"sender_name,optional"`
+	Endpoint     string `json:"endpoint,optional"`
+	Port         int32  `json:"port,optional"`
+	Protocol     string `json:"protocol,optional"`
+	Remark       string `json:"remark"`
+}
+
+type AllowUpdateModelSmsConfig struct {
+	Id           int64  `json:"id"`
+	Name         string `json:"name,optional"`
+	CredentialID int64  `json:"credential_id,optional"`
+	Endpoint     string `json:"endpoint,optional"`
+	Template     string `json:"template,optional"`
+	SignName     string `json:"sign_name,optional"`
+	ParamsStr    string `json:"params_str,optional"`
+	Remark       string `json:"remark"`
+}
+
+type AllowUpdateModelWechatConfig struct {
+	Id           int64  `json:"id"`
+	Name         string `json:"name,optional"`
+	AppType      string `json:"app_type,options=official|mini_app,optional"`
+	CredentialID int64  `json:"credential_id,optional"`
+	GhId         string `json:"gh_id,optional"`
+	AppName      string `json:"app_name,optional"`
+	Remark       string `json:"remark"`
+}
+
+type AllowUpdateStatusModelBucketConfig struct {
+	Id     int64 `json:"id"`
+	Status int16 `json:"status"`
+}
+
+type AllowUpdateStatusModelCaptchaConfig struct {
+	Id     int64 `json:"id"`
+	Status int16 `json:"status"`
+}
+
+type AllowUpdateStatusModelCredential struct {
+	Id     int64 `json:"id"`
+	Status int16 `json:"status"`
+}
+
+type AllowUpdateStatusModelEmsConfig struct {
+	Id     int64 `json:"id"`
+	Status int16 `json:"status"`
+}
+
+type AllowUpdateStatusModelSmsConfig struct {
+	Id     int64 `json:"id"`
+	Status int16 `json:"status"`
+}
+
+type AllowUpdateStatusModelWechatConfig struct {
+	Id     int64 `json:"id"`
+	Status int16 `json:"status"`
 }
 
 type ApiCaptchaGenerateReq struct {
@@ -106,8 +216,21 @@ type ApiCaptchaGenerateRespData struct {
 	Img     string `json:"img,omitempty"`
 }
 
+type ApiEmsCheckReq struct {
+	RequestId string `json:"request_id"`
+}
+
+type ApiEmsCheckResp struct {
+	RequestId string `json:"request_id"`
+	Status    int16  `json:"status"`
+	Code      string `json:"code"`
+	Message   string `json:"message"`
+}
+
 type ApiEmsSendReq struct {
-	Key            string            `json:"key,optional"`
+	Name           string            `json:"name,optional"`
+	Service        string            `json:"service,optional"`
+	Scene          string            `json:"scene,optional"`
 	RecipientEmail []string          `json:"recipient_email"`
 	Cc             []ApiEmsSendReqCc `json:"cc,optional"`
 	Subject        string            `json:"subject"`
@@ -116,22 +239,48 @@ type ApiEmsSendReq struct {
 }
 
 type ApiEmsSendReqCc struct {
-	Email string `json:"key"`
+	Email string `json:"email"`
 	Name  string `json:"name"`
 }
 
 type ApiEmsSendResp struct {
-	RequestID string `json:"request_id"`
+	RequestId string `json:"request_id"`
+}
+
+type ApiEmsSendSyncResp struct {
+	Code      string `json:"code"`
+	Message   string `json:"message"`
+	RequestId string `json:"request_id"`
+}
+
+type ApiSmsCheckReq struct {
+	RequestId string `json:"request_id"`
+}
+
+type ApiSmsCheckResp struct {
+	RequestId string `json:"request_id"`
+	Status    int16  `json:"status"`
+	Code      string `json:"code"`
+	Message   string `json:"message"`
 }
 
 type ApiSmsSendReq struct {
-	Key    string   `json:"key,optional"`
-	Mobile string   `json:"mobile"`
-	Params []string `json:"params,optional"`
+	Name    string   `json:"name,optional"`
+	Zone    string   `json:"zone,optional"`
+	Mobile  string   `json:"mobile"`
+	Params  []string `json:"params,optional"`
+	Service string   `json:"service,optional"`
+	Scene   string   `json:"scene,optional"`
 }
 
 type ApiSmsSendResp struct {
-	RequestID string `json:"requestId"`
+	RequestId string `json:"request_id"`
+}
+
+type ApiSmsSendSyncResp struct {
+	Code      string `json:"code"`
+	Message   string `json:"message"`
+	RequestId string `json:"request_id"`
 }
 
 type BehavioralVerificationInitReq struct {
@@ -141,10 +290,11 @@ type BehavioralVerificationInitReq struct {
 }
 
 type BehavioralVerificationInitResp struct {
-	Id      string `json:"id,omitempty"`
-	Content string `json:"content,omitempty"`
-	Answer  string `json:"answer,omitempty"`
-	Img     string `json:"img,omitempty"`
+	RequestId string `json:"request_id"`
+	Id        string `json:"id,omitempty"`
+	Content   string `json:"content,omitempty"`
+	Answer    string `json:"answer,omitempty"`
+	Img       string `json:"img,omitempty"`
 }
 
 type BehavioralVerificationVerifyReq struct {
@@ -155,15 +305,87 @@ type BehavioralVerificationVerifyReq struct {
 }
 
 type BehavioralVerificationVerifyResp struct {
-	Result bool `json:"result"`
+	Result  bool   `json:"result"`
+	Code    string `json:"code,omitempty"`
+	Message string `json:"message,omitempty"`
 }
 
-type BootstrapReq struct {
-	AccessKey    string `form:"access_key"`
-	AccessSecret string `form:"access_secret"`
+type BucketConfigApiCreateResp struct {
+	Id int64 `json:"id"`
 }
 
-type BootstrapResp struct {
+type BucketConfigApiFormIdReq struct {
+	Id int64 `form:"id"`
+}
+
+type BucketConfigApiFormIdsReq struct {
+	Ids []int64 `form:"ids"`
+}
+
+type BucketConfigApiJsonIdReq struct {
+	Id uint32 `json:"id"`
+}
+
+type BucketConfigApiJsonIdsReq struct {
+	Ids []int64 `json:"ids"`
+}
+
+type BucketConfigApiOKResp struct {
+}
+
+type BucketConfigCommonQueryListResp struct {
+	List     []ModelBucketConfig `json:"list"`
+	Total    int64               `json:"total"`
+	Page     int32               `json:"page"`
+	PageSize int32               `json:"page_size"`
+}
+
+type BucketConfigCommonSearchParams struct {
+	Page           int32  `json:"page,optional"`
+	PageSize       int32  `json:"page_size,optional"`
+	StartCreatedAt int64  `json:"start_created_at,optional"`
+	EndCreatedAt   int64  `json:"end_created_at,optional"`
+	Keyword        string `json:"keyword,optional"`
+	Status         int16  `json:"status,optional"`
+}
+
+type CaptchaConfigApiCreateResp struct {
+	Id int64 `json:"id"`
+}
+
+type CaptchaConfigApiFormIdReq struct {
+	Id int64 `form:"id"`
+}
+
+type CaptchaConfigApiFormIdsReq struct {
+	Ids []int64 `form:"ids"`
+}
+
+type CaptchaConfigApiJsonIdReq struct {
+	Id uint32 `json:"id"`
+}
+
+type CaptchaConfigApiJsonIdsReq struct {
+	Ids []int64 `json:"ids"`
+}
+
+type CaptchaConfigApiOKResp struct {
+}
+
+type CaptchaConfigCommonQueryListResp struct {
+	List     []ModelCaptchaConfig `json:"list"`
+	Total    int64                `json:"total"`
+	Page     int32                `json:"page"`
+	PageSize int32                `json:"page_size"`
+}
+
+type CaptchaConfigCommonSearchParams struct {
+	Page           int32  `json:"page,optional"`
+	PageSize       int32  `json:"page_size,optional"`
+	StartCreatedAt int64  `json:"start_created_at,optional"`
+	EndCreatedAt   int64  `json:"end_created_at,optional"`
+	Keyword        string `json:"keyword,optional"`
+	Status         int16  `json:"status,optional"`
 }
 
 type CodesReq struct {
@@ -210,31 +432,107 @@ type CreateExistBucketNoConfigReq struct {
 type CreateExistBucketNoConfigResp struct {
 }
 
-type CtasPeriodicJobAddReq struct {
-	Name    string `json:"name"`    // 任务名称
-	Spec    string `json:"spec"`    // cron表达式
-	Webhook string `json:"webhook"` // 回调地址
-	Params  string `json:"params"`  // 回调参数
-	Secret  string `json:"secret"`  // 回调密钥
+type CredentialApiCreateResp struct {
+	Id int64 `json:"id"`
 }
 
-type CtasPeriodicJobAddResp struct {
-	Id uint `json:"id"`
+type CredentialApiFormIdReq struct {
+	Id int64 `form:"id"`
 }
 
-type CtasPeriodicJobRemoveReq struct {
-	Id uint `json:"id"`
+type CredentialApiFormIdsReq struct {
+	Ids []int64 `form:"ids"`
 }
 
-type CtasPeriodicJobRemoveResp struct {
+type CredentialApiJsonIdReq struct {
+	Id uint32 `json:"id"`
 }
 
-type EncryptReq struct {
-	Data string `json:"data"`
+type CredentialApiJsonIdsReq struct {
+	Ids []int64 `json:"ids"`
 }
 
-type EncryptResp struct {
-	Data string `json:"data"`
+type CredentialApiOKResp struct {
+}
+
+type CredentialCommonQueryListResp struct {
+	List     []ModelCredential `json:"list"`
+	Total    int64             `json:"total"`
+	Page     int32             `json:"page"`
+	PageSize int32             `json:"page_size"`
+}
+
+type CredentialCommonSearchParams struct {
+	Page           int32  `json:"page,optional"`
+	PageSize       int32  `json:"page_size,optional"`
+	StartCreatedAt int64  `json:"start_created_at,optional"`
+	EndCreatedAt   int64  `json:"end_created_at,optional"`
+	Keyword        string `json:"keyword,optional"`
+	Status         int16  `json:"status,optional"`
+}
+
+type EmsConfigApiCreateResp struct {
+	Id int64 `json:"id"`
+}
+
+type EmsConfigApiFormIdReq struct {
+	Id int64 `form:"id"`
+}
+
+type EmsConfigApiFormIdsReq struct {
+	Ids []int64 `form:"ids"`
+}
+
+type EmsConfigApiJsonIdReq struct {
+	Id uint32 `json:"id"`
+}
+
+type EmsConfigApiJsonIdsReq struct {
+	Ids []int64 `json:"ids"`
+}
+
+type EmsConfigApiOKResp struct {
+}
+
+type EmsConfigCommonQueryListResp struct {
+	List     []ModelEmsConfig `json:"list"`
+	Total    int64            `json:"total"`
+	Page     int32            `json:"page"`
+	PageSize int32            `json:"page_size"`
+}
+
+type EmsConfigCommonSearchParams struct {
+	Page           int32  `json:"page,optional"`
+	PageSize       int32  `json:"page_size,optional"`
+	StartCreatedAt int64  `json:"start_created_at,optional"`
+	EndCreatedAt   int64  `json:"end_created_at,optional"`
+	Keyword        string `json:"keyword,optional"`
+	Status         int16  `json:"status,optional"`
+}
+
+type EmsInitReq struct {
+	Key     string `json:"key,optional"`
+	Service string `json:"service"`
+	Type    string `json:"type"`
+	Mail    string `json:"mail"`
+}
+
+type EmsInitResp struct {
+	RequestId string `json:"request_id"`
+	Status    string `json:"status"`
+}
+
+type EmsVerifyReq struct {
+	Service    string `json:"service"`
+	Type       string `json:"type"`
+	Mail       string `json:"mail"`
+	VerifyCode string `json:"verify_code"`
+}
+
+type EmsVerifyResp struct {
+	Result  bool   `json:"result"`
+	Code    string `json:"code,omitempty"`
+	Message string `json:"message,omitempty"`
 }
 
 type GetIpMyReq struct {
@@ -245,79 +543,26 @@ type GetIpQueryReq struct {
 }
 
 type GetIpQueryResp struct {
-	IP        string `json:"ip"`        // IP地址
-	IPHash    string `json:"ipHash"`    // IPHash
-	Port      string `json:"port"`      // Port
-	UserAgent string `json:"userAgent"` // UserAgent
-	CityId    int64  `json:"cityId"`    // CityId
-	Country   string `json:"country"`   // Country
-	Region    string `json:"region"`    // Region
-	Province  string `json:"province"`  // Province
-	City      string `json:"city"`      // City
-	ISP       string `json:"isp"`       // ISP
-}
-
-type GetRedirectResultReq struct {
-	ShortId string `json:"short_id"`
-}
-
-type GetRedirectResultResp struct {
-	Url string `json:"url"`
+	IP        string `json:"ip"`         // IP地址
+	IPHash    string `json:"ip_hash"`    // IPHash
+	Port      string `json:"port"`       // Port
+	UserAgent string `json:"user_agent"` // UserAgent
+	CityId    int64  `json:"city_id"`    // CityId
+	Country   string `json:"country"`    // Country
+	Region    string `json:"region"`     // Region
+	Province  string `json:"province"`   // Province
+	City      string `json:"city"`       // City
+	ISP       string `json:"isp"`        // ISP
 }
 
 type HealthzResp struct {
 }
 
-type IndustryApiCreateResp struct {
-	Id uint32 `json:"id"`
-}
-
-type IndustryApiFormIdReq struct {
-	Id uint32 `form:"id"`
-}
-
-type IndustryApiJsonIdReq struct {
-	Id uint32 `json:"id"`
-}
-
-type IndustryApiJsonIdsReq struct {
-	Ids []uint32 `json:"ids"`
-}
-
-type IndustryApiOKResp struct {
-}
-
-type IndustryCommonQueryListResp struct {
-	List     []ModelIndustry `json:"list"`
-	Total    int64           `json:"total"`
-	Page     int32           `json:"page"`
-	PageSize int32           `json:"page_size"`
-}
-
-type IndustryCommonSearchParams struct {
-	Page           int32  `json:"page,optional"`
-	PageSize       int32  `json:"page_size,optional"`
-	StartCreatedAt int64  `json:"start_created_at,optional"`
-	EndCreatedAt   int64  `json:"end_created_at,optional"`
-	Keyword        string `json:"keyword,optional"`
-	Status         int32  `json:"status,optional"`
-	ParentId       uint32 `json:"parent_id,optional"`
-	OnlyParent     bool   `json:"only_parent,optional"` // 是否只查询父级行业
-}
-
-type IpWhiteReq struct {
-	Ip     string `json:"ip"`
-	Remark string `json:"remark"`
-}
-
-type IpWhiteResp struct {
-}
-
 type KmsAkcCreateKeychainReq struct {
-	KeyType string `json:"key_type"`
+	KeyType string `json:"key_type,options=RSA|EC|OKP|OCT"`
 	Name    string `json:"name"`
 	Alg     string `json:"alg,options=ES256|ES256K|ES384|ES512|EdDSA|PS256|PS384|PS512|RS256|RS384|RS512"`
-	RsaBits int    `json:"rsa_bits,optional"`
+	RsaBits int    `json:"rsa_bits,optional,options=1024|2048|3072|4096|8192"`
 }
 
 type KmsAkcCreateKeychainResp struct {
@@ -374,6 +619,7 @@ type KmsSkcBatchDecryptResp struct {
 type KmsSkcBatchDecryptRespItem struct {
 	Name     string `json:"name"`
 	BaseData string `json:"base_data"`
+	Status   string `json:"status"`
 }
 
 type KmsSkcBatchEncryptReq struct {
@@ -392,6 +638,7 @@ type KmsSkcBatchEncryptResp struct {
 type KmsSkcBatchEncryptRespItem struct {
 	Name     string `json:"name"`
 	BaseData string `json:"base_data"`
+	Status   string `json:"status"`
 }
 
 type KmsSkcCompareItem struct {
@@ -422,7 +669,7 @@ type KmsSkcCompareRespDataItem struct {
 }
 
 type KmsSkcCreateKeychainReq struct {
-	Algorithm string `json:"algorithm"`
+	Algorithm string `json:"algorithm,options=AES-128-GCM|AES-192-GCM|AES-256-GCM|AES-128-CBC|AES-192-CBC|AES-256-CBC|AES-128-CCM|AES-192-CCM|AES-256-CCM|AES-128-CTR|AES-192-CTR|AES-256-CTR"`
 	Name      string `json:"name"`
 }
 
@@ -443,7 +690,7 @@ type KmsSkcDecryptResp struct {
 
 type KmsSkcEncryptReq struct {
 	Name     string `json:"name"`
-	BaseData string `json:"base_data"`
+	BaseData string `json:"base_data,optional"`
 }
 
 type KmsSkcEncryptResp struct {
@@ -451,29 +698,60 @@ type KmsSkcEncryptResp struct {
 	BaseData string `json:"base_data"`
 }
 
+type ModelBucketConfig struct {
+	Id            int64  `json:"id"`
+	CreatedAtUnix int64  `json:"created_at_unix,optional"`
+	UpdatedAtUnix int64  `json:"updated_at_unix,optional"`
+	IsDefault     bool   `json:"is_default,optional"`
+	Status        int16  `json:"status,optional"`
+	Name          string `json:"name"`
+	StorageType   string `json:"storage_type,options=minio|cos|oss|s3|obs"`
+	CredentialID  int64  `json:"credential_id"`
+	BucketName    string `json:"bucket_name"`
+	Region        string `json:"region"`
+	Prefix        string `json:"prefix"`
+	Endpoint      string `json:"endpoint"`
+	PublicDomain  string `json:"public_domain"`
+	Remark        string `json:"remark"`
+}
+
+type ModelCaptchaConfig struct {
+	Id            int64   `json:"id"`
+	CreatedAtUnix int64   `json:"created_at_unix,optional"`
+	UpdatedAtUnix int64   `json:"updated_at_unix,optional"`
+	IsDefault     bool    `json:"is_default,optional"`
+	Status        int16   `json:"status,optional"`
+	Name          string  `json:"name"`
+	DotCount      int32   `json:"dot_count"`
+	MaxSkew       float64 `json:"max_skew"`
+	KeyLong       int32   `json:"key_long"`
+	ImgWidth      int32   `json:"img_width"`
+	ImgHeight     int32   `json:"img_height"`
+}
+
 type ModelClient struct {
-	IP              string `json:"ip"`              // IP地址
-	IPHash          string `json:"ipHash"`          // IPHash
-	Port            string `json:"port"`            // Port
-	UserAgent       string `json:"userAgent"`       // UserAgent
-	CityId          int64  `json:"cityId"`          // CityId
-	Country         string `json:"country"`         // Country
-	Region          string `json:"region"`          // Region
-	Province        string `json:"province"`        // Province
-	City            string `json:"city"`            // City
-	ISP             string `json:"isp"`             // ISP
-	UserAgentFamily string `json:"userAgentFamily"` // UserAgentFamily
-	UserAgentMajor  string `json:"userAgentMajor"`  // UserAgentMajor
-	UserAgentMinor  string `json:"userAgentMinor"`  // UserAgentMinor
-	UserAgentPatch  string `json:"userAgentPatch"`  // UserAgentPatch
-	OsFamily        string `json:"osFamily"`        // OsFamily
-	OsMajor         string `json:"osMajor"`         // OsMajor
-	OsMinor         string `json:"osMinor"`         // OsMinor
-	OsPatch         string `json:"osPatch"`         // OsPatch
-	OsPatchMinor    string `json:"osPatchMinor"`    // OsPatchMinor
-	DeviceFamily    string `json:"deviceFamily"`    // DeviceFamily
-	DeviceBrand     string `json:"deviceBrand"`     // DeviceBrand
-	DeviceModel     string `json:"deviceModel"`     // DeviceModel
+	IP              string `json:"ip"`                // IP地址
+	IPHash          string `json:"ip_hash"`           // IPHash
+	Port            string `json:"port"`              // Port
+	UserAgent       string `json:"user_agent"`        // UserAgent
+	CityId          int64  `json:"city_id"`           // CityId
+	Country         string `json:"country"`           // Country
+	Region          string `json:"region"`            // Region
+	Province        string `json:"province"`          // Province
+	City            string `json:"city"`              // City
+	ISP             string `json:"isp"`               // ISP
+	UserAgentFamily string `json:"user_agent_family"` // UserAgentFamily
+	UserAgentMajor  string `json:"user_agent_major"`  // UserAgentMajor
+	UserAgentMinor  string `json:"user_agent_minor"`  // UserAgentMinor
+	UserAgentPatch  string `json:"user_agent_patch"`  // UserAgentPatch
+	OsFamily        string `json:"os_family"`         // OsFamily
+	OsMajor         string `json:"os_major"`          // OsMajor
+	OsMinor         string `json:"os_minor"`          // OsMinor
+	OsPatch         string `json:"os_patch"`          // OsPatch
+	OsPatchMinor    string `json:"os_patch_minor"`    // OsPatchMinor
+	DeviceFamily    string `json:"device_family"`     // DeviceFamily
+	DeviceBrand     string `json:"device_brand"`      // DeviceBrand
+	DeviceModel     string `json:"device_model"`      // DeviceModel
 }
 
 type ModelCode struct {
@@ -482,18 +760,35 @@ type ModelCode struct {
 	Msg  string `json:"msg"`
 }
 
-type ModelIndustry struct {
-	Id                uint32 `json:"id"`
-	CreatedAtUnix     int64  `json:"created_at_unix"`
-	UpdatedAtUnix     int64  `json:"updated_at_unix"`
-	Status            int32  `json:"status"`             // 状态
-	Name              string `json:"name"`               // 名称
-	Qualification     string `json:"qualification"`      // 资质要求
-	QualificationLink string `json:"qualification_link"` // 资质要求，法律依据及示例的说明链接
-	CategoryScope     string `json:"category_scope"`     // 类目适用范围
-	Remark            string `json:"remark"`             // 备注
-	ParentId          uint32 `json:"parent_id"`
-	Sort              int64  `json:"sort"`
+type ModelCredential struct {
+	Id              int64  `json:"id"`
+	CreatedAtUnix   int64  `json:"created_at_unix,optional"`
+	UpdatedAtUnix   int64  `json:"updated_at_unix,optional"`
+	IsDefault       bool   `json:"is_default,optional"`
+	Status          int16  `json:"status,optional"`
+	Name            string `json:"name"`
+	CredentialType  string `json:"credential_type"`
+	AccessKeyID     string `json:"access_key_id"`
+	SecretAccessKey string `json:"secret_access_key"`
+	Remark          string `json:"remark"`
+	DefaultRegion   string `json:"default_region"`
+	AppID           string `json:"app_id"`
+	Endpoint        string `json:"endpoint"`
+}
+
+type ModelEmsConfig struct {
+	Id            int64  `json:"id"`
+	CreatedAtUnix int64  `json:"created_at_unix,optional"`
+	UpdatedAtUnix int64  `json:"updated_at_unix,optional"`
+	IsDefault     bool   `json:"is_default,optional"`
+	Status        int16  `json:"status,optional"`
+	Name          string `json:"name"`
+	CredentialID  int64  `json:"credential_id"`
+	SenderName    string `json:"sender_name"`
+	Endpoint      string `json:"endpoint"`
+	Port          int32  `json:"port"`
+	Protocol      string `json:"protocol"`
+	Remark        string `json:"remark"`
 }
 
 type ModelJwk struct {
@@ -508,34 +803,33 @@ type ModelJwk struct {
 	Crv string `json:"crv,omitempty"`
 }
 
-type ModelObject struct {
-	Id            uint32            `json:"id"`
-	CreatedAtUnix int64             `json:"created_at_unix"`
-	UpdatedAtUnix int64             `json:"updated_at_unix"`
-	Status        int32             `json:"status"` // 状态
-	ObjectId      string            `json:"object_id"`
-	ObjectType    string            `json:"object_type"`
-	Properties    map[string]string `json:"properties"`
+type ModelSmsConfig struct {
+	Id            int64  `json:"id"`
+	CreatedAtUnix int64  `json:"created_at_unix,optional"`
+	UpdatedAtUnix int64  `json:"updated_at_unix,optional"`
+	IsDefault     bool   `json:"is_default,optional"`
+	Status        int16  `json:"status,optional"`
+	Name          string `json:"name"`
+	CredentialID  int64  `json:"credential_id"`
+	Endpoint      string `json:"endpoint"`
+	Template      string `json:"template"`
+	SignName      string `json:"sign_name"`
+	ParamsStr     string `json:"params_str"`
+	Remark        string `json:"remark"`
 }
 
-type ModelShortLink struct {
-	Id            uint32 `json:"id"`
-	CreatedAtUnix int64  `json:"created_at_unix"`
-	UpdatedAtUnix int64  `json:"updated_at_unix"`
-	Key           string `json:"key"`
-	OriginalUrl   string `json:"original_url"`
-	SlType        int32  `json:"sl_type"`
-	ExpireAtUnix  int64  `json:"expire_at_unix"`
-	CreatorUserId string `json:"creator_user_id"`
-}
-
-type ModelTag struct {
-	Id            uint32 `json:"id"`
-	CreatedAtUnix int64  `json:"created_at_unix"`
-	UpdatedAtUnix int64  `json:"updated_at_unix"`
-	Name          string `json:"name"`   // 标签名称
-	Status        int32  `json:"status"` // 状态
-	Sort          int64  `json:"sort"`
+type ModelWechatConfig struct {
+	Id            int64  `json:"id"`
+	CreatedAtUnix int64  `json:"created_at_unix,optional"`
+	UpdatedAtUnix int64  `json:"updated_at_unix,optional"`
+	IsDefault     bool   `json:"is_default,optional"`
+	Status        int16  `json:"status,optional"`
+	Name          string `json:"name"`
+	AppType       string `json:"app_type,options=official|mini_app"`
+	CredentialID  int64  `json:"credential_id"`
+	GhId          string `json:"gh_id"`
+	AppName       string `json:"app_name"`
+	Remark        string `json:"remark"`
 }
 
 type ModelZone struct {
@@ -544,52 +838,13 @@ type ModelZone struct {
 	Area  string `json:"area"`
 }
 
+type NotFoundReq struct {
+}
+
 type NotFoundResp struct {
 }
 
-type NotFoundpReq struct {
-}
-
-type ObjectApiCreateResp struct {
-	Id            uint32 `json:"id"`
-	CreatedAtUnix int64  `json:"created_at_unix"`
-	UpdatedAtUnix int64  `json:"updated_at_unix"`
-	ObjectId      string `json:"object_id"`
-}
-
-type ObjectApiFormIdReq struct {
-	Id uint32 `form:"id"`
-}
-
-type ObjectApiJsonIdReq struct {
-	Id uint32 `json:"id"`
-}
-
-type ObjectApiJsonIdsReq struct {
-	Ids []uint32 `json:"ids"`
-}
-
-type ObjectApiOKResp struct {
-}
-
-type ObjectApiQueryWhreObjectIdReq struct {
-	ObjectId string `form:"object_id"`
-}
-
-type ObjectCommonQueryListResp struct {
-	List     []ModelObject `json:"list"`
-	Total    int64         `json:"total"`
-	Page     int32         `json:"page"`
-	PageSize int32         `json:"page_size"`
-}
-
-type ObjectCommonSearchParams struct {
-	Page           int32  `json:"page,optional"`
-	PageSize       int32  `json:"page_size,optional"`
-	StartCreatedAt int64  `json:"start_created_at,optional"`
-	EndCreatedAt   int64  `json:"end_created_at,optional"`
-	Keyword        string `json:"keyword,optional"`
-	Status         int32  `json:"status,optional"`
+type OkResp struct {
 }
 
 type PublicGetIpReq struct {
@@ -599,9 +854,15 @@ type PublicGetIpResp struct {
 	Ip string `json:"ip"` // note: 返回自身ip
 }
 
+type RemoveSomePolicyReq struct {
+	Subject string `json:"subject"`
+	Object  string `json:"object"`
+	Action  string `json:"action"`
+}
+
 type SasPresignerGetObjectReq struct {
-	BucketKey string `json:"bucket_key,optional"`
-	Path      string `json:"path"`
+	Name string `json:"name,optional"`
+	Path string `json:"path"`
 }
 
 type SasPresignerGetObjectResp struct {
@@ -610,8 +871,8 @@ type SasPresignerGetObjectResp struct {
 }
 
 type SasPresignerHeadObjectReq struct {
-	BucketKey string `json:"bucket_key,optional"`
-	Path      string `json:"path"`
+	Name string `json:"name,optional"`
+	Path string `json:"path"`
 }
 
 type SasPresignerHeadObjectResp struct {
@@ -620,8 +881,8 @@ type SasPresignerHeadObjectResp struct {
 }
 
 type SasPresignerUploadReq struct {
-	BucketKey string `json:"bucket_key,optional"`
-	Path      string `json:"path"`
+	Name string `json:"name,optional"`
+	Path string `json:"path"`
 }
 
 type SasPresignerUploadResp struct {
@@ -630,59 +891,55 @@ type SasPresignerUploadResp struct {
 }
 
 type SasQueryBucketReq struct {
-	BucketKey string `json:"bucket_key,optional"`
+	Name string `json:"name,optional"`
 }
 
 type SasQueryBucketResp struct {
-	Name                   string `json:"name"`
-	Prefix                 string `json:"prefix"`
-	Region                 string `json:"region"`
-	BucketInternetDomain   string `json:"bucket_internet_domain"`
-	BucketInternalDomain   string `json:"bucket_internal_domain"`
-	IsAccelerate           int32  `json:"is_accelerate"`
-	BucketAccelerateDomain string `json:"bucket_accelerate_domain"`
-	StaticDomain           string `json:"static_domain"`
-	CdnDomain              string `json:"cdn_domain"`
+	Name         string `json:"name"`
+	Prefix       string `json:"prefix"`
+	Region       string `json:"region"`
+	Endpoint     string `json:"endpoint"`
+	PublicDomain string `json:"public_domain"`
+	Remark       string `json:"remark"`
 }
 
-type ShortLinkApiCreateResp struct {
-	Id      uint32 `json:"id"`
-	ShortId string `json:"short_id"`
+type SmsConfigApiCreateResp struct {
+	Id int64 `json:"id"`
 }
 
-type ShortLinkApiFormIdReq struct {
-	Id uint32 `form:"id"`
+type SmsConfigApiFormIdReq struct {
+	Id int64 `form:"id"`
 }
 
-type ShortLinkApiFormKeyReq struct {
-	Key string `form:"key"`
+type SmsConfigApiFormIdsReq struct {
+	Ids []int64 `form:"ids"`
 }
 
-type ShortLinkApiJsonIdReq struct {
+type SmsConfigApiJsonIdReq struct {
 	Id uint32 `json:"id"`
 }
 
-type ShortLinkApiJsonIdsReq struct {
-	Ids []uint32 `json:"ids"`
+type SmsConfigApiJsonIdsReq struct {
+	Ids []int64 `json:"ids"`
 }
 
-type ShortLinkApiOKResp struct {
+type SmsConfigApiOKResp struct {
 }
 
-type ShortLinkCommonQueryListResp struct {
-	List     []ModelShortLink `json:"list"`
+type SmsConfigCommonQueryListResp struct {
+	List     []ModelSmsConfig `json:"list"`
 	Total    int64            `json:"total"`
 	Page     int32            `json:"page"`
 	PageSize int32            `json:"page_size"`
 }
 
-type ShortLinkCommonSearchParams struct {
+type SmsConfigCommonSearchParams struct {
 	Page           int32  `json:"page,optional"`
 	PageSize       int32  `json:"page_size,optional"`
 	StartCreatedAt int64  `json:"start_created_at,optional"`
 	EndCreatedAt   int64  `json:"end_created_at,optional"`
 	Keyword        string `json:"keyword,optional"`
-	Status         int32  `json:"status,optional"`
+	Status         int16  `json:"status,optional"`
 }
 
 type SmsInitReq struct {
@@ -694,7 +951,8 @@ type SmsInitReq struct {
 }
 
 type SmsInitResp struct {
-	Status string `json:"status"`
+	RequestId string `json:"request_id"`
+	Status    string `json:"status"`
 }
 
 type SmsVerifyReq struct {
@@ -706,73 +964,115 @@ type SmsVerifyReq struct {
 }
 
 type SmsVerifyResp struct {
-	Result bool `json:"result"`
+	Result  bool   `json:"result"`
+	Code    string `json:"code,omitempty"`
+	Message string `json:"message,omitempty"`
 }
 
-type TagApiCreateResp struct {
-	Id uint32 `json:"id"`
+type TaskQueueAnchoredJobAddReq struct {
+	Name          string `json:"name"`                                                    // 任务名称
+	AnchorTime    string `json:"anchor_time"`                                             // 锚定时间
+	IntervalType  string `json:"interval_type,options=second|minute|hour|day|month|year"` // 循环时长类型
+	IntervalValue int32  `json:"interval_value"`                                          // 循环时长数量
+	Webhook       string `json:"webhook"`                                                 // 回调地址
+	Params        string `json:"params"`                                                  // 回调参数
+	Secret        string `json:"secret"`                                                  // 回调密钥
 }
 
-type TagApiFormIdReq struct {
-	Id uint32 `form:"id"`
+type TaskQueueAnchoredJobAddResp struct {
+	Id int64 `json:"id"`
 }
 
-type TagApiJsonIdReq struct {
-	Id uint32 `json:"id"`
+type TaskQueueAnchoredJobRemoveReq struct {
+	Id int64 `json:"id"`
 }
 
-type TagApiJsonIdsReq struct {
-	Ids []uint32 `json:"ids"`
+type TaskQueueAnchoredJobRemoveResp struct {
 }
 
-type TagApiOKResp struct {
+type TaskQueueDelayedJobAddReq struct {
+	Name          string `json:"name"`            // 任务名称
+	ExecuteAt     string `json:"execute_at"`      // 任务执行时间
+	MaxRetryCount int32  `json:"max_retry_count"` // 最大执行时间
+	Webhook       string `json:"webhook"`         // 回调地址
+	Params        string `json:"params"`          // 回调参数
+	Secret        string `json:"secret"`          // 回调密钥
 }
 
-type TagCommonQueryListResp struct {
-	List     []ModelTag `json:"list"`
-	Total    int64      `json:"total"`
-	Page     int32      `json:"page"`
-	PageSize int32      `json:"page_size"`
+type TaskQueueDelayedJobAddResp struct {
+	Id int64 `json:"id"`
 }
 
-type TagCommonSearchParams struct {
-	Page           int32  `json:"page,optional"`
-	PageSize       int32  `json:"page_size,optional"`
-	StartCreatedAt int64  `json:"start_created_at,optional"`
-	EndCreatedAt   int64  `json:"end_created_at,optional"`
-	Keyword        string `json:"keyword,optional"`
-	Status         int32  `json:"status,optional"`
-	PrefixKeyword  string `json:"prefix_keyword,optional"`
+type TaskQueueDelayedJobCancelReq struct {
+	Id int64 `json:"id"`
+}
+
+type TaskQueueDelayedJobCancelResp struct {
+}
+
+type TaskQueuePeriodicJobAddReq struct {
+	Name    string `json:"name"`    // 任务名称
+	Spec    string `json:"spec"`    // cron表达式
+	Webhook string `json:"webhook"` // 回调地址
+	Params  string `json:"params"`  // 回调参数
+	Secret  string `json:"secret"`  // 回调密钥
+}
+
+type TaskQueuePeriodicJobAddResp struct {
+	Id int64 `json:"id"`
+}
+
+type TaskQueuePeriodicJobRemoveReq struct {
+	Id int64 `json:"id"`
+}
+
+type TaskQueuePeriodicJobRemoveResp struct {
 }
 
 type TpasWechatJobWebhookReq struct {
-	UniqueId  string `path:"unique_id"`
-	Timestamp int64  `json:"timestamp"`
-	Nonce     string `json:"nonce"` // 随机字符串
-	Params    string `json:"params"`
+	Payload string `json:"payload"`
 }
 
 type TpasWechatJobWebhookResp struct {
 }
 
-type UpsBaseBootstrapReq struct {
+type WechatConfigApiCreateResp struct {
+	Id int64 `json:"id"`
 }
 
-type UpsBaseBootstrapResp struct {
+type WechatConfigApiFormIdReq struct {
+	Id int64 `form:"id"`
 }
 
-type ViewNotFoundReq struct {
+type WechatConfigApiFormIdsReq struct {
+	Ids []int64 `form:"ids"`
 }
 
-type ViewNotFoundResp struct {
+type WechatConfigApiJsonIdReq struct {
+	Id uint32 `json:"id"`
 }
 
-type ViewShortLinkReq struct {
-	DomainId string `path:"domain_id"`
-	ShortId  string `path:"short_id"`
+type WechatConfigApiJsonIdsReq struct {
+	Ids []int64 `json:"ids"`
 }
 
-type ViewShortLinkResp struct {
+type WechatConfigApiOKResp struct {
+}
+
+type WechatConfigCommonQueryListResp struct {
+	List     []ModelWechatConfig `json:"list"`
+	Total    int64               `json:"total"`
+	Page     int32               `json:"page"`
+	PageSize int32               `json:"page_size"`
+}
+
+type WechatConfigCommonSearchParams struct {
+	Page           int32  `json:"page,optional"`
+	PageSize       int32  `json:"page_size,optional"`
+	StartCreatedAt int64  `json:"start_created_at,optional"`
+	EndCreatedAt   int64  `json:"end_created_at,optional"`
+	Keyword        string `json:"keyword,optional"`
+	Status         int16  `json:"status,optional"`
 }
 
 type WechatForceRefreshOffiaccountAccessTokenReq struct {

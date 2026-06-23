@@ -1,8 +1,6 @@
-package rexCtas
+package rexTaskQueue
 
-import (
-	"github.com/rootexit/rex-sdk-go-v6/rex/rexCtx"
-)
+import sdkCtx "github.com/rootexit/rex-sdk-go-v6/rex/rexCtx"
 
 type (
 	BaseService interface {
@@ -16,7 +14,7 @@ type (
 
 func NewBaseService(SdkCtx *sdkCtx.SdkCtx) BaseService {
 	return &defaultBaseService{
-		Svc:    "ctas",
+		Svc:    "taskQueue",
 		SdkCtx: SdkCtx,
 	}
 }

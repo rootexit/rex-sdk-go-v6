@@ -1,11 +1,12 @@
 package rexSigner
 
 import (
+	"net/http"
+	"time"
+
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexConfig"
 	"github.com/rootexit/rexLib/rexCustomAwsSign"
 	"github.com/rootexit/rexLib/rexHeaders"
-	"net/http"
-	"time"
 )
 
 type Signer struct {
