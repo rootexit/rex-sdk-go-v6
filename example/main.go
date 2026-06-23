@@ -7,6 +7,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/rootexit/rex-sdk-go-v6/rex"
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexConfig"
+	"github.com/rootexit/rex-sdk-go-v6/rex/rexTypes"
 	"github.com/rootexit/rexLib/rexCtx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -110,16 +111,16 @@ func main() {
 
 	// logx.Infof("%+v", result)
 
-	// _, result, err := sdk.MasService.BehavioralVerificationInit(ctx, &rexTypes.BehavioralVerificationInitReq{
-	// 	Key:     "default",
-	// 	Service: "account.lilsite.com",
-	// 	Type:    "login",
-	// })
-	// if err != nil {
-	// 	panic(err)
-	// }
+	_, result, err := sdk.MasService.BehavioralVerificationInit(ctx, &rexTypes.BehavioralVerificationInitReq{
+		Key:     "default",
+		Service: "account.lilsite.com",
+		Type:    "login",
+	})
+	if err != nil {
+		panic(err)
+	}
 
-	// logx.Infof("%+v", result)
+	logx.Infof("%+v", result)
 
 	//_, queryBucketResult, err := sdk.SasService.QueryBucket(context.Background(), &rexTypes.SasQueryBucketReq{
 	//	BucketKey: "default",
