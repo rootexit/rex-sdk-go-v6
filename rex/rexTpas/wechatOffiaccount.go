@@ -6,9 +6,9 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/rootexit/rex-sdk-go-v6/rex/rexCtx"
+	sdkCtx "github.com/rootexit/rex-sdk-go-v6/rex/rexCtx"
 	"github.com/rootexit/rex-sdk-go-v6/rex/rexTypes"
-	"github.com/rootexit/rexLib/rexCodes"
+	rexCodes "github.com/rootexit/rexCodes/golang"
 	"github.com/rootexit/rexLib/rexRes"
 	"github.com/zeromicro/go-zero/core/logx"
 )
